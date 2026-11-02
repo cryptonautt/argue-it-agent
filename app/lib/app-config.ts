@@ -1,5 +1,5 @@
 const rawAppName = "argue-it-agent";
-const rawAppTitle = "Argue It Agent";
+const rawAppTitle = "ARGUE IT";
 
 const APP_NAME_PLACEHOLDER = "{" + "{APP_NAME}}";
 const APP_TITLE_PLACEHOLDER = "{" + "{APP_TITLE}}";
