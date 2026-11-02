@@ -180,20 +180,65 @@ function AppContent() {
   );
 }
 
+/**
+ * The shell for public pages. They render on the server for signed-out visitors, so they skip everything
+ * agent-related: the agent sidebar layout, the command menu, agent route state and DB sync. Those use the
+ * framework's own react-router copy, which has no <Router> during this SSR (useLocation() throws), and an
+ * anonymous visitor has no agent anyway.
+ */
+function PublicContent() {
+  return (
+    <>
+      <header className="argue-app flex items-center justify-between border-b border-line px-4 py-3">
+        <a href="/" className="font-display text-xl text-ink">
+          {APP_TITLE}
+        </a>
+        <a href="/sign-in" className="text-sm font-semibold text-ink underline underline-offset-2">
+          Sign in
+        </a>
+      </header>
+      <ArgueFrame>
+        <Outlet />
+      </ArgueFrame>
+    </>
+  );
+}
+
+/**
+ * ARGUE IT pages that anonymous visitors may open (the reference served `/rules` signed out). Path-based,
+ * not visitor-based, so the SSR shell stays one cached page per URL. `/` stays private on purpose: the flag
+ * also drops RequireSession and the agent for signed-in users on that path, and the feed is the main signed-in
+ * surface (so the reference's signed-out landing is not reachable; sign-in comes first).
+ */
+const PUBLIC_PATHS: ReadonlySet<string> = new Set(["/rules"]);
+
+function isArguePublicPath(pathname: string): boolean {
+  const path = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
+  return PUBLIC_PATHS.has(path);
+}
+
 export default function Root() {
   const [queryClient] = useState(() => createAgentNativeQueryClient());
   // The path, not the visitor, picks the shell, so the SSR shell stays one
   // cached page per URL.
   const { pathname } = useLocation();
+  const isPublic = isArguePublicPath(pathname);
   return (
     <AppToolkitProvider>
       <AppProviders
         queryClient={queryClient}
+        isPublicPath={isPublic}
         skeletonLayout={skeletonLayoutForPath(pathname)}
         i18n={{ catalog: i18nCatalog }}
       >
-        <DbSyncSetup />
-        <AppContent />
+        {isPublic ? (
+          <PublicContent />
+        ) : (
+          <>
+            <DbSyncSetup />
+            <AppContent />
+          </>
+        )}
       </AppProviders>
     </AppToolkitProvider>
   );

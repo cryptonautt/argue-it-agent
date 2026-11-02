@@ -246,8 +246,9 @@ Because `drizzle.config.ts` exists, `migrate:production` skips the ARGUE IT migr
   reactions and admin user management from the reference app are not part of this edition.
 - The mock judge is not an AI. Use it only for tests.
 - The local database (PGlite) is single-process and for development only.
-- Every page, including `/` and `/rules`, requires sign-in. The reference app's signed-out landing page and its
-  public rules page are not reachable: making a path public in this framework drops the agent hooks, and `/rules`
-  then fails to render on the server.
-- No ARGUE IT screen shows that an approved agent draft was edited by a human yet. The data is stored:
-  `list-decision-drafts {status:"approved"}` returns `edited`, and the audit row records it.
+- `/rules` is public: signed-out visitors get it in a minimal shell (no agent sidebar), because the framework's
+  agent layout can't render on the server for a public page. Every other page, including `/`, requires sign-in,
+  so the reference app's signed-out landing page is not reachable.
+- The first load of each page on a fresh dev server takes up to a minute. Before recording, run
+  `WARM_EMAIL=<moderator email> WARM_PASSWORD=<password> pnpm warm <dev server URL> [/c/<id>/verdict ...]`,
+  then open each demo page once in the browser you record with.

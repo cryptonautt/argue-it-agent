@@ -3,6 +3,7 @@
 // - <TriageQueueButton/>: asks the agent to draft every item in the review queue.
 // - <AgentDraftSlot kind targetId title/>: per-item "Draft with agent" button + the open draft (if any).
 // - <DraftCard/>: recommendation, confidence, editable note, citations grouped by side, Approve / Discard.
+// - <ApprovedDraftsList/>: recently approved drafts, each marked as edited by the moderator or approved as drafted.
 //
 // Every write carries the explicit target id, and the card shows the target's title from the server so the
 // moderator can see which record the draft is for (Review Focus #1). Approving calls decide-appeal /
@@ -10,7 +11,7 @@
 // Only TYPES come from the drafts service, so nothing here pulls server code into the client bundle.
 import { sendToAgentChat } from "@agent-native/core/client/agent-chat";
 import { callAction, useActionQuery } from "@agent-native/core/client/hooks";
-import { Bot, Check, Sparkles, Trash2 } from "lucide-react";
+import { Bot, Check, PencilLine, Sparkles, Trash2 } from "lucide-react";
 import { useEffect, useState, useTransition } from "react";
 
 import { Badge, type BadgeTone } from "@/components/argue/ui/badge";
@@ -297,5 +298,54 @@ export function AgentDraftSlot({ kind, targetId, title }: { kind: DraftKind; tar
       </div>
       {draft ? <DraftCard draft={draft} expectedTitle={title} onDone={() => void query.refetch()} /> : null}
     </div>
+  );
+}
+
+/** How an approved draft became a decision: the badge the approved list shows. Exported for tests. */
+export function draftProvenance(draft: Pick<DraftListItem, "edited">): { label: string; tone: BadgeTone } {
+  return draft.edited
+    ? { label: "Edited by the moderator before approving", tone: "warning" }
+    : { label: "Approved as the agent drafted it", tone: "success" };
+}
+
+/** Recently approved agent drafts, so the moderator (and the demo) can see where a human changed the agent's note. */
+export function ApprovedDraftsList({ limit = 5 }: { limit?: number }) {
+  const query = useActionQuery("list-decision-drafts", { status: "approved" }, { refetchInterval: 15_000 } as never);
+  const drafts = ((query.data ?? []) as DraftListItem[]).slice(0, limit);
+  if (drafts.length === 0) return null;
+
+  return (
+    <section aria-labelledby="approved-drafts" className="flex flex-col gap-3 pb-12">
+      <h2 id="approved-drafts" className="flex items-center gap-2 text-2xl text-ink">
+        <Bot aria-hidden className="size-5" />
+        Agent drafts you approved
+      </h2>
+      <ul className="flex flex-col divide-y divide-line rounded-[var(--radius)] border border-line bg-surface">
+        {drafts.map((draft) => {
+          const provenance = draftProvenance(draft);
+          return (
+            <li key={draft.id} data-draft-id={draft.id} className="flex flex-col gap-1 p-3 text-sm">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="min-w-0 truncate font-semibold text-ink">{draft.target.title}</span>
+                <Badge tone={provenance.tone}>
+                  {draft.edited ? <PencilLine aria-hidden className="mr-1 inline size-3" /> : null}
+                  {provenance.label}
+                </Badge>
+              </div>
+              <p className="text-ink-2">
+                {draft.kind === "appeal" ? "Appeal" : "Review"} &middot;{" "}
+                {RECOMMENDATION_LABELS[draft.recommendation] ?? draft.recommendation}
+              </p>
+              {draft.recommendation === "retry" ? null : (
+                <p className="text-ink-3">
+                  {draft.edited ? "The agent's original note: " : "Note: "}
+                  {draft.note}
+                </p>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </section>
   );
 }

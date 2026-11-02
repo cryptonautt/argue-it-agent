@@ -14,7 +14,7 @@ import {
   type ShouldRevalidateFunctionArgs,
 } from "react-router";
 
-import { AgentDraftSlot, TriageQueueButton } from "@/components/argue/moderation/draft-card";
+import { AgentDraftSlot, ApprovedDraftsList, TriageQueueButton } from "@/components/argue/moderation/draft-card";
 import { PageContainer } from "@/components/argue/shell/page";
 import { Badge } from "@/components/argue/ui/badge";
 import { ButtonLink } from "@/components/argue/ui/button";
@@ -113,6 +113,7 @@ export default function AdminReviewPage() {
         ) : (
           <ReviewTab items={queue.review} viewerId={queue.viewerId} />
         )}
+        <ApprovedDraftsList />
       </div>
     </PageContainer>
   );

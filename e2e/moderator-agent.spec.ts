@@ -93,6 +93,11 @@ test("moderator approves an agent draft", async ({ browser }, testInfo) => {
   const stillOpen = findDeep(after, (v) => v.id === appealId && v.status === "open");
   expect(stillOpen).toBeUndefined();
 
+  // 7. The queue page shows that a human edited the agent's draft before approving it.
+  const approvedRow = mod.page.locator(`li[data-draft-id="${draftId}"]`);
+  await expect(approvedRow).toBeVisible({ timeout: 60_000 });
+  await expect(approvedRow.getByText("Edited by the moderator before approving")).toBeVisible();
+
   await mod.page.context().close();
 });
 

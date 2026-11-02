@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 import { describe, expect, it } from "vitest";
 
-import { approvalCall, draftRequest, TRIAGE_REQUEST } from "./draft-card";
+import { approvalCall, draftProvenance, draftRequest, TRIAGE_REQUEST } from "./draft-card";
 
 const base = { id: "d1", outcome: null } as const;
 
@@ -32,5 +32,13 @@ describe("draft card wiring", () => {
       action: "retry-evaluation",
       input: { competitionId: "c-1", draftId: "d1", idempotencyKey: "k" },
     });
+  });
+
+  it("an approved draft shows whether the moderator edited the agent's note", () => {
+    expect(draftProvenance({ edited: true })).toEqual({
+      label: "Edited by the moderator before approving",
+      tone: "warning",
+    });
+    expect(draftProvenance({ edited: false })).toEqual({ label: "Approved as the agent drafted it", tone: "success" });
   });
 });
