@@ -13,7 +13,14 @@ import {
 } from "@/lib/chat-paths";
 import { TAB_ID } from "@/lib/tab-id";
 
-export interface NavigationState {
+import {
+  navFromCommand,
+  pathForNav,
+  toNavigationState,
+  type ArgueNavCommandFields,
+} from "./navigation-map";
+
+export interface NavigationState extends ArgueNavCommandFields {
   view?: string;
   path?: string;
   publicPath?: string;
@@ -24,7 +31,8 @@ export function useNavigationState() {
   useAgentRouteState<NavigationState>({
     browserTabId: TAB_ID,
     requestSource: TAB_ID,
-    getNavigationState: ({ pathname }) => navigationStateForPath(pathname),
+    getNavigationState: ({ pathname, searchParams }) =>
+      navigationStateForPath(pathname, searchParams),
     getCommandPath: commandPathForNavigation,
   });
 }
@@ -47,7 +55,10 @@ export function commandPathForNavigation(command: NavigationState): string {
     publicPathSuffixIndex === -1
       ? publicPath
       : publicPath.slice(0, publicPathSuffixIndex);
-  const publicViewPath = appPathFromLocalRoute(pathForView(command?.view));
+  const publicViewPath = appPathFromLocalRoute(
+    (argueCommandPath(command) ?? pathForView(command?.view)).split("?")[0] ??
+      HOME_PATH,
+  );
   if (
     matchesPathPrefix(pathname, basePath) &&
     (matchesPathPrefix(pathname, publicViewPath) ||
@@ -62,7 +73,19 @@ function matchesPathPrefix(pathname: string, prefix: string): boolean {
   return pathname === prefix || pathname.startsWith(`${prefix}/`);
 }
 
-export function navigationStateForPath(pathname: string): NavigationState {
+export function navigationStateForPath(
+  pathname: string,
+  searchParams?: URLSearchParams,
+): NavigationState {
+  // ARGUE IT screens first; the template's chat/settings/database views below stay as they were.
+  const argue = toNavigationState(pathname, searchParams);
+  if (argue) {
+    return {
+      ...argue,
+      path: pathname,
+      publicPath: appPathFromLocalRoute(pathname),
+    };
+  }
   const threadId = threadIdFromPath(pathname);
   return {
     view: viewForPath(pathname),
@@ -110,7 +133,19 @@ function pathForView(view?: string): string {
   }
 }
 
+/** Local path for an ARGUE IT view command, or null for template views / missing ids. */
+function argueCommandPath(command: any): string | null {
+  try {
+    const nav = navFromCommand(command ?? {});
+    return nav ? pathForNav(nav) : null;
+  } catch {
+    return null;
+  }
+}
+
 export function pathForCommand(command: any): string {
+  const arguePath = argueCommandPath(command);
+  if (arguePath) return arguePath;
   const path = pathForView(command?.view);
   if (command?.view !== "chat" && command?.view !== "ask") return path;
   const threadId =
