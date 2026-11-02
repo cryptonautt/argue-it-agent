@@ -1,6 +1,6 @@
 import { defineAction } from "@agent-native/core/action";
 import { getRequestUserEmail } from "@agent-native/core/server/request-context";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { z } from "zod";
 
 import { runAction } from "@domain/action";
@@ -43,14 +43,22 @@ export default defineAction({
 
         try {
           const userId = await db.transaction(async (tx) => {
-            const [user] = await tx.insert(users).values({ name, email }).returning({ id: users.id });
-            if (!user) throw new Error("users insert returned no row");
-            await tx.insert(profiles).values({ userId: user.id, handle, displayName: name });
+            // ensureAppUser also says "needs-handle" for a `users` row without a profile (e.g. seeded rows):
+            // reuse that row instead of tripping the unique email constraint.
+            const [existing] = await tx
+              .select({ id: users.id })
+              .from(users)
+              .where(sql`lower(${users.email}) = ${email}`)
+              .limit(1);
+            const id =
+              existing?.id ?? (await tx.insert(users).values({ name, email }).returning({ id: users.id }))[0]?.id;
+            if (!id) throw new Error("users insert returned no row");
+            await tx.insert(profiles).values({ userId: id, handle, displayName: name });
             await writeAudit(
-              { actorId: user.id, action: "profile.create", targetType: "user", targetId: user.id, after: { handle } },
+              { actorId: id, action: "profile.create", targetType: "user", targetId: id, after: { handle } },
               tx,
             );
-            return user.id;
+            return id;
           });
           return ok({ userId, handle, displayName: name });
         } catch (error) {

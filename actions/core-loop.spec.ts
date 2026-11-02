@@ -6,6 +6,7 @@
 import { isActionContractError, type ActionContractError, type ActionRunContext } from "@agent-native/core/action";
 import { beforeEach, describe, expect, it } from "vitest";
 
+import { users } from "@domain/db/schema";
 import { actAs, actAsSignedOut } from "@domain/test-helpers/auth";
 import { setupTestDb } from "@domain/test-helpers/db";
 import { createTestArgument, createTestUser, type TestUser } from "@domain/test-helpers/factories";
@@ -120,6 +121,7 @@ describe("core loop", () => {
     actAs(ngozi.user.id);
     const queue = await listReviewQueue.run({}, tool);
     expect(queue.counts).toEqual({ review: 0, appeals: 0 });
+    expect(queue.viewerId).toBe(ngozi.user.id);
   });
 
   it("signed-out calls fail with UNAUTHENTICATED", async () => {
@@ -201,6 +203,12 @@ describe("create-profile", () => {
     const taken = await caught(createProfile.run({ handle: "amaka" }, { caller: "frontend", userEmail: "new@argueit.test" }));
     expect(taken.errorCode).toBe("CONFLICT");
     expect(taken.details).toHaveProperty("fieldErrors.handle");
+  });
+
+  it("reuses an existing users row that has no profile yet", async () => {
+    const [row] = await t.db.insert(users).values({ name: "Seeded", email: "seeded@argueit.test" }).returning();
+    const created = await createProfile.run({ handle: "seeded" }, { caller: "frontend", userEmail: "Seeded@argueit.test" });
+    expect(created.userId).toBe(row?.id);
   });
 
   it("rejects a reserved handle", async () => {
