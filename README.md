@@ -231,7 +231,7 @@ locally and Postgres in production; the framework's Better Auth; zod; Vitest and
 
 **Deploying (optional).** PGlite does not persist on serverless, so a deployment needs hosted Postgres (for
 example Neon). Set `DATABASE_URL`, `BETTER_AUTH_SECRET`, `JUDGE_PROVIDER` and the provider key, then run
-`pnpm migrate:production` and the seed. Never set `JUDGE_PROVIDER=mock` in production.
+`pnpm migrate:production`. Production gets no demo seed (`scripts/seed.ts` refuses `NODE_ENV=production` and Netlify). Never set `JUDGE_PROVIDER=mock` in production.
 `pnpm build` works: `nitro.config.ts` passes the `@domain/*` and Next.js shim aliases to the Nitro server build,
 because the framework's build only passes `@` and `@shared`. `node .output/server/index.mjs` boots and serves
 pages. It refuses local PGlite in production by design, so it needs hosted Postgres in `DATABASE_URL`.

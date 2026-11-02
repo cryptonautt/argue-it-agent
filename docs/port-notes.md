@@ -694,8 +694,9 @@ next), `5633da6` (fix: serve `/`; revert /rules public path).
 
 ## D-final-integration
 
-Final integrator. Only agent that ran the dev server and opened `data/pglite`. Commits: `1a68278` (nitro.config.ts)
-and the final docs/e2e/vite commit (see git log).
+Final integrator. Only agent that ran the dev server and opened `data/pglite`. Commits: `1a68278` (nitro.config.ts),
+`78eb09c` (vite optimizeDeps, e2e budget, README/demo-script, screenshots, these notes), `8ec4357` (core-loop verdict
+wait, e2e results, go/no-go, .gitignore), plus a final docs commit (submission.md, README deploy line).
 
 **Changes (every file touched, and why):**
 - `nitro.config.ts` (new): closes C-test-sweep's deploy blocker. Core's `deploy/build.js` gives Nitro only the `@`

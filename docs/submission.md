@@ -11,7 +11,7 @@
 | --- | --- |
 | Public Clips demo (plays logged out) | TBD (owner: human, Task 13 Step 2) |
 | Repository | TBD (owner: human, if made public) |
-| Deployment | TBD (owner: Task 13 Step 1; optional) |
+| Deployment | Not deployed (optional; owner: human). `pnpm build` produces a server that boots (`nitro.config.ts`); a deploy needs hosted Postgres in `DATABASE_URL` and `BETTER_AUTH_SECRET`. |
 
 ## Title
 
@@ -67,6 +67,7 @@ TBD (owner: human)
 
 ## Checklist before submitting
 
+- [ ] Do not use `docs/screenshots/*` as submission or demo evidence: they come from a local smoke test with the **mock** judge (`mock-judge-v1`). `admin-review-draft-card.png` shows a draft the integrator wrote through `save-decision-draft` with no model involved, under the "Drafted by the agent" label. Take fresh screenshots from the real-provider recording.
 - [ ] The Clips demo uses a real provider (not `JUDGE_PROVIDER=mock`), and the verdict page shows a real model id.
 - [ ] The Clips link plays in a private, logged-out window.
 - [ ] The form is submitted, and the confirmation is saved to `docs/submission-receipt.png`.
