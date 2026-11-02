@@ -20,6 +20,12 @@ import { VerdictHistory } from "@/components/argue/verdict/verdict-history";
 import { VerdictPending } from "@/components/argue/verdict/verdict-pending";
 import Link from "@/shims/next-link";
 import type { VerdictPageData } from "@domain/appeals/queries";
+import {
+  AskWhyButton,
+  HelpMeAppealButton,
+  useAppealDraft,
+  useJudgedBy,
+} from "@/components/argue/agent/verdict-agent";
 
 import { loadAction, requireUuid } from "./_lib/route-data";
 import { RouteErrorState, RouteLoading } from "./_lib/route-states";
@@ -51,6 +57,9 @@ export const ErrorBoundary = RouteErrorState;
 
 export default function VerdictPage() {
   const { data, rubric } = useLoaderData<typeof clientLoader>();
+  // Verdict Explainer (agent 8): agent-drafted appeal for THIS debate, and the model recorded on each pass.
+  const appealDraft = useAppealDraft(data.competitionId);
+  const judgedBy = useJudgedBy(data.competitionId);
 
   const { current } = data;
   const human = current?.decidedBy === "human";
@@ -142,6 +151,9 @@ export default function VerdictPage() {
               hiddenQuoteCount={current.hiddenQuoteCount}
               aiScoresOnly={human}
               inconclusive={current.outcome === "inconclusive"}
+              renderCriterionAction={(criterion) => (
+                <AskWhyButton competitionId={data.competitionId} criterion={criterion} />
+              )}
             />
           ) : null}
           {/* END AGENT-8 SLOT (Ask why) */}
@@ -153,13 +165,30 @@ export default function VerdictPage() {
             </>
           ) : null}
 
-          <HowJudged verdict={current} rubric={rubric} rubricRef={data.rubric} />
+          <HowJudged verdict={current} rubric={rubric} rubricRef={data.rubric} judgedBy={judgedBy} />
           {/*
             AGENT-8 SLOT (Task 10, appeal prefill): the appeal form lives in <AppealPanel> → AppealForm. Read
             readClientAppState("appeal-draft") there (or pass it down from here), show "Drafted by the agent: edit
             before you submit", and delete the key on submit/cancel.
           */}
-          <AppealPanel data={data} />
+          {data.viewer.side && data.eligibility.eligible && !appealDraft.draft ? (
+            <div className="-mb-4 flex justify-end">
+              <HelpMeAppealButton competitionId={data.competitionId} />
+            </div>
+          ) : null}
+          <AppealPanel
+            data={data}
+            appealDraft={
+              appealDraft.draft
+                ? {
+                    key: appealDraft.draft._writeId ?? "agent-draft",
+                    ground: appealDraft.draft.ground,
+                    text: appealDraft.draft.statement,
+                  }
+                : null
+            }
+            onAppealDraftDone={() => void appealDraft.clear()}
+          />
           {/* END AGENT-8 SLOT (appeal prefill) */}
           <VerdictHistory history={data.history} appeals={data.appeals} sides={data.sides} />
         </div>
