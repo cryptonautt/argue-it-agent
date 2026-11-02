@@ -4,12 +4,22 @@ import { Scale } from "lucide-react";
 import { Badge } from "@/components/argue/ui/badge";
 import type { VerdictPageData } from "@domain/appeals/queries";
 import { APPEAL_STATUS_LABELS, APPEAL_WINDOW_HOURS } from "@domain/appeals/rules";
+import type { AppealGround } from "@domain/db/schema";
 import { AppealForm } from "./appeal-form";
 import { When } from "./verdict-history";
 
 const STATUS_TONE = { open: "warning", upheld: "neutral", reevaluated: "judge", overturned: "success" } as const;
 
-export function AppealPanel({ data }: { data: VerdictPageData }) {
+export function AppealPanel({
+  data,
+  appealDraft = null,
+  onAppealDraftDone,
+}: {
+  data: VerdictPageData;
+  /** Agent-drafted appeal for THIS debate (prefill-appeal); `key` remounts the form when a new draft lands. */
+  appealDraft?: { key: string; ground: AppealGround; text: string } | null;
+  onAppealDraftDone?: () => void;
+}) {
   const { viewer, eligibility } = data;
   const own = viewer.side ? data.appeals.find((a) => a.appellantSide === viewer.side) : undefined;
 
@@ -39,7 +49,13 @@ export function AppealPanel({ data }: { data: VerdictPageData }) {
             <p className="text-xs text-ink-3">Each debater gets one appeal per debate.</p>
           </div>
         ) : viewer.side && eligibility.eligible ? (
-          <AppealForm competitionId={data.competitionId} closesAt={eligibility.closesAt} />
+          <AppealForm
+            key={appealDraft?.key ?? "blank"}
+            competitionId={data.competitionId}
+            closesAt={eligibility.closesAt}
+            draft={appealDraft}
+            {...(onAppealDraftDone ? { onDraftDone: onAppealDraftDone } : {})}
+          />
         ) : viewer.side && !eligibility.eligible ? (
           <p className="text-sm text-ink-2">{eligibility.message}</p>
         ) : (

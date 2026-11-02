@@ -23,9 +23,11 @@ export interface HowJudgedProps {
   verdict: VerdictRecord;
   rubric: RubricDef | null;
   rubricRef: { id: string; version: number };
+  /** "Judged by <model> · N passes", from the model recorded on each stored pass (Verdict Explainer). */
+  judgedBy?: string | null;
 }
 
-export function HowJudged({ verdict, rubric, rubricRef }: HowJudgedProps) {
+export function HowJudged({ verdict, rubric, rubricRef, judgedBy = null }: HowJudgedProps) {
   const method = verdict.explanation?.method ?? null;
   const rubricLabel = `${rubric?.name ?? rubricRef.id} · version ${rubricRef.version}`;
   const rubricLink = (
@@ -82,6 +84,11 @@ export function HowJudged({ verdict, rubric, rubricRef }: HowJudgedProps) {
               <Row icon={<Cpu />} title="Model and prompt">
                 <span className="tabular">{method.model}</span> &middot; prompt <span className="tabular">{method.promptVersion}</span>.
                 Every pass is stored with these versions and a fingerprint of exactly what the judge saw.
+              </Row>
+            ) : null}
+            {judgedBy ? (
+              <Row icon={<Cpu />} title="Recorded on each pass">
+                <span className="tabular">{judgedBy}</span>
               </Row>
             ) : null}
           </>

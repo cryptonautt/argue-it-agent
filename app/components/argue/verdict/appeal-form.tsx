@@ -18,14 +18,18 @@ export interface AppealFormProps {
   competitionId: string;
   /** ISO time the appeal window closes. */
   closesAt: string;
+  /** An appeal the agent drafted (prefill-appeal): opens the form pre-filled. The user still submits. */
+  draft?: { ground: AppealGround; text: string } | null;
+  /** Called after a drafted appeal is sent or cancelled, so the draft can be deleted. */
+  onDraftDone?: () => void;
 }
 
-export function AppealForm({ competitionId, closesAt }: AppealFormProps) {
+export function AppealForm({ competitionId, closesAt, draft = null, onDraftDone }: AppealFormProps) {
   const router = useRouter();
   const { success, error } = useToast();
-  const [open, setOpen] = useState(false);
-  const [ground, setGround] = useState<AppealGround | null>(null);
-  const [text, setText] = useState("");
+  const [open, setOpen] = useState(draft !== null);
+  const [ground, setGround] = useState<AppealGround | null>(draft?.ground ?? null);
+  const [text, setText] = useState(draft?.text ?? "");
   const [understood, setUnderstood] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [formError, setFormError] = useState<string | null>(null);
@@ -55,6 +59,7 @@ export function AppealForm({ competitionId, closesAt }: AppealFormProps) {
         return;
       }
       setKey(crypto.randomUUID());
+      onDraftDone?.();
       success("Appeal sent. A reviewer will look at it.");
       router.refresh();
     });
@@ -79,6 +84,11 @@ export function AppealForm({ competitionId, closesAt }: AppealFormProps) {
   const groundError = fieldErrors.ground?.[0];
   return (
     <form onSubmit={onSubmit} noValidate className="flex flex-col gap-5">
+      {draft ? (
+        <p role="status" className="rounded-[var(--radius)] border border-line-strong bg-surface-2 p-3 text-sm font-semibold text-ink">
+          Drafted by the agent: edit before you submit.
+        </p>
+      ) : null}
       <div className="flex gap-3 rounded-[var(--radius)] bg-warning-soft p-3 text-sm text-ink">
         <CircleAlert aria-hidden className="mt-0.5 size-5 shrink-0 text-warning" />
         <p>{NOT_A_GROUND}</p>
@@ -165,7 +175,14 @@ export function AppealForm({ competitionId, closesAt }: AppealFormProps) {
       ) : null}
 
       <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
-        <Button variant="ghost" onClick={() => setOpen(false)} disabled={pending}>
+        <Button
+          variant="ghost"
+          onClick={() => {
+            setOpen(false);
+            onDraftDone?.();
+          }}
+          disabled={pending}
+        >
           Cancel
         </Button>
         <Button type="submit" variant="primary" loading={pending}>

@@ -1,6 +1,7 @@
 // Owner: verdict. "Tale of the tape": one ScoreBar per rubric criterion, with the judge's reason and the
 // verbatim quotes it relied on for each side.
 import { ChevronDown, Quote } from "lucide-react";
+import type { ReactNode } from "react";
 import { ScoreBar } from "@/components/argue/ui/score-bar";
 import { SideTag } from "@/components/argue/ui/side-tag";
 import { cn } from "@domain/lib/cn";
@@ -61,6 +62,8 @@ export interface ScorecardProps {
   aiScoresOnly?: boolean;
   /** The result is inconclusive: explain that these averages don't make a winner. */
   inconclusive?: boolean;
+  /** Optional per-criterion action (the Verdict Explainer's "Ask why" button). */
+  renderCriterionAction?: (criterion: { key: string; label: string }) => ReactNode;
 }
 
 export function Scorecard({
@@ -70,6 +73,7 @@ export function Scorecard({
   hiddenQuoteCount = 0,
   aiScoresOnly = false,
   inconclusive = false,
+  renderCriterionAction,
 }: ScorecardProps) {
   const reasons = new Map((explanation?.perCriterion ?? []).map((c) => [c.key, c]));
   return (
@@ -99,6 +103,9 @@ export function Scorecard({
           return (
             <li key={criterion.key} className="rounded-[var(--radius)] border border-line bg-surface p-3">
               <ScoreBar label={criterion.label} weight={criterion.weight} forValue={criterion.A} againstValue={criterion.B} />
+              {renderCriterionAction ? (
+                <div className="mt-1 flex justify-end">{renderCriterionAction({ key: criterion.key, label: criterion.label })}</div>
+              ) : null}
               {detail ? (
                 <details className="group mt-2">
                   <summary className="flex min-h-11 cursor-pointer list-none items-center justify-center gap-1 rounded-[var(--radius-sm)] text-sm font-semibold text-ink-2 hover:bg-surface-2 [&::-webkit-details-marker]:hidden">
