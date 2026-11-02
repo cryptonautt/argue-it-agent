@@ -6,7 +6,7 @@
 import { and, eq, inArray, sql } from "drizzle-orm";
 import { describe, expect, it } from "vitest";
 import { setupTestDb } from "@domain/test-helpers/db";
-import { appeals, competitions, evaluationPasses, profiles, reports, submissions, users, verdicts } from "@domain/db/schema";
+import { appeals, competitions, evaluationJobs, evaluationPasses, profiles, reports, submissions, users, verdicts } from "@domain/db/schema";
 import { DEBATES, DEMO_APPEAL, DEMO_USERS, INJECTION_PHRASE, seedDemo, type SeedSummary } from "./seed";
 
 const SEED_TIMEOUT = 300_000;
@@ -19,8 +19,20 @@ describe("seed (fresh database)", () => {
   it(
     "seed is idempotent and creates 1 open appeal, ≥1 needs_review competition, ≥1 injection report",
     async () => {
-      first = await seedDemo(t.db);
+      // Run the first seed the way the CLI runs it: outside vitest the judging queue's auto-kick is live (the
+      // `next/server` after() shim schedules it), and a background kick must not claim a seeded job.
+      const vitestFlag = process.env.VITEST;
+      delete process.env.VITEST;
+      try {
+        first = await seedDemo(t.db);
+      } finally {
+        process.env.VITEST = vitestFlag;
+      }
+      await new Promise((resolve) => setTimeout(resolve, 50)); // let any stray detached kick run before we look
       expect(first.skipped).toBe(false);
+      const jobs = await t.db.select().from(evaluationJobs);
+      expect(jobs).toHaveLength(5);
+      for (const job of jobs) expect(job).toMatchObject({ status: "done", attempts: 1, lastError: null });
       expect(first.warnings).toEqual([]);
       expect(first.created).toMatchObject({ users: 8, profiles: 8, arguments: 8, debates: 7, appeals: 1 });
 

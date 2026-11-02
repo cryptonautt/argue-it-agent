@@ -634,7 +634,27 @@ const EXPECTED_STATUS: Record<DebateLabel, CompetitionStatus> = {
   narrowLoss: "completed",
 };
 
+/**
+ * Seed the demo data. Idempotent: a second run creates nothing and returns the same ids.
+ *
+ * While it runs, the judging queue's auto-kick is off (JUDGE_AUTO_KICK=0). In the reference, Next's `after()`
+ * threw outside a request, so scripts never kicked the queue; the `next/server` shim here always schedules the
+ * kick, which would claim a seeded job in the background with the env-selected provider (none is set, so the job
+ * fails and is retried later, or a later debate's provider picks it up). The seed runs each debate's queue itself,
+ * under the debate's own clock and explicit mock provider.
+ */
 export async function seedDemo(db: Db): Promise<SeedSummary> {
+  const previousKick = process.env.JUDGE_AUTO_KICK;
+  process.env.JUDGE_AUTO_KICK = "0";
+  try {
+    return await seedDemoWithoutKick(db);
+  } finally {
+    if (previousKick === undefined) delete process.env.JUDGE_AUTO_KICK;
+    else process.env.JUDGE_AUTO_KICK = previousKick;
+  }
+}
+
+async function seedDemoWithoutKick(db: Db): Promise<SeedSummary> {
   const created: SeedSummary["created"] = { users: 0, profiles: 0, arguments: 0, comments: 0, debates: 0, appeals: 0 };
   const warnings: string[] = [];
   const base = now();
