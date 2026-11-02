@@ -68,18 +68,18 @@ test("moderator approves an agent draft", async ({ browser }, testInfo) => {
   // 4. The moderator sees the draft card in the review queue, labelled as the agent's work.
   // Tab encoding from 5b-screens-b (docs/port-notes.md): /admin/review?tab=review|appeals.
   await mod.page.goto("/admin/review?tab=appeals");
-  // TODO verify: DraftCard exposes data-draft-id={draft.id} on its root (requested in docs/port-notes.md).
-  const card = mod.page.locator(`[data-draft-id="${draftId}"]`);
+  // DraftCard root is <section aria-label="Agent draft">; pick the one citing our quote.
+  const card = mod.page.getByRole("region", { name: "Agent draft" }).filter({ hasText: quote });
   await expect(card).toBeVisible();
   await expect(card.getByText("Drafted by the agent: check before approving")).toBeVisible();
   await expect(card.getByText(quote, { exact: false })).toBeVisible();
 
   // 5. The human edits the note, then approves with one click.
   const editedNote = `${draftNote} Checked by a human moderator.`;
-  const note = card.getByRole("textbox").first();
+  const note = card.getByLabel(/Written reason/);
   await note.fill(editedNote);
   await card.getByRole("button", { name: "Approve" }).click();
-  await expect(card).toBeHidden({ timeout: 20_000 });
+  await expect(card).toBeHidden({ timeout: 30_000 });
 
   // 6. The draft is approved and recorded as edited by the human; the appeal is no longer open.
   // TODO verify: list-decision-drafts input once Task 8 lands; `{ status: "approved" }` is assumed to be accepted

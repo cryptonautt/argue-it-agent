@@ -30,7 +30,7 @@ the app uses PGlite, a small built-in Postgres stored in `data/pglite`.
 corepack enable
 pnpm install
 cp .env.example .env           # then set the judge provider (below)
-pnpm tsx scripts/seed.ts       # demo people, arguments, debates and agent moments (dev server STOPPED)
+pnpm seed                      # demo people, arguments, debates and agent moments (dev server STOPPED)
 pnpm dev                       # opens the app in your browser
 ```
 
@@ -56,10 +56,11 @@ stop the dev server, delete `data/pglite`, and seed again.
 
 ### Demo logins (after the seed)
 
-Every demo account uses the same password: **`argueit-demo-2026`**.
-<!-- TBD (owner: Task 9 seed / Task 2 Step 5 spike): confirm the password once the seed lands. If the seed cannot
-     create framework (Better Auth) accounts, sign up once with each email below and the seed's ARGUE IT profile
-     attaches to it by email. -->
+The seed creates each demo person's ARGUE IT profile and role, keyed by email. It does **not** create logins:
+sign-in belongs to the framework. To use a demo person, open the sign-in page, choose **Show full sign in
+options**, and sign up once with that email and any password of 12 or more characters. The seeded profile
+attaches to that account by email, whether you sign up before or after seeding. (In local dev the default
+**Continue as local dev** account is a separate, throwaway person.)
 
 | Email | Who | Shows |
 | --- | --- | --- |
@@ -120,7 +121,7 @@ in formal English, casual English and Pidgin, prompt-injection attempts, and ide
 accuracy, order-swap consistency, style invariance, injection resistance, blinding leaks and quote integrity.
 
 ```bash
-JUDGE_PROVIDER=mock pnpm tsx scripts/fairness.ts   # free plumbing check; accuracy numbers mean nothing here
+JUDGE_PROVIDER=mock pnpm fairness   # free plumbing check; accuracy numbers mean nothing here
 ```
 
 The mock run checks the plumbing only (blinding, quote checks, injection detection, pass comparison). It prints
@@ -206,9 +207,9 @@ locally and Postgres in production; the framework's Better Auth; zod; Vitest and
 | `pnpm dev` | dev server with the agent sidebar |
 | `pnpm typecheck` | TypeScript |
 | `pnpm vitest run` | unit and integration tests against in-memory PGlite |
-| `pnpm exec playwright test` | e2e: the core loop (two users → debate → verdict page) and the moderator approving an agent draft, on phone and desktop viewports. It runs against a throwaway database (`data/e2e-pglite`) with `JUDGE_PROVIDER=mock`, and never touches your data or calls a model. Stop `pnpm dev` first. Uses your installed Chrome (`PW_CHANNEL=bundled` for Playwright's Chromium). |
-| `JUDGE_PROVIDER=mock pnpm tsx scripts/fairness.ts` | fairness suite, plumbing check |
-| `pnpm tsx scripts/seed.ts` | demo data |
+| `pnpm e2e` | e2e: the core loop (two users → debate → verdict page) and the moderator approving an agent draft, on phone and desktop viewports. It runs against a throwaway database (`data/e2e-pglite`) with `JUDGE_PROVIDER=mock`, and never touches your data or calls a model. Stop `pnpm dev` first. Uses your installed Chrome (`PW_CHANNEL=bundled` for Playwright's Chromium). |
+| `JUDGE_PROVIDER=mock pnpm fairness` | fairness suite, plumbing check |
+| `pnpm seed` | demo data (dev server stopped) |
 | `pnpm action <name> --arg value` | call any action from the CLI, e.g. `pnpm action list-categories` |
 
 **Deploying (optional).** PGlite does not persist on serverless, so a deployment needs hosted Postgres (for
