@@ -15,10 +15,37 @@
       ],
       "@shared/*": [
         "./shared/*"
+      ],
+      "@domain/*": [
+        "./server/domain/*"
+      ],
+      "server-only": [
+        "./server/shims/server-only.ts"
+      ],
+      "next/cache": [
+        "./server/shims/next-cache.ts"
+      ],
+      "next/navigation": [
+        "./server/shims/next-navigation-server.ts"
+      ],
+      "next/server": [
+        "./server/shims/next-server.ts"
+      ],
+      "@tests/helpers/*": [
+        "./server/domain/test-helpers/*"
       ]
-    }
+    },
+    "target": "ES2022",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "resolveJsonModule": true,
+    "exactOptionalPropertyTypes": false
   },
   "include": [
+    "actions/**/*",
     "app/**/*",
     "server/**/*",
     "shared/**/*",
