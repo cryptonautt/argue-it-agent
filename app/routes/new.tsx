@@ -6,6 +6,7 @@
 // `create-argument` still refuses a suspended user with the reference message.
 import { redirectDocument, useLoaderData, type ClientLoaderFunctionArgs, type MetaFunction } from "react-router";
 
+import { SharpenWithAgent, useAppliedArgumentDraft } from "@/components/argue/agent/sharpen-with-agent";
 import { ArgumentForm } from "@/components/argue/arguments/argument-form";
 import { normaliseCategories } from "@/components/argue/loaders/screen-a";
 import { PageContainer, PageHeader } from "@/components/argue/shell/page";
@@ -37,13 +38,21 @@ export function ErrorBoundary() {
 
 export default function NewArgumentPage() {
   const { categories, categorySlug, title } = useLoaderData<typeof clientLoader>();
+  const agentDraft = useAppliedArgumentDraft();
   return (
     <PageContainer>
       <PageHeader
         title="Post an argument"
         description="State a clear proposition people can AGREE with or be AGAINST — then make your case."
       />
-      <ArgumentForm mode="create" categories={categories} initial={{ categorySlug, title }} />
+      {/* Debate Host (agent 8): the agent pre-fills the form from a hot take; the user publishes. */}
+      <SharpenWithAgent drafted={agentDraft.drafted} />
+      <ArgumentForm
+        key={agentDraft.formKey}
+        mode="create"
+        categories={categories}
+        initial={agentDraft.initial ?? { categorySlug, title }}
+      />
     </PageContainer>
   );
 }
