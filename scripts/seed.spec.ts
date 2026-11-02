@@ -71,10 +71,17 @@ describe("seed (fresh database)", () => {
         .where(and(eq(verdicts.competitionId, first.competitions.appealed), eq(verdicts.isCurrent, true)));
       expect(appealedVerdict?.outcome).toBe("B");
       expect(appealedVerdict?.winnerUserId).toBe(first.users.ada);
+      // The appeal describes the stored verdict truthfully: emeka's evidence was scored as having no figures.
+      const emekaEvidence = appealedVerdict?.explanation?.perCriterion.find((c) => c.key === "evidence")?.A.reason;
+      expect(emekaEvidence).toMatch(/(?<!\d)0 specific figure/);
+      const quoted = "Ghana and Morocco both pick more players from their own leagues than we do.";
+      expect(DEMO_APPEAL.text).toContain(quoted);
+      expect(DEBATES.appealed.openingFor).toContain(quoted);
 
-      // At least one debate waits for human review (the reference's inconclusive Bitcoin debate).
+      // Debates waiting for human review: the reference's inconclusive Bitcoin debate, and the injection debate (so
+      // the moderator agent's triage, which walks list-review-queue, reaches its injection report).
       const review = await t.db.select({ id: competitions.id }).from(competitions).where(eq(competitions.status, "needs_review"));
-      expect(review.map((r) => r.id)).toContain(first.competitions.inconclusive);
+      expect(review.map((r) => r.id)).toEqual(expect.arrayContaining([first.competitions.inconclusive, first.competitions.injection]));
 
       // The injection pre-scan opened an automatic report on side B's (AGAINST) opening.
       const [injectedSubmission] = await t.db
