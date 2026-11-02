@@ -178,6 +178,7 @@ export function DraftCard({
 
   return (
     <section
+      data-draft-id={draft.id}
       aria-label="Agent draft"
       className="flex flex-col gap-3 rounded-[var(--radius)] border border-dashed border-line-strong bg-surface-2 p-4"
     >
