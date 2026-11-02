@@ -34,6 +34,20 @@ export interface LoadError {
   status?: number;
 }
 
+/** Reference `ActionErrorCode` union plus the port's `NEEDS_HANDLE` (server/lib/domain-action.ts). */
+const KNOWN_CODES: ReadonlySet<string> = new Set([
+  "VALIDATION",
+  "UNAUTHENTICATED",
+  "SUSPENDED",
+  "FORBIDDEN",
+  "NOT_FOUND",
+  "CONFLICT",
+  "RATE_LIMITED",
+  "IN_PROGRESS",
+  "INTERNAL",
+  NEEDS_HANDLE_CODE,
+]);
+
 const STATUS_CODES: Record<number, string> = {
   401: "UNAUTHENTICATED",
   403: "FORBIDDEN",
@@ -47,12 +61,13 @@ const STATUS_CODES: Record<number, string> = {
 export function readLoadError(error: unknown): LoadError {
   const e = (error ?? {}) as { errorCode?: unknown; status?: unknown; actionMessage?: unknown; message?: unknown };
   const status = typeof e.status === "number" ? e.status : undefined;
+  // Only the domain's own codes win; anything else the framework sends (e.g. "unauthorized",
+  // "invalid_action_request_body") falls back to the HTTP status.
+  const named =
+    typeof e.errorCode === "string" ? e.errorCode.trim().toUpperCase().replace(/[\s-]+/g, "_") : "";
   let code = "INTERNAL";
-  if (typeof e.errorCode === "string" && e.errorCode.trim()) {
-    code = e.errorCode.trim().toUpperCase().replace(/[\s-]+/g, "_");
-  } else if (status && STATUS_CODES[status]) {
-    code = STATUS_CODES[status];
-  }
+  if (KNOWN_CODES.has(named)) code = named;
+  else if (status && STATUS_CODES[status]) code = STATUS_CODES[status];
   const message =
     typeof e.actionMessage === "string" && e.actionMessage.trim() ? e.actionMessage : GENERIC_ERROR;
   return { code, message, ...(status ? { status } : {}) };

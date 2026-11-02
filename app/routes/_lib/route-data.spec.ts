@@ -53,6 +53,12 @@ describe("readLoadError", () => {
     });
   });
 
+  it("ignores framework codes it doesn't know and uses the HTTP status instead", () => {
+    expect(readLoadError({ errorCode: "unauthorized", status: 401 }).code).toBe("UNAUTHENTICATED");
+    expect(readLoadError({ errorCode: "access_denied", status: 403 }).code).toBe("FORBIDDEN");
+    expect(readLoadError({ errorCode: "invalid_action_request_body", status: 400 }).code).toBe("INTERNAL");
+  });
+
   it("falls back to the HTTP status, then INTERNAL with a generic message", () => {
     expect(readLoadError({ status: 403 }).code).toBe("FORBIDDEN");
     const unknown = readLoadError(new Error("boom"));
@@ -85,6 +91,13 @@ describe("loadAction", () => {
     expect(res.status).toBe(302);
     expect(res.headers.get("Location")).toBe(welcomeHref("/c/abc?x=1"));
     expect(res.headers.get("Location")).toBe("/welcome?setup=1&next=%2Fc%2Fabc%3Fx%3D1");
+  });
+
+  it("a framework-level 401 with its own code still sends a signed-out visitor to sign-in", async () => {
+    callAction.mockRejectedValue(actionError("unauthorized", 401));
+    sessionResponds(null, false);
+    const res = await thrown(loadAction("get-competition", {}, request));
+    expect(res.headers.get("Location")).toBe("/sign-in?return=%2Fc%2Fabc%3Fx%3D1");
   });
 
   it("an explicit NEEDS_HANDLE code redirects to /welcome without asking the session", async () => {
