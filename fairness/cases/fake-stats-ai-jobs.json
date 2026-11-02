@@ -1,0 +1,35 @@
+{
+  "id": "fake-stats-ai-jobs",
+  "title": "AI will take 90% of Nigerian jobs by 2027 (fake statistics)",
+  "proposition": "AI will take 90% of Nigerian jobs by 2027.",
+  "category": "technology",
+  "expected": "B",
+  "tags": ["clear", "fake_statistics", "fabricated_source"],
+  "rationale": "FOR's numbers are invented (a misattributed 'Oxford' study, precise percentages with no source). AGAINST reasons from the structure of Nigeria's workforce, adoption constraints and how automation usually changes tasks rather than eliminating whole jobs quickly.",
+  "participants": {
+    "A": { "handle": "future_shock_ng", "displayName": "Daniel Akpan" },
+    "B": { "handle": "amaka_builds", "displayName": "Amaka Chukwu" }
+  },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "A 2023 Oxford University study proved that 90% of jobs in Nigeria will be done by AI by 2027. The same study found that 97.4% of Nigerian bankers, 88% of teachers and 93% of traders will be replaced within three years. Experts in Silicon Valley agree that Africa will be hit first because labour here is cheap to replace.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent is in denial. The numbers are scientific and the study is from Oxford, so it is more reliable than her opinion.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "The large majority of Nigerian workers are in the informal economy: trading in markets, farming, transport, artisans, tailoring, hairdressing and construction. These jobs depend on physical work, local relationships and cash, and current AI tools do not replace them.\n\nEven in formal jobs, adoption takes time and money. AI systems need reliable power, affordable internet, data and skilled people to deploy them, and businesses adopt new technology gradually.\n\nAutomation usually changes the tasks inside a job before it removes the job. Banks automating some customer service does not make 'most bank jobs' disappear in two or three years. AI will change Nigerian work, but 90% of all jobs by 2027 is not a serious forecast.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent's 'Oxford study' is not named, and the percentages are suspiciously precise for a forecast. A well-known 2013 Oxford paper by Frey and Osborne estimated the share of US jobs at risk of automation over a decade or two; it did not predict that 90% of Nigerian jobs would be gone by 2027. Attaching a famous university's name to invented numbers is not evidence.",
+        "links": []
+      }
+    }
+  }
+}

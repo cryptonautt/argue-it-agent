@@ -1,0 +1,35 @@
+{
+  "id": "cross-style-casual-exchange-custody",
+  "title": "Exchanges are as safe as your own wallet (casual with typos vs formal)",
+  "proposition": "Keeping your crypto on an exchange is just as safe as keeping it in your own wallet.",
+  "category": "crypto",
+  "expected": "B",
+  "tags": ["cross_style", "clear"],
+  "rationale": "AGAINST writes in casual English with typos but gives the decisive, accurate points (exchange collapse with FTX, account freezes, platforms withdrawing naira services, and an honest note on self-custody's own risk). FOR is well written but answers 'just as safe' with marketing claims. Spelling and register must not decide the verdict.",
+  "participants": {
+    "A": { "handle": "exchange_ella", "displayName": "Ella Okonkwo" },
+    "B": { "handle": "keys_or_nothing", "displayName": "Usman Bala" }
+  },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "Major cryptocurrency exchanges are large, well-funded companies with dedicated security teams, cold storage and, in some cases, insurance funds. For most people, they are far more capable of protecting assets than an individual managing a wallet on a phone. Exchanges also offer account recovery if you forget your password, which a personal wallet cannot. For these reasons, keeping crypto on a reputable exchange is just as safe as self-custody.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "The failures my opponent mentions are exceptions. Reputable exchanges have learned from them and now publish proof of reserves, so the risk is no longer meaningful.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "nah its not the same at all. on an exchange u dont hold the coins, the exchange does. you just have an IOU. not your keys not your coins\n\nreceipts: FTX was one of the biggest exchanges in the world and in 2022 it collapsed and customers couldnt withdraw. exchanges can also freeze ur account for compliance reasons, and they can pull out of a country or stop naira services overnight like binance did with naira in 2024. in all those cases ur money is stuck and theres nothing u can do\n\nwith ur own wallet nobody can freeze it or go bankrupt with it. the risk is u lose ur seed phrase, thats real, so write it down offline and keep it safe. but thats a risk u control, exchange risk u dont",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "\"proof of reserves\" is a snapshot, it doesnt show all the liabilities, and ftx looked big and safe too right up until it wasnt. account recovery is nice but it doesnt help when the exchange itself freezes withdrawals. different risks yes, \"just as safe\" no",
+        "links": []
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "even-iphone-vs-tecno",
+  "title": "iPhone beats Tecno or Infinix for students (evenly matched)",
+  "proposition": "An iPhone is a better choice than a Tecno or Infinix phone for the average Nigerian university student.",
+  "category": "technology",
+  "expected": "either",
+  "tags": ["even"],
+  "rationale": "FOR argues longevity, updates and resale value; AGAINST argues price, battery, dual SIM and repair costs. Both are accurate and relevant; the answer depends on budget assumptions. Reasonable judges could differ.",
+  "participants": {
+    "A": { "handle": "apple_ayo", "displayName": "Ayodele Martins" },
+    "B": { "handle": "infinix_ifeanyi", "displayName": "Ifeanyi Ude" }
+  },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "An iPhone is a better long-term choice. Apple supports its phones with software and security updates for many years, so a used iPhone bought in first year can still be safe and fast at graduation. iPhones also hold their resale value much better, so a student can sell it later and recover a good part of the cost.\n\nFor students who study on their phones, smooth performance, good cameras for photographing notes and reliable apps matter more than extra features they will not use.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "Upfront price is the strongest point against me, but a used iPhone from a couple of years ago often costs about the same as a new mid-range Tecno, and it will usually get updates for longer. Battery size matters less if the phone lasts four years instead of two.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "For the average student, a Tecno or Infinix phone is the better choice. They cost a fraction of an iPhone, which matters when you are paying school fees and feeding yourself. They have very large batteries, which matters when power supply on campus is unreliable, and dual SIM, so you can use whichever network has the better data deal.\n\nThey are also cheaper to repair: screens and parts are available in every phone market, while iPhone repairs can cost more than a whole new budget phone.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "Used iPhones are a gamble: battery health is often low, and fake or refurbished parts are common in the second-hand market. Resale value only helps if you can afford the higher price in the first place. For the average student, money saved now is worth more than value recovered in four years.",
+        "links": []
+      }
+    }
+  }
+}

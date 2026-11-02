@@ -1,0 +1,36 @@
+{
+  "id": "style-2fa-casual",
+  "title": "Two-factor authentication is worth the hassle (casual English)",
+  "proposition": "Turning on two-factor authentication (2FA) is worth the hassle for your bank and social media accounts.",
+  "category": "technology",
+  "expected": "A",
+  "tags": ["style_variant", "clear"],
+  "rationale": "Same arguments as the formal variant in social-media English. FOR still explains the mechanism and answers the SIM-swap point.",
+  "participants": {
+    "A": { "handle": "chika_secures", "displayName": "Chika Eze" },
+    "B": { "handle": "no_otp_abeg", "displayName": "Bayo Lawal" }
+  },
+  "style": { "group": "2fa", "variant": "casual" },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "passwords leak ALL the time. data breaches, phishing links, people using one password for everything. 2FA means a stolen password alone isn't enough to get in, the hacker also needs your second factor 🔐\n\ncost = a few seconds per login. cost of NOT having it = way worse. when someone's IG or whatsapp gets hijacked in naija it's usually used to message all your contacts with fake \"investment\" offers or \"pls send 20k emergency\", and getting it back can take weeks\n\nand not all 2FA is equal. SMS codes > nothing, but sim swap fraud is real, so an authenticator app or in-app approval is the stronger option. either way turning it on kills the easiest attacks",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "the sim swap thing is literally an argument for app-based 2FA, not against 2FA 😅 \"i've never been hacked\" isn't evidence, every victim said that until it happened. late OTPs are annoying fair, that's why backup codes and authenticator apps that work offline exist",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "2FA is stress abeg. half the time network is trash and the OTP never comes, so you're locked out of your own account when you need it most 😤 serious hackers can bypass anything anyway so 2FA just punishes normal people. i've used the same password for years and never been hacked",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "sim swaps prove my point. if criminals can just take your number then 2FA is useless",
+        "links": []
+      }
+    }
+  }
+}

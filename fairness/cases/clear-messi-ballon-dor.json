@@ -1,0 +1,35 @@
+{
+  "id": "clear-messi-ballon-dor",
+  "title": "Messi has more Ballon d'Ors than Ronaldo",
+  "proposition": "Lionel Messi has won more Ballon d'Or awards than Cristiano Ronaldo.",
+  "category": "sports",
+  "expected": "A",
+  "tags": ["clear", "fake_statistics"],
+  "rationale": "A factual proposition with a well-known answer: Messi 8, Ronaldo 5. FOR lists the years correctly; AGAINST invents a stripped-award story and a sponsor-vote claim with no support.",
+  "participants": {
+    "A": { "handle": "goat_debates", "displayName": "Chinedu Okoro" },
+    "B": { "handle": "cr7_forever_ng", "displayName": "Aisha Mohammed" }
+  },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "This is a matter of record. Messi has won the Ballon d'Or eight times: 2009, 2010, 2011, 2012, 2015, 2019, 2021 and 2023. Ronaldo has won it five times: 2008, 2013, 2014, 2016 and 2017. Eight is more than five.\n\nThe 2010 to 2015 awards were jointly run with FIFA under the name FIFA Ballon d'Or, but they are counted in both players' totals, so this does not change the comparison.",
+        "links": ["https://en.wikipedia.org/wiki/Ballon_d%27Or"]
+      },
+      "rebuttal": {
+        "text": "My opponent claims two of Ronaldo's awards were 'stripped', but provides no source, and no such decision exists; France Football lists him with five. The idea that sponsors chose Messi's awards is also asserted without evidence. The proposition is about how many awards each has won, and the official count is eight to five.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "Ronaldo actually has seven Ballon d'Ors. France Football took two away from him in 2019 after a dispute with his agent, which is why the official lists look wrong. Messi's awards were also voted for by sponsors who wanted to sell Barcelona shirts, so they should not count.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "Everyone knows the Ballon d'Or is political. You cannot trust the official numbers.",
+        "links": []
+      }
+    }
+  }
+}

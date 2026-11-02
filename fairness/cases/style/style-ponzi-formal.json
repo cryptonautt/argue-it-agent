@@ -1,0 +1,36 @@
+{
+  "id": "style-ponzi-formal",
+  "title": "Guaranteed 30% monthly returns are smart (formal English)",
+  "proposition": "An investment platform promising guaranteed 30% monthly returns is a smart way to grow your money.",
+  "category": "crypto",
+  "expected": "B",
+  "tags": ["style_variant", "clear"],
+  "rationale": "AGAINST shows the arithmetic (30% monthly compounds to roughly 23x a year), explains how Ponzi payouts work, cites well-known Nigerian collapses and offers regulated alternatives; FOR relies on one anecdote and blames victims. The cousin anecdote is precisely what AGAINST's mechanism predicts.",
+  "participants": {
+    "A": { "handle": "sharp_returns", "displayName": "Ngozi Okafor" },
+    "B": { "handle": "tunde_ledger", "displayName": "Tunde Afolabi" }
+  },
+  "style": { "group": "ponzi", "variant": "formal" },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "With inflation as high as it is, money sitting in a bank account loses value every month. A platform that pays 30% a month is the only way an ordinary person can get ahead.\n\nMy cousin joined one last year and has been paid three times. The people who lost money in previous schemes were greedy and joined too late. If you enter early, withdraw regularly and do not get carried away, you will make money.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent ignores the reality that inflation is eating everyone's savings. Sometimes you have to take a chance, and those who are too careful stay poor.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "Start with the arithmetic. Thirty percent a month, compounded, is roughly 23 times your money in one year. No legitimate business, trader or fund earns that reliably, and none can honestly guarantee it.\n\nA guaranteed high return is the signature of a Ponzi scheme: early members are paid with deposits from newer members, which creates exactly the testimonies that attract more deposits, until new money slows and withdrawals are frozen. Nigerians have seen this repeatedly. MMM froze withdrawals in December 2016 and many people lost their savings, and the CBEX platform froze withdrawals in 2025 with heavy losses.\n\nThe Securities and Exchange Commission regularly warns the public against unregistered schemes that promise fixed high returns. Legitimate investments disclose their risks; they do not promise you a fixed monthly percentage.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent's cousin being paid three times is exactly how a Ponzi recruits: early payouts are funded by new deposits, and they stop when the deposits do. Blaming victims for joining 'late' admits that late joiners lose, and nobody can know in advance when the end will come. Inflation is a real problem, but the answer is not a scheme that cannot mathematically keep paying. Regulated options such as treasury bills or registered funds offer real, if modest, returns.",
+        "links": []
+      }
+    }
+  }
+}

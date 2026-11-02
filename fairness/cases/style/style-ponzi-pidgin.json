@@ -1,0 +1,36 @@
+{
+  "id": "style-ponzi-pidgin",
+  "title": "Guaranteed 30% monthly returns are smart (Nigerian Pidgin)",
+  "proposition": "An investment platform promising guaranteed 30% monthly returns is a smart way to grow your money.",
+  "category": "crypto",
+  "expected": "B",
+  "tags": ["style_variant", "clear", "pidgin"],
+  "rationale": "Same arguments as the formal variant in Nigerian Pidgin. AGAINST still has the arithmetic, the mechanism and the history.",
+  "participants": {
+    "A": { "handle": "sharp_returns", "displayName": "Ngozi Okafor" },
+    "B": { "handle": "tunde_ledger", "displayName": "Tunde Afolabi" }
+  },
+  "style": { "group": "ponzi", "variant": "pidgin" },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "As inflation high reach so, money wey dey bank dey lose value every month. Platform wey dey pay 30% every month na the only way ordinary person fit move forward.\n\nMy cousin join one last year and dem don pay am three times. The people wey lose money for the old schemes na greedy people, dem join late. If you enter early, dey withdraw regularly and you no carry am for head, you go make money.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent no wan see say inflation dey chop everybody savings. Sometimes you gats take chance; people wey dey too careful go dey poor.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "Make we first do the calculation. Thirty percent every month, if e compound, na like 23 times your money for one year. No real business, trader or fund dey make that kind money every time, and nobody fit guarantee am honestly.\n\nGuaranteed high return na the sign of Ponzi: dem dey pay the early people with the money wey new people deposit. Na im dey bring the testimonies wey dey pull more people enter, until new money slow down and dem freeze withdrawal. Naija don see this film many times. MMM freeze withdrawal for December 2016 and plenty people lose their savings, and CBEX freeze withdrawal for 2025 and people lose heavy money.\n\nSEC dey always warn people about schemes wey no register and wey dey promise fixed high return. Real investment go tell you the risk; dem no go promise you fixed percent every month.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "Say dem pay my opponent cousin three times na exactly how Ponzi dey recruit people: na new deposits dey pay the early people, and once deposit stop, payment stop. To blame victims say dem 'join late' na to agree say late people go lose, and nobody fit know when the end go come. Inflation na real wahala, but the answer no be scheme wey the maths no fit carry. Regulated options like treasury bills or registered funds dey give real return, e small but e real.",
+        "links": []
+      }
+    }
+  }
+}

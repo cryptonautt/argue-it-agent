@@ -1,0 +1,35 @@
+{
+  "id": "length-long-substantive-stablecoins",
+  "title": "Use stablecoins carefully rather than avoid them (long and substantive vs short and shallow)",
+  "proposition": "Nigerians should use stablecoins carefully rather than avoid them completely.",
+  "category": "crypto",
+  "expected": "A",
+  "tags": ["length_bias", "clear"],
+  "rationale": "The reverse of the padding test: FOR is long because it has many distinct, accurate points (why people use them, the real risks, how to manage them). AGAINST is short and shallow ('crypto is a scam'). A judge must not prefer brevity for its own sake any more than length.",
+  "participants": {
+    "A": { "handle": "fx_hedge_halima", "displayName": "Halima Abubakar" },
+    "B": { "handle": "cash_is_king_ng", "displayName": "Joseph Udo" }
+  },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "Stablecoins such as USDT and USDC are tokens designed to track the US dollar. Many Nigerians use them for practical reasons, and the right advice is to use them carefully, not to avoid them completely.\n\nWhy people use them: the naira lost a large share of its value against the dollar in 2023 and 2024, and for many people opening a domiciliary account or buying dollars at a fair rate is difficult. Freelancers paid by foreign clients use stablecoins to receive payment quickly, and families use them to protect savings from depreciation. These are real needs.\n\nThe risks are also real, and careful use means managing each one:\n\n1. Not all stablecoins are equal. Algorithmic stablecoins can collapse, as TerraUSD did in 2022. Coins backed by cash and short-term government debt, which publish regular reserve reports, carry less of that risk, though not zero.\n\n2. Exchange and custody risk. An exchange can freeze withdrawals or collapse; FTX did in 2022. Keep only what you need on an exchange, use reputable platforms and consider a self-custody wallet for savings, while storing the recovery phrase safely.\n\n3. Scams. Many fraudsters use stablecoins in fake investment schemes and fake P2P trades. Never send funds to someone promising returns, and use escrow on P2P platforms.\n\n4. Regulation. Nigerian rules on digital assets have changed several times, so follow official guidance from the SEC and the central bank and keep records for tax.\n\nAvoiding them completely leaves people who need dollar exposure with worse options, such as holding cash dollars at home or using informal dealers. Careful use, with these precautions, is the better advice.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent says crypto is a scam, but stablecoins are used daily by legitimate businesses and freelancers worldwide. Scams exist in every financial product, including fake bank alerts; the answer is caution, not total avoidance. My opponent has not offered an alternative for people who need to protect savings from depreciation.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "Crypto is a scam. Stablecoins are crypto. Avoid them.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "Too long, didn't read. Still a scam.",
+        "links": []
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "draw-jollof",
+  "title": "Nigerian jollof beats Ghanaian jollof (designed tie)",
+  "proposition": "Nigerian jollof rice is better than Ghanaian jollof rice.",
+  "category": "entertainment",
+  "expected": "draw",
+  "tags": ["subjective", "draw"],
+  "rationale": "Mirror-image arguments of the same quality and length: each side names a preference criterion, describes its jollof accurately and concedes it is taste. Neither has a substantive edge, so the fair outcome is a draw (or inconclusive), not a forced winner.",
+  "participants": {
+    "A": { "handle": "party_rice_lagos", "displayName": "Bisi Oyelaran" },
+    "B": { "handle": "accra_kitchen", "displayName": "Efua Mensah" }
+  },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "This is about taste, so here is my criterion: I want jollof where every grain carries the flavour of the stew. Nigerian jollof is usually made with long-grain parboiled rice, which stays firm and soaks up the tomato and pepper base evenly. Party jollof cooked over firewood adds a smoky flavour that many people love, and the slightly burnt bottom of the pot is a treat of its own.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "Fragrant rice and shito are real strengths of Ghanaian jollof, and I understand why people love them. My preference is for the firmer grain and smoky depth of Nigerian jollof, but I accept that this comes down to what you enjoy.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "This is about taste, so here is my criterion: I want jollof where the rice itself has aroma as well as flavour. Ghanaian jollof is usually made with fragrant rice such as jasmine or basmati, which gives a lovely smell and a softer bite. It is often a little spicier, and served with shito, the pepper sauce, it has a depth of heat that many people love.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "Firm parboiled grains and smoky party flavour are real strengths of Nigerian jollof, and I understand why people love them. My preference is for the aroma and heat of Ghanaian jollof, but I accept that this comes down to what you enjoy.",
+        "links": []
+      }
+    }
+  }
+}

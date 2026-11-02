@@ -1,0 +1,36 @@
+{
+  "id": "style-var-pidgin",
+  "title": "VAR has made refereeing more accurate (Nigerian Pidgin)",
+  "proposition": "VAR has made refereeing decisions in top football leagues more accurate.",
+  "category": "sports",
+  "expected": "A",
+  "tags": ["style_variant", "clear", "pidgin"],
+  "rationale": "Same arguments as the formal variant in Nigerian Pidgin. FOR still addresses accuracy; AGAINST still mostly argues enjoyment.",
+  "participants": {
+    "A": { "handle": "var_watch", "displayName": "Musa Garba" },
+    "B": { "handle": "kemi_terraces", "displayName": "Kemi Oladipo" }
+  },
+  "style": { "group": "var", "variant": "pidgin" },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "VAR dey there to correct clear and obvious mistake for four things wey fit change match: goal, penalty, straight red card and when ref punish the wrong player. E no fit make refereeing worse for those things unless dem misuse am, because wetin the ref decide for field go stand unless the video show clear mistake.\n\nThe numbers support am. The Premier League key match incidents panel, wey get former players and former refs inside, don report say roughly 82% of the big decisions dey correct without VAR, and e go up reach about 96% with VAR. Now dem dey check offside with calibrated lines, no be linesman eye while e dey run full speed.\n\nVAR still dey make mistake. The Luis Díaz goal wey dem cancel for Tottenham for 2023 na big mistake, but na communication failure, and e popular because that kind mistake don dey rare now.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "Most of wetin my opponent talk na about enjoyment: long delay, waiting before you celebrate, and confusion for stadium. Those ones na real cost, but this debate na about accuracy, no be enjoyment. For the 'dem mark their own homework' matter, independent former players and officials dey the panel; and even if you no take their numbers, my opponent no bring any evidence say decisions don dey less accurate.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "VAR don spoil football to watch. Fans go wait for minutes before dem know if dem fit celebrate goal, and people for stadium no dey even know wetin dem dey check. Refs no dey consistent about when dem go monitor, so the same kind incident go get different decision every week.\n\nThat Luis Díaz goal for Tottenham for 2023 show say even with all this technology, VAR still dey get big decisions wrong.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "Na the league itself bring those accuracy numbers, so na dem dey mark their own homework. I no trust number wey come from the same people wey bring VAR.",
+        "links": []
+      }
+    }
+  }
+}

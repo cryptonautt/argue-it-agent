@@ -1,0 +1,36 @@
+{
+  "id": "style-ponzi-casual",
+  "title": "Guaranteed 30% monthly returns are smart (casual English)",
+  "proposition": "An investment platform promising guaranteed 30% monthly returns is a smart way to grow your money.",
+  "category": "crypto",
+  "expected": "B",
+  "tags": ["style_variant", "clear"],
+  "rationale": "Same arguments as the formal variant in social-media English. AGAINST still has the arithmetic, the mechanism and the history.",
+  "participants": {
+    "A": { "handle": "sharp_returns", "displayName": "Ngozi Okafor" },
+    "B": { "handle": "tunde_ledger", "displayName": "Tunde Afolabi" }
+  },
+  "style": { "group": "ponzi", "variant": "casual" },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "inflation is crazy rn, money sitting in the bank loses value every month 📉 a platform paying 30% monthly is the only way regular people can actually get ahead\n\nmy cousin joined one last year and has been paid 3 times already 💰 the people who lost money in the old schemes were greedy and joined too late. enter early, withdraw regularly, don't get carried away and you'll make money",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "bro is ignoring that inflation is eating everyone's savings. sometimes you have to take a chance, people who are too careful stay broke",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "do the maths first 🧮 30% a month compounded = roughly 23x your money in ONE year. no legit business, trader or fund makes that reliably and none can honestly guarantee it\n\n\"guaranteed high returns\" is literally the ponzi signature. early members get paid with newer members' deposits, which creates the exact testimonies that pull in more deposits, until new money slows down and withdrawals get frozen. we've seen this movie in naija. MMM froze withdrawals in december 2016 and people lost their savings. CBEX froze withdrawals in 2025, heavy losses again\n\nSEC keeps warning people about unregistered schemes promising fixed high returns. legit investments tell you the risks, they don't promise a fixed monthly %",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "your cousin getting paid 3 times is EXACTLY how a ponzi recruits. early payouts come from new deposits and they stop when deposits stop. \"the people who lost joined late\" = admitting late joiners lose, and nobody knows when the end is coming. inflation is real but the fix isn't a scheme that mathematically can't keep paying. treasury bills or registered funds give real returns, smaller but real",
+        "links": []
+      }
+    }
+  }
+}

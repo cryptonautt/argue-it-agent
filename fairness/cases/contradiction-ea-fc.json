@@ -1,0 +1,35 @@
+{
+  "id": "contradiction-ea-fc",
+  "title": "EA Sports FC is better than eFootball (self-contradiction)",
+  "proposition": "EA Sports FC is a better football game than eFootball.",
+  "category": "gaming",
+  "expected": "B",
+  "tags": ["contradiction"],
+  "rationale": "FOR says gameplay is all that matters, then in the rebuttal says gameplay does not matter and licences decide; it also calls free-to-play both a strength and a weakness. AGAINST keeps one consistent standard (accessibility and gameplay) and concedes FC's licences honestly. FC has real strengths, so this is a consistency test rather than a 'clear' case.",
+  "participants": {
+    "A": { "handle": "ultimate_team_tobi", "displayName": "Tobi Ogunleye" },
+    "B": { "handle": "efootball_ebuka", "displayName": "Ebuka Nwachukwu" }
+  },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "The only thing that matters in a football game is gameplay, and EA Sports FC has the best gameplay. Licences, menus and graphics are just decoration. FC is also better because it is a premium game you pay for, which means quality, unlike free-to-play games that are full of cheap players.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "Gameplay honestly does not matter much because both games feel similar now. What matters is licences: FC has the real clubs, kits and leagues, and that decides it. Also, FC's Ultimate Team is basically free-to-play anyway, which is great because everyone can join.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "I judge football games on two things: how good the gameplay is and how many people can actually play it.\n\nOn access, eFootball wins clearly. It is free to download on PlayStation, Xbox, PC and mobile, and it runs on the low and mid-range Android phones most Nigerian players have. EA Sports FC costs a lot at launch, and the mobile version is a different, cut-down game.\n\nOn gameplay, reasonable players disagree, but eFootball's slower, more tactical style rewards passing and positioning, while FC's pace and Ultimate Team spending can reward money as much as skill.\n\nFC's real advantage is licences: real kits, leagues and stadiums. That matters for presentation, but it does not make it the better game to play.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent first said gameplay is the only thing that matters, then said gameplay does not matter and licences decide. He also called free-to-play a sign of low quality, then praised Ultimate Team for being basically free-to-play. When an argument changes its own standard halfway through, it cannot show which game is better. I have kept the same standard throughout and admitted FC's licence advantage.",
+        "links": []
+      }
+    }
+  }
+}

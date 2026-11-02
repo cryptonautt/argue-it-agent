@@ -1,0 +1,36 @@
+{
+  "id": "style-streams-casual",
+  "title": "Streams decide the best Afrobeats artist (casual English)",
+  "proposition": "Streaming numbers alone are the best way to decide who the best Afrobeats artist is.",
+  "category": "entertainment",
+  "expected": "B",
+  "tags": ["style_variant", "clear"],
+  "rationale": "Same arguments as the formal variant in social-media English. AGAINST still makes the concrete case that streams measure reach, not quality.",
+  "participants": {
+    "A": { "handle": "streamking_ng", "displayName": "Emeka Obi" },
+    "B": { "handle": "zainab_sounds", "displayName": "Zainab Bello" }
+  },
+  "style": { "group": "streams", "variant": "casual" },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "numbers don't lie 📈 whoever has the most streams on spotify, apple music and audiomack is who the most people actually choose to listen to. that's the fairest way to decide who's best, period\n\neverything else is opinion. awards = politics + small committees, critics have favourites, and fan bases just shout the loudest on twitter. streams are the only thing where every listener counts",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "\"bought streams\" is just cope from fans whose fave is losing 😂 people vote with their data. numbers are numbers",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "streams = how many plays a song got on some apps. that's reach, not who's the best artist. using it ALONE is misleading, 4 reasons:\n\n1. streams follow money. playlist slots, label marketing budgets and one viral tiktok moment can multiply plays without saying anything about songwriting or performance\n\n2. tons of listening in naija isn't counted. people hear music on radio, in clubs, at owambes, on youtube, or from mp3s shared phone to phone. a metric that misses half the home crowd can't crown the best artist from home\n\n3. streams can be faked. platforms keep removing artificial streams from bots and streaming farms\n\n4. \"best\" includes stuff streams can't see: live shows, longevity, influence on other artists, quality of a whole catalogue. fela literally created afrobeat and his influence is unmatched, and he recorded almost everything before streaming existed",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "\"awards are political\" ok even if true, that doesn't make streams neutral. streams get shaped by marketing money and playlist decisions too. a measure that ranks one viral song above a 15 year catalogue is measuring hype not artistry. never said streams are useless btw, just that they can't be the ONLY measure, which is literally what the proposition says",
+        "links": []
+      }
+    }
+  }
+}

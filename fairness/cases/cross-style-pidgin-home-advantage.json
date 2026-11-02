@@ -1,0 +1,35 @@
+{
+  "id": "cross-style-pidgin-home-advantage",
+  "title": "Home advantage is real (Pidgin with evidence vs polished English without)",
+  "proposition": "Home advantage is real in professional football.",
+  "category": "sports",
+  "expected": "A",
+  "tags": ["cross_style", "pidgin", "clear"],
+  "rationale": "FOR writes in Nigerian Pidgin and gives concrete mechanisms and the empty-stadium natural experiment from the pandemic, when home advantage shrank. AGAINST writes polished, formal English but offers only assertion. A judge must not reward register or polish over substance.",
+  "participants": {
+    "A": { "handle": "aboki_analyst", "displayName": "Sani Garba" },
+    "B": { "handle": "dr_eloquent", "displayName": "Richard Coker" }
+  },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "Home advantage dey real, and e no be just talk. For many years, for almost every big league, home teams dey win more matches than away teams.\n\nWhy? Away team go travel, sleep for hotel, and play for pitch wey dem no sabi well. Home crowd dey push their team and dey put pressure on referee, and research don show say referees dey give small small decisions to home team when crowd dey shout.\n\nThe best proof na COVID time. When dem play matches without fans for 2020, home advantage reduce well well for many leagues, and researchers study am. If crowd no matter, nothing for change. E change. So home advantage na real thing.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent talk fine English, but e no bring any evidence. Professional players get training, true, but referees na human beings too, and crowd dey affect them. The empty stadium matches show am clear: when crowd comot, home advantage drop. My opponent no answer that one at all.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "The notion of home advantage, while romantically appealing, does not withstand rigorous scrutiny. Contemporary professional footballers are elite athletes, meticulously conditioned to perform irrespective of their surroundings. Modern stadia are increasingly standardised in their dimensions and playing surfaces, and sophisticated travel logistics have rendered the burdens of away fixtures negligible. It follows, therefore, that home advantage is, in the final analysis, a comforting myth perpetuated by supporters.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My interlocutor's submission, though passionate, relies upon anecdote rather than principle. One must distinguish correlation from causation; that home sides have won more often does not, in itself, establish that the home environment is the cause.",
+        "links": []
+      }
+    }
+  }
+}

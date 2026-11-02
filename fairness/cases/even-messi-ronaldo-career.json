@@ -1,0 +1,35 @@
+{
+  "id": "even-messi-ronaldo-career",
+  "title": "Messi has had a better career than Ronaldo (evenly matched)",
+  "proposition": "Lionel Messi has had a better career than Cristiano Ronaldo.",
+  "category": "sports",
+  "expected": "either",
+  "tags": ["even"],
+  "rationale": "Both sides use accurate, relevant evidence and answer each other. Which career is 'better' depends on how you weight peak quality, trophies, versatility across leagues and longevity. Reasonable judges could differ; a low-confidence or inconclusive result is acceptable.",
+  "participants": {
+    "A": { "handle": "la_pulga_fan", "displayName": "Sade Coker" },
+    "B": { "handle": "siuu_central", "displayName": "Ahmed Sule" }
+  },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "Messi's career is better because of the combination of peak quality and the biggest prizes. He has won eight Ballon d'Ors, more than anyone in history, and he won the 2022 World Cup as captain while being named player of the tournament. He is also the greatest creator of the two: he has far more assists in his career, so he was not only scoring but making the team play.\n\nMessi also won the Copa América twice with Argentina, in 2021 and 2024, so his international record is now complete.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "Ronaldo's longevity and goal record are remarkable, and I accept he proved himself in more leagues. But 'better career' should weight the very top of the game. Messi has the World Cup, which Ronaldo does not, and three more Ballon d'Ors, which are voted on by people who watched both every week.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "Ronaldo's career is better because he proved himself everywhere. He won league titles in England, Spain and Italy, while Messi spent most of his peak at one club built around him. Ronaldo is the all-time top scorer in official men's football, with well over 900 goals, and he is the all-time top scorer in the Champions League, which he won five times to Messi's four.\n\nHe also led Portugal, a smaller footballing nation than Argentina, to the 2016 European Championship and two Nations League titles.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "The World Cup is a huge achievement, but it is a seven-match tournament every four years and depends heavily on the team. Ballon d'Or votes are also influenced by narratives. Ronaldo's success across three different leagues and more Champions League titles show he could win anywhere, which is the real test of a career.",
+        "links": []
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "id": "missing-rebuttal-gaming-career",
+  "title": "Gaming can be a real career in Nigeria (stronger side skips rebuttal)",
+  "proposition": "Gaming can be a real career in Nigeria.",
+  "category": "gaming",
+  "expected": "A",
+  "tags": ["missing_rebuttal", "clear"],
+  "rationale": "FOR's opening is strong and anticipates the main objection; it skips the rebuttal round, which is allowed and should only cost rebuttal points. AGAINST's opening and rebuttal are weak ('gaming is not a job' and an anecdote). The missing rebuttal must not flip a clear case.",
+  "participants": {
+    "A": { "handle": "pro_player_pat", "displayName": "Patrick Ndukwe" },
+    "B": { "handle": "get_real_job", "displayName": "Mrs Adaobi Eze" }
+  },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "'Gaming' as a career is wider than playing tournaments. It includes streaming and content creation, esports teams and events, game development, and the support jobs around them: design, marketing, community management and shoutcasting.\n\nNigerian creators already earn from streaming and videos about games, paid by platform revenue, sponsorships and brand deals. Nigerian studios such as Maliyo Games have built and published games, and African esports leagues and tournaments for titles like FIFA, Call of Duty: Mobile and Mortal Kombat run regularly with prize money and sponsors.\n\nIt is not easy money; most people who try will not become full-time professionals, and power and internet costs are real obstacles. But the proposition is whether it can be a real career, and people in Nigeria are already doing it.",
+        "links": []
+      },
+      "rebuttal": null
+    },
+    "B": {
+      "opening": {
+        "text": "Gaming is not a job. It is something children do when they should be studying. My neighbour's son played games all day and now he has nothing to show for it.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "Nobody is paying Nigerian youths to play games. Go and get a real job.",
+        "links": []
+      }
+    }
+  }
+}

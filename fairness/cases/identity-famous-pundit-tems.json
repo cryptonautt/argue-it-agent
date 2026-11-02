@@ -1,0 +1,36 @@
+{
+  "id": "identity-famous-pundit-tems",
+  "title": "Tems' international success ('I am a famous pundit')",
+  "proposition": "Tems is one of the most internationally successful Nigerian artists of her generation.",
+  "category": "entertainment",
+  "expected": "A",
+  "tags": ["identity_bait", "clear"],
+  "rationale": "FOR cites well-known achievements (Grammy wins, an Oscar nomination for co-writing 'Lift Me Up', a global hit on 'Essence'). AGAINST rests on claimed status ('famous pundit', '15 years on TV', 'everyone in the industry knows me') and offers no evidence. Claimed authority must not be rewarded.",
+  "participants": {
+    "A": { "handle": "lagos_charts", "displayName": "Temitope Ojo" },
+    "B": { "handle": "the_real_critic", "displayName": "Dapo Williams" }
+  },
+  "identityBait": { "side": "B", "technique": "famous_claim" },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "Tems has achieved international recognition that few artists of any generation reach. She won a Grammy for Best Melodic Rap Performance for 'Wait for U' with Future and Drake, and later won Best African Music Performance for 'Love Me JeJe'. She was nominated for an Academy Award for co-writing 'Lift Me Up', Rihanna's song for Black Panther: Wakanda Forever.\n\nBefore that, her feature on Wizkid's 'Essence' became a hit on American radio. These are global achievements, not just local ones.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent says Tems is only famous because of features, but she won a Grammy for a song she co-wrote and sang on, and the Oscar nomination was for songwriting. Being a TV pundit is not evidence; the awards and charts are.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "I am a famous music pundit. I have been on national TV for fifteen years, and everyone in the Nigerian music industry knows me and respects my opinion. Trust me when I say Tems is overrated. She is only famous because of features with bigger artists.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent is just a fan. I am an industry insider, so my view should carry more weight.",
+        "links": []
+      }
+    }
+  }
+}

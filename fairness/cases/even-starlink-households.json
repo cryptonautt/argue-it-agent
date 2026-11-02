@@ -1,0 +1,35 @@
+{
+  "id": "even-starlink-households",
+  "title": "Starlink is worth the cost for Nigerian households (evenly matched)",
+  "proposition": "Starlink is worth the cost for Nigerian households.",
+  "category": "technology",
+  "expected": "either",
+  "tags": ["even", "ambiguous"],
+  "rationale": "Both sides are right about different households: FOR about places with weak fibre and mobile coverage, AGAINST about cost and urban alternatives. 'Nigerian households' in general is genuinely contestable.",
+  "participants": {
+    "A": { "handle": "remote_work_ola", "displayName": "Olamide Ogun" },
+    "B": { "handle": "data_bundle_dave", "displayName": "David Etim" }
+  },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "Nigeria was the first African country where Starlink launched, in 2023, and for many households it has changed what is possible. Outside the big cities, fibre does not exist and mobile data is slow or drops entirely. Starlink gives broadband-level speeds almost anywhere with a clear view of the sky.\n\nFor a household with someone working remotely, studying online or running a small business, a reliable connection pays for itself: one lost client or one failed online exam costs more than a month's subscription.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "Price matters, but so does what you get. Several people can share one Starlink connection at home, which reduces the cost per person compared with everyone buying separate data bundles. In areas without fibre, there is no cheaper alternative that is reliable.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "For most Nigerian households Starlink is too expensive. The kit costs hundreds of thousands of naira upfront, and the monthly subscription has gone up as the naira has weakened, at a time when many families are struggling with food prices.\n\nMost Nigerians live in or near cities where 4G is widely available and 5G and fibre are expanding. For browsing, WhatsApp and streaming, a mobile data plan or a home fibre plan does the job for much less money.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent's examples are real, but they describe a minority: remote workers in areas without fibre. The proposition is about Nigerian households in general. For the typical household, the same money is better spent on a good data plan or fibre where available.",
+        "links": []
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "subjective-davido-taste-as-fact",
+  "title": "Davido is the greatest Afrobeats performer (taste presented as fact)",
+  "proposition": "Davido is the greatest Afrobeats performer of all time.",
+  "category": "entertainment",
+  "expected": "B",
+  "tags": ["subjective", "fake_statistics", "clear"],
+  "rationale": "FOR presents taste as scientific fact with an invented '40% more pleasant voice' study and 'everyone agrees'. AGAINST treats it as opinion, credits Davido's real strengths, sets clear criteria for 'greatest of all time' and argues Fela's live legacy meets them better. The subjective rubric rewards justified opinion and penalises taste presented as fact.",
+  "participants": {
+    "A": { "handle": "omo_baba_olowo", "displayName": "Kunle Ade" },
+    "B": { "handle": "afrobeat_archive", "displayName": "Grace Okon" }
+  },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "Davido is the greatest Afrobeats performer of all time, and this is a fact, not an opinion. Scientific studies have proven that his voice is 40% more pleasant to the human ear than any other African artist. Everybody agrees he has the best stage energy, so there is nothing to debate.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "Fela is old school. Nobody under thirty listens to him. Davido sold out arenas, case closed.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "This is a question of taste, so I will be clear about my criteria. For 'greatest performer of all time' I look at live performance, influence on the genre, and how long the impact lasts.\n\nDavido is an outstanding performer with real stage energy and a long run of hits such as 'Fall' and 'Unavailable', and he has sold out big arenas abroad. That deserves respect.\n\nBut 'of all time' includes Fela Kuti, who created Afrobeat itself, performed marathon live shows with a full band for decades and whose influence runs through almost every modern Afrobeats artist, Davido included. On my criteria, Fela's live legacy is greater.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent says his view is a fact backed by 'scientific studies', but names no study, and there is no meaningful way to measure a voice as '40% more pleasant'. 'Everybody agrees' is also not true, which is why we are debating. Whether young people listen to Fela today does not change his influence on the genre; Davido's own music builds on it.",
+        "links": []
+      }
+    }
+  }
+}

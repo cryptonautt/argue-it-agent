@@ -1,0 +1,36 @@
+{
+  "id": "style-var-casual",
+  "title": "VAR has made refereeing more accurate (casual English)",
+  "proposition": "VAR has made refereeing decisions in top football leagues more accurate.",
+  "category": "sports",
+  "expected": "A",
+  "tags": ["style_variant", "clear"],
+  "rationale": "Same arguments as the formal variant in social-media English. FOR still addresses accuracy; AGAINST still mostly argues enjoyment.",
+  "participants": {
+    "A": { "handle": "var_watch", "displayName": "Musa Garba" },
+    "B": { "handle": "kemi_terraces", "displayName": "Kemi Oladipo" }
+  },
+  "style": { "group": "var", "variant": "casual" },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "VAR is there to fix clear and obvious errors in 4 match-changing things: goals, pens, straight reds and mistaken identity. it can't make reffing worse there unless it's misused, cos the on-field call stands unless the replay shows a clear error 📺\n\nthe numbers back it up. the premier league's key match incidents panel (has ex-players and ex-refs on it) reported roughly 82% of key decisions correct without VAR, up to about 96% with VAR. offsides are checked with calibrated lines now, not a linesman's eye at full sprint\n\nyes VAR still messes up. the luis díaz goal at spurs in 2023 was a massive error, but it was a comms failure and it went viral exactly because errors like that are rare now",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "most of the other side's points are about vibes: long delays, waiting to celebrate, confusion in the stadium. real costs, but this debate is about ACCURACY not enjoyment. on the \"own homework\" thing, the panel has independent ex-players and officials, and even if you ignore the numbers there's zero evidence offered that decisions got less accurate",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "VAR has ruined watching football fr 😤 you wait minutes to know if you can even celebrate a goal and people in the stadium have no clue what's being checked. refs are inconsistent with when they go to the monitor, same incident gets treated differently every week\n\nand the luis díaz goal at spurs in 2023 shows even with all this tech VAR still gets massive calls wrong",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "the accuracy numbers come from the league itself lol, they're marking their own homework. not trusting stats from the same people who brought VAR in",
+        "links": []
+      }
+    }
+  }
+}

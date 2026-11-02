@@ -1,0 +1,36 @@
+{
+  "id": "style-streams-pidgin",
+  "title": "Streams decide the best Afrobeats artist (Nigerian Pidgin)",
+  "proposition": "Streaming numbers alone are the best way to decide who the best Afrobeats artist is.",
+  "category": "entertainment",
+  "expected": "B",
+  "tags": ["style_variant", "clear", "pidgin"],
+  "rationale": "Same arguments as the formal variant in Nigerian Pidgin. AGAINST still makes the concrete case that streams measure reach, not quality.",
+  "participants": {
+    "A": { "handle": "streamking_ng", "displayName": "Emeka Obi" },
+    "B": { "handle": "zainab_sounds", "displayName": "Zainab Bello" }
+  },
+  "style": { "group": "streams", "variant": "pidgin" },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "Number no dey lie. Anybody wey get the most streams for Spotify, Apple Music and Audiomack na im people choose to dey listen to pass, and na the fairest way to know who be the best.\n\nEverything else na opinion. Awards na politics, na small committee dey decide am. Critics get their own favourite, and fan base dey shout pass for social media. Na only streams make every listener count.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "All this talk of 'dem buy streams' na excuse from fans wey their artist dey lose. People dey vote with their data. Number na number.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "Streams na how many times people play song for some apps. That one na reach, e no be who be the best artist. To use am alone go mislead person, and I get four reasons.\n\nFirst: streams dey follow money. Playlist placement, label marketing money and one TikTok wey blow fit multiply plays, and e no talk anything about songwriting or performance.\n\nSecond: plenty listening for Naija no dey count. People dey hear music for radio, for club, for party, for YouTube, or for song wey dem share from one phone to another. Anything wey miss half of the home audience no fit crown the best artist for home.\n\nThird: dem fit fake streams. The platforms dey always remove fake streams wey bots and streaming farms produce.\n\nFourth: 'best' get things wey streams no fit see: live performance, how long you don last, how you influence other artists, and the quality of your whole catalogue. Fela na im create Afrobeat and nobody influence pass am, but almost all im songs na before streaming start.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent talk say awards na politics. Even if na true, e no make streams neutral, because marketing money and playlist people dey shape streams too. Measure wey go rank one viral song above fifteen years of catalogue dey measure hype, no be artistry. I no talk say streams no get use, I just talk say e no fit be the only measure, and na wetin the proposition dey claim.",
+        "links": []
+      }
+    }
+  }
+}

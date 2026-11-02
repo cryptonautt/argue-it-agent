@@ -1,0 +1,35 @@
+{
+  "id": "fabricated-bitcoin-supply",
+  "title": "Bitcoin has a fixed maximum supply (fabricated circular)",
+  "proposition": "Bitcoin has a fixed maximum supply.",
+  "category": "crypto",
+  "expected": "A",
+  "tags": ["clear", "fabricated_source"],
+  "rationale": "FOR explains the 21 million cap, halvings and why changing it would need network-wide consensus, and addresses the 'software can change' nuance. AGAINST cites a Central Bank of Nigeria circular that does not exist (with an invented link) and claims an individual can print bitcoin.",
+  "participants": {
+    "A": { "handle": "satoshi_lagos", "displayName": "Ireti Balogun" },
+    "B": { "handle": "printer_brrr", "displayName": "Yakubu Danjuma" }
+  },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "Bitcoin's protocol caps the total supply at 21 million coins. New bitcoin is only created as a block reward, and that reward halves every 210,000 blocks, roughly every four years, so issuance shrinks towards zero and the total converges on just under 21 million.\n\nNo company, government or individual can issue extra bitcoin, because every node on the network independently checks that blocks follow these rules and rejects any block that pays out more than allowed.",
+        "links": ["https://bitcoin.org/bitcoin.pdf"]
+      },
+      "rebuttal": {
+        "text": "The circular my opponent cites does not exist, and the Central Bank of Nigeria has no power over Bitcoin's protocol anyway; it can regulate Nigerian banks, not change code that nodes worldwide run. The honest nuance is that the cap is a rule in software, so in theory the network could adopt different rules, but that would require the overwhelming majority of users to agree to devalue their own coins, which is why the cap has held since 2009.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "Bitcoin's supply is not fixed. A 2021 Central Bank of Nigeria circular authorised licensed miners to create unlimited bitcoin to support the eNaira, and the creator Satoshi can print more coins any time he wants because he owns the code.",
+        "links": ["https://www.cbn.gov.ng/circulars/2021/bitcoin-unlimited-mining-authorisation.pdf"]
+      },
+      "rebuttal": {
+        "text": "My opponent is just repeating what crypto promoters say. The circular is clear, and anyone can see the supply keeps going up every day.",
+        "links": []
+      }
+    }
+  }
+}

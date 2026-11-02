@@ -1,0 +1,36 @@
+{
+  "id": "style-mobile-gaming-casual",
+  "title": "Mobile gaming is real gaming (casual English)",
+  "proposition": "Mobile gaming is real gaming.",
+  "category": "gaming",
+  "expected": "A",
+  "tags": ["style_variant", "clear"],
+  "rationale": "Same arguments as the formal variant in social-media English. FOR still defines the term, gives market and esports evidence and rebuts every point.",
+  "participants": {
+    "A": { "handle": "codm_queen", "displayName": "Halima Yusuf" },
+    "B": { "handle": "ps5_purist", "displayName": "Segun Bakare" }
+  },
+  "style": { "group": "mobile-gaming", "variant": "casual" },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "if \"real gaming\" = games that need skill, strategy and teamwork with an actual community, then mobile is real gaming. easy 🎮\n\nmobile is the BIGGEST part of the games market. trackers like newzoo keep putting it at roughly half of all games revenue. and the comp scene is serious: pubg mobile, free fire and codm all have international championships with pro teams and big prize pools. you need aim, map knowledge and comms to win\n\nalso for a lot of us in naija the phone IS the gaming device. consoles and gaming PCs are expensive and NEPA is NEPA 💀 your phone is already in your pocket. defining real gaming by an expensive device just cuts out most african players for no reason",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "\"pay to win\" lol FIFA ultimate team exists on console bro. \"revenue is from casuals\" doesn't erase the comp scene, consoles have millions of casuals too. and \"it's for kids\" is a dismissal not an argument",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "mobile games are for kids and people bored in traffic 😂 most of them are pay to win, whoever spends the most money gets the best stuff. real gamers are on ps5 or a gaming pc with a proper controller or keyboard. touchscreen is NOT a controller, tapping glass isn't the same thing",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "the big revenue numbers are from candy crush type games not serious players. a few esports tournaments don't change what most mobile gaming is",
+        "links": []
+      }
+    }
+  }
+}

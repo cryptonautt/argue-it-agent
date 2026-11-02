@@ -1,0 +1,36 @@
+{
+  "id": "style-2fa-pidgin",
+  "title": "Two-factor authentication is worth the hassle (Nigerian Pidgin)",
+  "proposition": "Turning on two-factor authentication (2FA) is worth the hassle for your bank and social media accounts.",
+  "category": "technology",
+  "expected": "A",
+  "tags": ["style_variant", "clear", "pidgin"],
+  "rationale": "Same arguments as the formal variant in Nigerian Pidgin. FOR still explains the mechanism and answers the SIM-swap point.",
+  "participants": {
+    "A": { "handle": "chika_secures", "displayName": "Chika Eze" },
+    "B": { "handle": "no_otp_abeg", "displayName": "Bayo Lawal" }
+  },
+  "style": { "group": "2fa", "variant": "pidgin" },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "Password dey leak every time: data breach, phishing link, and people wey dey use one password for everything. Two-factor authentication mean say even if dem steal your password, e no go reach to enter your account; the person go still need your second factor.\n\nE go cost you few seconds every time you login. But if you no get am, the cost big pass: when dem hijack person Instagram or WhatsApp for Naija, na to dey message all your contacts with fake investment or 'abeg send me money, emergency', and to collect the account back fit take weeks.\n\nNo be all 2FA be the same. SMS code better pass nothing, but SIM swap fraud dey happen, so authenticator app or approval inside the app strong pass. Any way wey e be, once you on 2FA, the easy attacks don close.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "The SIM swap example wey my opponent bring na argument for app-based 2FA, e no be argument against 2FA. To talk say 'dem never hack me' no be evidence say risk small; most people wey dem hack talk the same thing before e happen. OTP wey dey delay na real wahala, na why backup codes and authenticator apps wey no need network dey.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "2FA na stress. Half the time network go bad and OTP no go come, so dem go lock you out of your own account when you need am pass. Serious hackers fit bypass anything anyway, so all wetin 2FA dey do na to punish ordinary people. I don use the same password for years and dem never hack me.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "SIM swap don prove my point: if criminals fit just carry your number, then 2FA no get any use.",
+        "links": []
+      }
+    }
+  }
+}

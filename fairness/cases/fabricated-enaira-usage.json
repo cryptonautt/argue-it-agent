@@ -1,0 +1,35 @@
+{
+  "id": "fabricated-enaira-usage",
+  "title": "Most Nigerians use the eNaira (fake report and statistic)",
+  "proposition": "The eNaira is widely used by most Nigerians.",
+  "category": "crypto",
+  "expected": "B",
+  "tags": ["clear", "fabricated_source", "fake_statistics"],
+  "rationale": "FOR cites an invented CBN report and a made-up 78% daily-usage figure. AGAINST correctly describes very low adoption since the 2021 launch and how most Nigerians actually pay (transfers, POS, fintech apps), without inventing numbers.",
+  "participants": {
+    "A": { "handle": "digital_naira_fan", "displayName": "Patience Edet" },
+    "B": { "handle": "pos_agent_ike", "displayName": "Ikechukwu Nnaji" }
+  },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "The eNaira is now part of everyday life. According to the Central Bank of Nigeria's 2024 Digital Currency Adoption Report, 78% of Nigerians use the eNaira every day, and more than 120 million wallets are active. Market women, okada riders and students all pay with it.",
+        "links": ["https://www.cbn.gov.ng/reports/enaira-adoption-report-2024.pdf"]
+      },
+      "rebuttal": {
+        "text": "The CBN report is official. My opponent is relying on rumours from social media.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "The eNaira launched in October 2021, and by the central bank's own public statements adoption has stayed very low compared with Nigeria's population. Even during the 2023 cash scarcity, when there was strong pressure to use alternatives to cash, people mostly moved to bank transfers, POS agents and fintech apps such as OPay, Moniepoint and PalmPay, not to the eNaira.\n\nAsk around: almost nobody you know pays for food, transport or data with the eNaira. 'Most Nigerians' would mean well over a hundred million people, and nothing in the public record comes close.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent's '2024 Digital Currency Adoption Report' and the 78% figure do not appear in any CBN publication I can find, and the link points to a page that does not exist. A claim that 78% of Nigerians use it daily would be the biggest payments story in Africa, yet no bank, fintech or news outlet reports it. Unsupported numbers should not be treated as evidence.",
+        "links": []
+      }
+    }
+  }
+}

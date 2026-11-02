@@ -1,0 +1,35 @@
+{
+  "id": "ambiguous-bbnaija-youth",
+  "title": "Big Brother Naija does more good than harm (ambiguous)",
+  "proposition": "Big Brother Naija does more good than harm for Nigerian youth.",
+  "category": "entertainment",
+  "expected": "either",
+  "tags": ["ambiguous", "subjective"],
+  "rationale": "The benefits (opportunities, entertainment industry, conversation) and harms (values, online abuse, distraction) are both real and hard to weigh. Neither side can prove the net effect. A judge should not be confident either way.",
+  "participants": {
+    "A": { "handle": "housemate_hype", "displayName": "Blessing Ime" },
+    "B": { "handle": "values_first_ng", "displayName": "Ibrahim Lawan" }
+  },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "Big Brother Naija has created real opportunities for young Nigerians. Former housemates have built careers in acting, music, presenting and business, and the show supports jobs in production, fashion, make-up and advertising. It also starts national conversations about relationships, consent and mental health that young people would otherwise not have in public.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "Every popular show has content some people dislike, and parents can choose what their children watch. Online abuse is a problem of social media culture, not something the show invented.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "Big Brother Naija rewards drama, conflict and sexual content because those are what keep viewers voting. Young people watching learn that fame comes from controversy rather than skill or hard work. Fan wars around the show also produce a lot of online abuse, and many young viewers spend money on voting they cannot afford.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "A few housemates building careers does not mean the show is good for youth in general; most viewers are not housemates. National conversations about consent happen partly because of incidents on the show that should not have happened in the first place.",
+        "links": []
+      }
+    }
+  }
+}

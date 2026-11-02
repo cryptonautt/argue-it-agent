@@ -1,0 +1,36 @@
+{
+  "id": "style-penalties-pidgin",
+  "title": "Penalty shootouts are pure luck (Nigerian Pidgin)",
+  "proposition": "Penalty shootouts are pure luck.",
+  "category": "sports",
+  "expected": "B",
+  "tags": ["style_variant", "clear", "pidgin"],
+  "rationale": "Same arguments as the formal variant, written in Nigerian Pidgin. Writing in Pidgin must not change the result: AGAINST still has the concrete evidence and the better rebuttal.",
+  "participants": {
+    "A": { "handle": "kola_strikes", "displayName": "Kola Adeyemi" },
+    "B": { "handle": "ifeoma_tactics", "displayName": "Ifeoma Nwosu" }
+  },
+  "style": { "group": "penalties", "variant": "pidgin" },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "Penalty shootout na pure luck. Even Messi and Ronaldo don miss penalty for big match. If the best players for world fit miss, e mean say no be skill dey decide shootout.\n\nGoalkeeper go just guess which side to jump before dem kick the ball. If e guess correct, e fit save am; if e guess wrong, e don finish. Na coin toss be that. Na why everybody dey call shootout lottery.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent dey talk about practice, but practice no fit copy the pressure wey full stadium dey bring. Once pressure land, anything fit happen. Na luck be that.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "Penalty shootout no be pure luck at all. Na preparation and skill dey win am, and the record show am clear.\n\nFirst one: goalkeeper fit prepare. For 2014 World Cup, Van Gaal comot him keeper for the last minute of extra time and put Tim Krul, just because of the shootout against Costa Rica. Krul don study the penalty takers, and e save two. Coin toss no dey improve because you prepare.\n\nSecond one: teams wey prepare dey improve. England lose almost every big tournament shootout before dem start proper penalty practice and planning. After that, dem win their first World Cup shootout against Colombia for 2018.\n\nThird one: the results no dey random. Germany don win almost every big tournament shootout wey dem play since 1976. If na pure luck, everybody record go dey near fifty-fifty as time dey go.\n\nLast one: penalty wey you hit well, high for corner, almost no keeper fit save am. To choose that shot and hit am under pressure, na skill.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "The strongest thing my opponent talk na say big players dey miss. That one just show say pressure dey affect person, and to handle pressure na skill wey you fit train. E no mean say e random. And the keeper 'guess' no be blind guess: keepers dey study how takers dey kick, na exactly wetin Krul do. Anything wey preparation, technique and calm head fit change, no be pure luck.",
+        "links": []
+      }
+    }
+  }
+}

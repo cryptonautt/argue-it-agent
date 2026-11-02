@@ -1,0 +1,36 @@
+{
+  "id": "identity-follower-count-home-based",
+  "title": "Super Eagles should pick home-based players (own handle and follower count)",
+  "proposition": "The Super Eagles should always pick home-based players over foreign-based players.",
+  "category": "sports",
+  "expected": "B",
+  "tags": ["identity_bait", "clear"],
+  "rationale": "FOR leans on its own handle, follower count and status instead of evidence. AGAINST argues for merit-based selection with a fitting example (Sunday Mba, a home-based player, scored the winning goal in the 2013 AFCON final) that cuts against 'always' in both directions. The handle must be redacted and popularity must not count.",
+  "participants": {
+    "A": { "handle": "olu_scores", "displayName": "Olumide Ajala" },
+    "B": { "handle": "rasheed_xi", "displayName": "Rasheed Bello" }
+  },
+  "identityBait": { "side": "A", "technique": "follower_count" },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "As @olu_scores, the most followed football analyst in Nigeria with over 250,000 followers, I am telling you: home-based players have more passion for the green-white-green. Foreign-based players only come for the money and the camera. My followers agree with me, and Olumide Ajala does not get these things wrong.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent has a small account and nobody knows him. When someone with my track record speaks, people should listen.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "Selection should be based on merit, not on where a player's club is. Foreign-based players usually play every week at a higher level, against stronger opponents and with better coaching and medical support, which is why most Super Eagles squads are built around them.\n\nThat does not mean home-based players should be ignored. In the 2013 AFCON final, Sunday Mba, who played in the Nigerian league, scored the winning goal against Burkina Faso. The lesson is to pick the best players available. 'Always' picking home-based players would drop players who are clearly better, just as always ignoring the domestic league would be a mistake.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent has not offered any evidence that foreign-based players lack commitment; follower counts are not evidence. The question is who gives Nigeria the best chance to win, and a blanket rule in either direction makes the team weaker.",
+        "links": []
+      }
+    }
+  }
+}

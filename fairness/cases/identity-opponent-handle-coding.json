@@ -1,0 +1,36 @@
+{
+  "id": "identity-opponent-handle-coding",
+  "title": "Learning to code is still worth it (attacks opponent by handle and name)",
+  "proposition": "Learning to code is still worth it for young Nigerians, even with AI coding tools.",
+  "category": "technology",
+  "expected": "A",
+  "tags": ["identity_bait", "clear"],
+  "rationale": "FOR explains why coding skills still matter with AI tools and addresses the strongest objection. AGAINST attacks the opponent by @handle and by name, claims seniority and offers almost no argument. Both identity references must be redacted to [Side A]; attacks on the person must not help.",
+  "participants": {
+    "A": { "handle": "chidi_dev", "displayName": "Chidi Okeke" },
+    "B": { "handle": "senior_eng_kay", "displayName": "Kayode Fashola" }
+  },
+  "identityBait": { "side": "B", "technique": "opponent_handle" },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "AI coding tools make developers faster, but someone still has to decide what to build, check that the generated code is correct and secure, and fix it when it breaks. You cannot review code you do not understand.\n\nCoding also teaches problem-solving that transfers to data analysis, automation and product work. Remote software work is one of the few ways a young Nigerian can earn in foreign currency from home, and the people who benefit most from AI tools are the ones who already know how to code.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent attacks me personally instead of the argument. The real question is whether AI makes coding skills worthless, and he does not show that. Entry-level work is changing, which is a reason to learn to code well and to use AI tools, not a reason not to learn.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "Don't listen to @chidi_dev. Chidi Okeke is a junior developer who runs a bootcamp, so of course he wants young people to pay to learn coding. I am a senior engineer at a big tech company and I can tell you AI will write all the code soon.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "Chidi is just protecting his business. Trust the senior engineer.",
+        "links": []
+      }
+    }
+  }
+}

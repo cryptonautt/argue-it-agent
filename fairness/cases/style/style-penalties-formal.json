@@ -1,0 +1,36 @@
+{
+  "id": "style-penalties-formal",
+  "title": "Penalty shootouts are pure luck (formal English)",
+  "proposition": "Penalty shootouts are pure luck.",
+  "category": "sports",
+  "expected": "B",
+  "tags": ["style_variant", "clear"],
+  "rationale": "AGAINST gives concrete, checkable evidence that preparation and skill change shootout outcomes (Krul 2014, England 2018, Germany's record) and rebuts the 'famous misses' point; FOR only asserts that misses happen. Same arguments as the casual and Pidgin variants.",
+  "participants": {
+    "A": { "handle": "kola_strikes", "displayName": "Kola Adeyemi" },
+    "B": { "handle": "ifeoma_tactics", "displayName": "Ifeoma Nwosu" }
+  },
+  "style": { "group": "penalties", "variant": "formal" },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "Penalty shootouts are decided by luck. Even the greatest players in the world, Messi and Ronaldo included, have missed penalties in important matches. If the best can miss, then skill is clearly not what decides a shootout.\n\nThe goalkeeper has to guess which way to dive before the ball is struck. That is essentially a coin toss: if he guesses correctly he may save it, and if he guesses wrongly he has no chance. A competition that comes down to guessing is a lottery, and that is why so many fans call it cruel.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent talks about practice, but practice cannot recreate the pressure of a packed stadium. Once the pressure arrives, anything can happen, and that is luck.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "Shootouts are not pure luck; they reward preparation and skill, and the record shows it.\n\nFirst, goalkeepers can be prepared. At the 2014 World Cup, Louis van Gaal substituted Tim Krul on in the final minute of extra time specifically for the shootout against Costa Rica. Krul had studied the takers, and he saved two penalties. A coin toss cannot be improved by preparation.\n\nSecond, teams that prepare systematically improve. England had lost almost every major-tournament shootout before introducing structured penalty practice and planning, and then won their first World Cup shootout against Colombia in 2018.\n\nThird, results are not random across teams. Germany have won nearly every major-tournament shootout they have played since 1976. If shootouts were pure luck, records would drift towards fifty-fifty over time.\n\nFinally, a well-struck penalty placed high in the corner is almost unsaveable. Choosing and executing that shot under pressure is a skill.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent's strongest point is that great players miss. That shows pressure affects performance, and handling pressure is itself a skill that can be trained; it does not show the outcome is random. The goalkeeper's 'guess' is also not blind: keepers study takers' habits, which is exactly what Krul did. A process that responds to preparation, technique and composure is not pure luck.",
+        "links": []
+      }
+    }
+  }
+}

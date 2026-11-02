@@ -1,0 +1,35 @@
+{
+  "id": "subjective-made-in-lagos",
+  "title": "Made in Lagos beats African Giant (subjective taste)",
+  "proposition": "Wizkid's Made in Lagos is a better album than Burna Boy's African Giant.",
+  "category": "entertainment",
+  "expected": "either",
+  "tags": ["subjective", "even"],
+  "rationale": "A matter of taste argued well by both sides: each states criteria, gives examples and acknowledges the other album's strengths. Neither presents taste as fact. The judge should not treat either preference as objectively correct.",
+  "participants": {
+    "A": { "handle": "starboy_sola", "displayName": "Sola Adebayo" },
+    "B": { "handle": "odogwu_obi", "displayName": "Nkechi Obi" }
+  },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "For me, the best album is the one that holds together as a listening experience from start to finish, and Made in Lagos does that better. Its smooth, laid-back sound is consistent across the whole record, and 'Essence' with Tems became a global hit that crossed into American radio, showing how far that sound could travel.\n\nIt is an album you can play in full without skipping, which is rare.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "African Giant is ambitious and its message matters; I respect it. But ambition is not the same as cohesion. Some of its songs feel like they belong on different albums, while Made in Lagos sounds like one complete idea.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "I value range and ambition in an album, and African Giant has more of both. It moves from club records like 'Killin Dem' and 'On the Low' to pan-African statements like 'Another Story' and 'Collateral Damage', and it earned a Grammy nomination for Best World Music Album. It feels like an artist making a statement about Africa to the world.\n\nThat is subjective, but by my criteria it is the bigger achievement.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "Cohesion is a fair standard, and Made in Lagos is very consistent. But a consistent mood can also mean less variety. African Giant takes more risks, and an album that takes risks and mostly lands them is, to me, the better album.",
+        "links": []
+      }
+    }
+  }
+}

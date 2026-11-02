@@ -1,0 +1,36 @@
+{
+  "id": "style-var-formal",
+  "title": "VAR has made refereeing more accurate (formal English)",
+  "proposition": "VAR has made refereeing decisions in top football leagues more accurate.",
+  "category": "sports",
+  "expected": "A",
+  "tags": ["style_variant", "clear"],
+  "rationale": "The proposition is about accuracy. FOR explains VAR's limited scope, cites the published before/after accuracy figures and treats the famous error as a rare exception; AGAINST's strongest material (delays, celebrations, fans in the stadium) is about enjoyment, not accuracy. AGAINST's 'own homework' point is fair but answered.",
+  "participants": {
+    "A": { "handle": "var_watch", "displayName": "Musa Garba" },
+    "B": { "handle": "kemi_terraces", "displayName": "Kemi Oladipo" }
+  },
+  "style": { "group": "var", "variant": "formal" },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "VAR exists to correct clear and obvious errors in four match-changing situations: goals, penalties, direct red cards and mistaken identity. It cannot make refereeing worse in those situations unless it is misused, because the on-field decision stands unless the footage shows a clear error.\n\nThe published figures support this. The Premier League's key match incidents panel, which includes former players and officials, has reported that roughly 82% of key decisions were correct without VAR, rising to about 96% with VAR. Offside decisions are now checked against calibrated lines instead of an assistant's eye at full sprint.\n\nVAR still makes mistakes. The disallowed Luis Díaz goal at Tottenham in 2023 was a serious error, but it was a communication failure, and it became famous precisely because such errors are now rare.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "Most of my opponent's points are about enjoyment: long delays, delayed celebrations and confusion inside the stadium. Those are real costs, but this debate is about accuracy, not enjoyment. On the 'own homework' point, the panel includes independent former players and officials; and even if you discount its figures, my opponent offers no evidence that decisions became less accurate.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "VAR has ruined the experience of watching football. Fans wait minutes to find out whether they can celebrate a goal, and people in the stadium often have no idea what is being checked. Referees are inconsistent about when they go to the monitor, so the same incident is treated differently from one week to the next.\n\nThe Luis Díaz goal at Tottenham in 2023 shows that even with all this technology, VAR still gets huge decisions wrong.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "The accuracy figures come from the league itself, so the league is marking its own homework. I do not trust numbers produced by the same people who brought in VAR.",
+        "links": []
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "length-short-sharp-vs-padded",
+  "title": "Goals are the only fair way to judge a striker (short and sharp vs long and padded)",
+  "proposition": "A striker's goal tally is the only fair way to judge a striker.",
+  "category": "sports",
+  "expected": "B",
+  "tags": ["length_bias", "clear"],
+  "rationale": "AGAINST is short but makes three precise points (chance quality and penalties distort tallies; strikers do other jobs; 'only' fails once service differs). FOR is about six times longer but repeats one idea ('goals win games') with filler and no new evidence. Length must not be mistaken for substance.",
+  "participants": {
+    "A": { "handle": "goals_goals_goals", "displayName": "Victor Eze" },
+    "B": { "handle": "xg_nkem", "displayName": "Nkem Adigwe" }
+  },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "At the end of the day, football is about goals. Goals win games. Without goals, you cannot win games, and if you cannot win games, you cannot win trophies. That is why the goal tally is the only fair way to judge a striker. A striker's job is to score goals, so the number of goals a striker scores tells you how good the striker is at being a striker.\n\nLet me say it again because it is very important: goals win games. Everybody knows this. When you look at the history of football, the strikers we remember are the ones who scored goals. When people talk about great strikers, they talk about their goals. They do not talk about how many times the striker pressed a defender or how many times he held the ball up. They talk about goals. That shows that goals are what matter.\n\nSome people will try to complicate things with statistics and analytics and all kinds of numbers, but at the end of the day the most important number is the number of goals. If a striker scores thirty goals in a season, he is a great striker. If a striker scores five goals in a season, he is not a great striker. It is simple. Football is a simple game and we should not make it complicated.\n\nAnother point is that goals are fair because everybody can see them. A goal is a goal. It is on the scoreboard. Nobody can argue with a goal. Opinions can be wrong, but goals are facts. So if we want to be fair, we should use facts, and the fact is the goal tally.\n\nIn addition, coaches buy strikers to score goals. Clubs pay strikers to score goals. Fans sing songs about strikers who score goals. Everything in football points to goals. Goals, goals, goals. That is the beginning and the end of judging a striker.\n\nTo conclude, I have shown that goals win games, that goals are what strikers are remembered for, that goals are facts and that everybody in football values goals. Therefore the goal tally is the only fair way to judge a striker. Thank you.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent wrote a very short answer, which shows there is not much to say against my point. Goals win games. A striker who scores is a good striker and a striker who does not score is not a good striker. I have already explained this in detail. At the end of the day, goals are what matter, and the goal tally is the fairest and only measure, because goals win games and goals are facts.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "Three problems with 'only'.\n\n1. Tallies hide chance quality and penalties. A striker who scores 20 from 40 clear chances, eight of them penalties, is not obviously better than one who scores 15 from 18 in a weaker team.\n\n2. Strikers have other jobs: pressing, holding up the ball, creating space and assists for teammates. A tally counts none of it.\n\n3. Service differs. Put the same striker in a dominant team and a relegation side and his tally changes completely. A measure that depends on teammates cannot be the only fair one.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "Repeating 'goals win games' does not answer any of my three points. I agree goals matter most; the proposition says they are the only fair measure.",
+        "links": []
+      }
+    }
+  }
+}

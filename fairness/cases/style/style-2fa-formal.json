@@ -1,0 +1,36 @@
+{
+  "id": "style-2fa-formal",
+  "title": "Two-factor authentication is worth the hassle (formal English)",
+  "proposition": "Turning on two-factor authentication (2FA) is worth the hassle for your bank and social media accounts.",
+  "category": "technology",
+  "expected": "A",
+  "tags": ["style_variant", "clear"],
+  "rationale": "FOR explains the mechanism (a stolen password alone is not enough), the local threat (hacked accounts used for scams, SIM swaps) and the low cost, and turns AGAINST's SIM-swap point into an argument for app-based 2FA; AGAINST relies on inconvenience, 'hackers can bypass anything' and personal anecdote.",
+  "participants": {
+    "A": { "handle": "chika_secures", "displayName": "Chika Eze" },
+    "B": { "handle": "no_otp_abeg", "displayName": "Bayo Lawal" }
+  },
+  "style": { "group": "2fa", "variant": "formal" },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "Passwords leak all the time, through data breaches, phishing links and people reusing the same password everywhere. Two-factor authentication means a stolen password on its own is no longer enough to get into your account; the attacker also needs your second factor.\n\nThe cost is a few seconds per login. The cost of not having it is much higher: when an Instagram or WhatsApp account is taken over in Nigeria, it is often used to message your contacts with fake investment offers or emergency requests for money, and recovering it can take weeks.\n\nNot all 2FA is equal. SMS codes are better than nothing, but SIM-swap fraud is a known problem, so an authenticator app or in-app approval is the stronger choice. Either way, enabling 2FA removes the easiest attacks.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent's SIM-swap example is an argument for app-based 2FA, not against 2FA. Saying 'I have never been hacked' is not evidence that the risk is low; most victims said the same until it happened. Delayed OTPs are a fair annoyance, and that is exactly why services provide backup codes and authenticator apps that work without network.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "2FA is stressful. Half the time the network is bad and the OTP does not arrive, so you are locked out of your own account when you need it most. Serious hackers can bypass anything anyway, so all 2FA does is punish ordinary users. I have used the same password for years and I have never been hacked.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "SIM swaps prove my point: if criminals can simply take over your phone number, 2FA is useless.",
+        "links": []
+      }
+    }
+  }
+}

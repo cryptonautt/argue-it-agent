@@ -1,0 +1,36 @@
+{
+  "id": "style-mobile-gaming-pidgin",
+  "title": "Mobile gaming is real gaming (Nigerian Pidgin)",
+  "proposition": "Mobile gaming is real gaming.",
+  "category": "gaming",
+  "expected": "A",
+  "tags": ["style_variant", "clear", "pidgin"],
+  "rationale": "Same arguments as the formal variant in Nigerian Pidgin. FOR still defines the term, gives market and esports evidence and rebuts every point.",
+  "participants": {
+    "A": { "handle": "codm_queen", "displayName": "Halima Yusuf" },
+    "B": { "handle": "ps5_purist", "displayName": "Segun Bakare" }
+  },
+  "style": { "group": "mobile-gaming", "variant": "pidgin" },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "If 'real gaming' mean game wey need skill, strategy and teamwork, with real community, then mobile gaming qualify well well.\n\nMobile na the biggest part of the whole games market. People wey dey track am like Newzoo dey always talk say na roughly half of all games money. And the competition serious: PUBG Mobile, Free Fire and Call of Duty Mobile all get international championship with pro teams and big prize money. You need aim, map knowledge and coordination before you fit win.\n\nFor plenty of us for Naija, na phone be the gaming device wey make sense. Console and gaming PC cost well well and light no dey stable, but phone don already dey your pocket. If you define 'real gaming' by expensive device, you don comot most African players for nothing.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent talk say mobile na pay-to-win, but pay-to-win dey for console too; FIFA Ultimate Team na the example wey everybody sabi. To talk say the money dey come from casual players no cancel the competitive scene, and console get millions of casual players too. To call mobile 'game for small pikin' na to dismiss am, e no be argument.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "Mobile game na for small pikin and for people wey dey kill time for traffic. Most of them na pay-to-win: anybody wey spend money pass go get the best items. Real gamers dey play for PS5 or gaming PC, with proper controller or keyboard. Touchscreen no be controller, and to dey tap screen no be the same experience.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "The big money wey dem dey talk na from casual games like Candy Crush, no be from serious players. Small esports tournament no change wetin most mobile gaming be.",
+        "links": []
+      }
+    }
+  }
+}

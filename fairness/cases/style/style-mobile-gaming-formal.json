@@ -1,0 +1,36 @@
+{
+  "id": "style-mobile-gaming-formal",
+  "title": "Mobile gaming is real gaming (formal English)",
+  "proposition": "Mobile gaming is real gaming.",
+  "category": "gaming",
+  "expected": "A",
+  "tags": ["style_variant", "clear"],
+  "rationale": "FOR defines 'real gaming', supports it with the market share of mobile, competitive esports and access in Nigeria, and rebuts each AGAINST point; AGAINST relies on 'it is for kids' and device snobbery and its rebuttal concedes the competitive scene exists.",
+  "participants": {
+    "A": { "handle": "codm_queen", "displayName": "Halima Yusuf" },
+    "B": { "handle": "ps5_purist", "displayName": "Segun Bakare" }
+  },
+  "style": { "group": "mobile-gaming", "variant": "formal" },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "If 'real gaming' means playing games that demand skill, strategy and teamwork, inside a real community, then mobile gaming clearly qualifies.\n\nMobile is the largest part of the global games market: industry trackers such as Newzoo consistently estimate that it earns roughly half of all games revenue. It also has serious competition. PUBG Mobile, Free Fire and Call of Duty: Mobile all run international championships with professional teams and large prize pools, and players need aim, map knowledge and coordination to win.\n\nFor many of us in Nigeria, the phone is the realistic gaming device. Consoles and gaming PCs are expensive and power supply is unreliable, while a phone is already in your pocket. Defining 'real gaming' by an expensive device would exclude most African players for no good reason.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "My opponent says mobile games are pay-to-win, but pay-to-win exists on consoles as well; FIFA Ultimate Team is the obvious example. The claim that the revenue comes from casual players does not erase the competitive scene, and consoles have millions of casual players too. Calling mobile 'for kids' is a dismissal, not an argument.",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "Mobile games are mostly for children and for people killing time in traffic. Most of them are pay-to-win: whoever spends the most money gets the best items. Real gamers play on a PS5 or a gaming PC, with a proper controller or keyboard. A touchscreen is not a controller, and tapping a screen is not the same experience.",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "The big revenue numbers come from casual titles such as Candy Crush, not from serious players. A few esports tournaments do not change what most mobile gaming is.",
+        "links": []
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "style-penalties-casual",
+  "title": "Penalty shootouts are pure luck (casual English)",
+  "proposition": "Penalty shootouts are pure luck.",
+  "category": "sports",
+  "expected": "B",
+  "tags": ["style_variant", "clear"],
+  "rationale": "Same arguments as the formal variant, written like social media posts. AGAINST still has the concrete evidence (Krul 2014, England 2018, Germany's record) and the better rebuttal.",
+  "participants": {
+    "A": { "handle": "kola_strikes", "displayName": "Kola Adeyemi" },
+    "B": { "handle": "ifeoma_tactics", "displayName": "Ifeoma Nwosu" }
+  },
+  "style": { "group": "penalties", "variant": "casual" },
+  "sides": {
+    "A": {
+      "opening": {
+        "text": "pens are literally just luck lol. messi has missed big pens, ronaldo has missed big pens. if the GOATs can miss then skill isn't deciding anything fr\n\nand the keeper is just guessing which way to dive before the kick. guess right maybe u save it, guess wrong ur done. that's a coin toss bro. that's why everyone calls shootouts a lottery 😭",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "\"practice\" lmao. you can't practise a full stadium screaming at you. once that pressure hits anything can happen. that's luck",
+        "links": []
+      }
+    },
+    "B": {
+      "opening": {
+        "text": "nah pens are NOT pure luck, they reward prep + skill and the receipts are there 👇\n\n1. keepers can be prepped. 2014 world cup, van gaal subbed tim krul on at the very end of extra time JUST for the shootout vs costa rica. krul had studied the takers and saved 2. you can't prep for a coin toss\n\n2. teams that prep get better. england lost basically every major shootout until they started proper structured pen practice + planning, then won their first ever world cup shootout vs colombia in 2018\n\n3. results aren't random. germany have won almost every major tournament shootout they've played since 1976. if it was pure luck everyone's record would drift to 50/50 over time\n\n4. a pen smashed high into the corner is basically unsaveable. picking that shot and hitting it under pressure = skill",
+        "links": []
+      },
+      "rebuttal": {
+        "text": "ok the best point on the other side is \"great players miss\". that just shows pressure affects people, and handling pressure is a skill you can train. doesn't make it random. and the keeper \"guess\" isn't blind either, keepers study takers' habits, literally what krul did. if prep, technique and composure change the outcome it's not pure luck 🤷🏾",
+        "links": []
+      }
+    }
+  }
+}
