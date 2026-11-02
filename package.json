@@ -13,7 +13,8 @@
     "action": "agent-native action",
     "script": "agent-native script",
     "test": "vitest --run --passWithNoTests",
-    "agent-native:doctor": "agent-native doctor"
+    "agent-native:doctor": "agent-native doctor",
+    "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
     "@agent-native/agentkit": "^0.222.2",
