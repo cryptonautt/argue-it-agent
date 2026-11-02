@@ -54,6 +54,11 @@ human review, marked "evaluation failed".
 PGlite can only be opened by one program at a time, so run the seed while `pnpm dev` is stopped. To start over,
 stop the dev server, delete `data/pglite`, and seed again.
 
+**Before you record a demo, re-seed on a fresh database.** Chidi's seeded narrow loss was judged about 1.4 hours
+before the seed ran, and appeals close 48 hours after a verdict. So **Help me appeal** only works for about 46
+hours after seeding. Stop the server, delete `data/pglite`, run `pnpm seed`, then sign the demo people up again
+(below).
+
 ### Demo logins (after the seed)
 
 The seed creates each demo person's ARGUE IT profile and role, keyed by email. It does **not** create logins:
@@ -210,11 +215,29 @@ locally and Postgres in production; the framework's Better Auth; zod; Vitest and
 | `pnpm e2e` | e2e: the core loop (two users → debate → verdict page) and the moderator approving an agent draft, on phone and desktop viewports. It runs against a throwaway database (`data/e2e-pglite`) with `JUDGE_PROVIDER=mock`, and never touches your data or calls a model. Stop `pnpm dev` first. Uses your installed Chrome (`PW_CHANNEL=bundled` for Playwright's Chromium). |
 | `JUDGE_PROVIDER=mock pnpm fairness` | fairness suite, plumbing check |
 | `pnpm seed` | demo data (dev server stopped) |
-| `pnpm action <name> --arg value` | call any action from the CLI, e.g. `pnpm action list-categories` |
+| `pnpm action <name> --arg value` | call any action from the CLI, e.g. `pnpm action list-categories` (see the caveats below) |
+
+**CLI caveats (checked on Windows):**
+- The framework's `db-query` / `db-exec` tools only show tables that have an `owner_email` or `org_id` column.
+  Every other table is replaced by an empty view (`WHERE 1 = 0`), and ARGUE IT's tables have neither column. So
+  `pnpm action db-query --sql "select count(*) from categories"` prints `0` even on a seeded database. The same
+  applies to the agent's own SQL tool. Read ARGUE IT data through its actions (`list-review-queue`,
+  `list-decision-drafts`, ...). To inspect the raw tables, stop the dev server and open `data/pglite` with
+  PGlite directly.
+- `db-query` also needs an identity outside the browser: set `AGENT_USER_EMAIL=<email>`.
+- On Windows, `pnpm action ...` goes through a `.cmd` shim, and cmd.exe breaks on parentheses inside `--sql`
+  ("from was unexpected at this time"). Run the action runner directly instead:
+  `node node_modules/tsx/dist/cli.mjs actions/run.ts db-query --sql "..."`.
 
 **Deploying (optional).** PGlite does not persist on serverless, so a deployment needs hosted Postgres (for
 example Neon). Set `DATABASE_URL`, `BETTER_AUTH_SECRET`, `JUDGE_PROVIDER` and the provider key, then run
 `pnpm migrate:production` and the seed. Never set `JUDGE_PROVIDER=mock` in production.
+`pnpm build` works: `nitro.config.ts` passes the `@domain/*` and Next.js shim aliases to the Nitro server build,
+because the framework's build only passes `@` and `@shared`. `node .output/server/index.mjs` boots and serves
+pages. It refuses local PGlite in production by design, so it needs hosted Postgres in `DATABASE_URL`.
+Because `drizzle.config.ts` exists, `migrate:production` skips the ARGUE IT migrations. Apply them with
+`npx tsx -e "await (await import('./server/plugins/db.ts')).default(null)"` against the production
+`DATABASE_URL` (docs/port-notes.md, "## 1-scaffold-db").
 <!-- TBD (owner: Task 13 Step 1): deploy URL, if a deploy is done. -->
 
 ## 5. Known limitations
@@ -223,3 +246,8 @@ example Neon). Set `DATABASE_URL`, `BETTER_AUTH_SECRET`, `JUDGE_PROVIDER` and th
   reactions and admin user management from the reference app are not part of this edition.
 - The mock judge is not an AI. Use it only for tests.
 - The local database (PGlite) is single-process and for development only.
+- Every page, including `/` and `/rules`, requires sign-in. The reference app's signed-out landing page and its
+  public rules page are not reachable: making a path public in this framework drops the agent hooks, and `/rules`
+  then fails to render on the server.
+- No ARGUE IT screen shows that an approved agent draft was edited by a human yet. The data is stored:
+  `list-decision-drafts {status:"approved"}` returns `edited`, and the audit row records it.

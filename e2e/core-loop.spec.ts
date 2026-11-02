@@ -28,6 +28,10 @@ const REBUTTAL_FOR =
 const REBUTTAL_AGAINST = "Career mode is still better and that matters.";
 
 test("core loop: two users debate and a verdict page renders", async ({ browser }, testInfo) => {
+  // About 15 full page loads against `agent-native dev`. Measured on Windows: 21-30 s per load once warm (the
+  // framework's own modules are served unbundled), 60-85 s cold. The default 5-minute budget ran out at the
+  // openings, with every step up to there passing. In-page steps take under 3 s.
+  test.setTimeout(900_000);
   const run = `${testInfo.project.name.slice(0, 3)}${Date.now().toString(36).slice(-5)}`;
   const device = testInfo.project.use;
   const contextOptions = {

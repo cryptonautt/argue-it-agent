@@ -31,6 +31,9 @@ export default defineConfig({
     alias: argueItAliases,
   },
   optimizeDeps: {
+    // ARGUE IT routes are not in `entries`, so Vite never discovered these and served them unbundled:
+    // lucide-react's barrel alone was ~8,000 module requests per e2e browser context (~30 s per page load).
+    include: ["lucide-react", "date-fns"],
     entries: [
       "app/entry.client.tsx",
       "app/root.tsx",
