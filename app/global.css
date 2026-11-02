@@ -1,4 +1,6 @@
 @import "@fontsource-variable/inter";
+@import "@fontsource/barlow-condensed/700.css";
+@import "@fontsource/barlow-condensed/800-italic.css";
 
 @import "tailwindcss";
 @import "@agent-native/toolkit/styles.css";
@@ -280,4 +282,214 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--muted-foreground) / 0.34);
+}
+
+/* ----------------------------------------------------------------------------------------------
+ * ARGUE IT design tokens ("matchup broadcast", reference src/app/globals.css, design.md §7).
+ * FOR / AGREE = Corner Blue. AGAINST = Flare Orange. The AI judge = Whistle Yellow (judge moments only).
+ * Scoped to `.argue-app` (the wrapper root.tsx puts around ARGUE IT pages) so the template's shadcn
+ * tokens (`--radius`, `--background`, ...) keep styling the agent chat, settings and sidebar unchanged.
+ * Dark mode follows the framework theme, which sets both `.dark` and `data-theme="dark"` on <html>.
+ * ---------------------------------------------------------------------------------------------- */
+
+.argue-app {
+  /* Surfaces */
+  --paper: #f5f6fa;
+  --surface: #ffffff;
+  --surface-2: #eceef5;
+  --line: #d9dde9;
+  --line-strong: #b7bdd0;
+
+  /* Text */
+  --ink: #0c1430;
+  --ink-2: #4a5373;
+  --ink-3: #6b7390;
+  --ink-inverse: #ffffff;
+
+  /* Sides */
+  --for: #2448ff;
+  --for-strong: #1733cc;
+  --for-soft: #e6eaff;
+  --on-for: #ffffff;
+  --against: #d63a06;
+  --against-strong: #b02e00;
+  --against-bright: #ff5a1f;
+  --against-soft: #ffe9e0;
+  --on-against: #ffffff;
+
+  /* The judge */
+  --judge: #ffc21a;
+  --judge-soft: #fff4d1;
+  --on-judge: #0c1430;
+
+  /* Status */
+  --success: #0f8a4f;
+  --success-soft: #e0f5ea;
+  --danger: #c0163c;
+  --danger-soft: #fde6ec;
+  --warning: #9a6200;
+  --warning-soft: #fff1d6;
+
+  --focus: #2448ff;
+
+  /* Shape & motion (scoped: overrides the template's --radius only inside ARGUE IT pages) */
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --slant: -12deg;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Layout */
+  --header-h: 56px;
+  --bottom-nav-h: 60px;
+  --content-max: 680px;
+
+  color-scheme: light;
+  min-height: 100%;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+:where(.dark, [data-theme="dark"]) .argue-app {
+  color-scheme: dark;
+
+  --paper: #080d1f;
+  --surface: #10172e;
+  --surface-2: #19223f;
+  --line: #253055;
+  --line-strong: #39467a;
+
+  --ink: #eef1fa;
+  --ink-2: #b4bcd6;
+  --ink-3: #8a93b2;
+  --ink-inverse: #080d1f;
+
+  --for: #6c86ff;
+  --for-strong: #8fa3ff;
+  --for-soft: #18234f;
+  --on-for: #060b1d;
+  --against: #ff7442;
+  --against-strong: #ff9468;
+  --against-bright: #ff7442;
+  --against-soft: #3a1a10;
+  --on-against: #1a0800;
+
+  --judge: #ffcc3d;
+  --judge-soft: #33290a;
+  --on-judge: #0c1430;
+
+  --success: #3ccf86;
+  --success-soft: #0e2d1f;
+  --danger: #ff5c7f;
+  --danger-soft: #3a0f1b;
+  --warning: #f2b544;
+  --warning-soft: #33250a;
+
+  --focus: #8fa3ff;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-ink-inverse: var(--ink-inverse);
+  --color-for: var(--for);
+  --color-for-strong: var(--for-strong);
+  --color-for-soft: var(--for-soft);
+  --color-on-for: var(--on-for);
+  --color-against: var(--against);
+  --color-against-strong: var(--against-strong);
+  --color-against-bright: var(--against-bright);
+  --color-against-soft: var(--against-soft);
+  --color-on-against: var(--on-against);
+  --color-judge: var(--judge);
+  --color-judge-soft: var(--judge-soft);
+  --color-on-judge: var(--on-judge);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-focus: var(--focus);
+
+  --font-display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", system-ui, sans-serif;
+}
+
+@layer base {
+  .argue-app :where(h1, h2, h3) {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: 0.005em;
+    text-wrap: balance;
+  }
+
+  .argue-app :where(p) {
+    text-wrap: pretty;
+  }
+
+  .argue-app :focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  .argue-app ::selection {
+    background: var(--for-soft);
+    color: var(--ink);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .argue-app *,
+    .argue-app *::before,
+    .argue-app *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Slanted broadcast-chyron shape. Put content in a child with .unslant to keep text upright. */
+  .slant {
+    transform: skewX(var(--slant));
+  }
+  .unslant {
+    display: inline-block;
+    transform: skewX(calc(var(--slant) * -1));
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  .font-display {
+    font-family: var(--font-display);
+  }
+}
+
+@keyframes toast-in {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes skeleton-pulse {
+  50% {
+    opacity: 0.55;
+  }
 }

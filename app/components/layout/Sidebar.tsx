@@ -15,10 +15,13 @@ import { openCommandMenu } from "@agent-native/toolkit/app/shared";
 import { AgentNativeIcon } from "@agent-native/toolkit/app/shared/AgentNativeIcon";
 import {
   IconEdit,
+  IconGavel,
   IconHome,
   IconLayoutSidebarLeftCollapse,
   IconLayoutSidebarLeftExpand,
   IconLoader2,
+  IconPencil,
+  IconScale,
   IconSearch,
 } from "@tabler/icons-react";
 import { useEffect, useRef, useState } from "react";
@@ -30,11 +33,12 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { APP_TITLE } from "@/lib/app-config";
-import { chatThreadPath, HOME_PATH, threadIdFromPath } from "@/lib/chat-paths";
+
+import { chatThreadPath, threadIdFromPath } from "@/lib/chat-paths";
 import { cn } from "@/lib/utils";
 
 const CHAT_STORAGE_KEY = "chat";
+const ARGUE_TITLE = "ARGUE IT";
 const CHAT_ACTIVE_THREAD_KEY = `agent-chat-active-thread:${CHAT_STORAGE_KEY}`;
 
 interface SidebarProps {
@@ -117,15 +121,42 @@ function persistActiveThreadId(threadId: string) {
   } catch {}
 }
 
-function HomeNavLink({ collapsed }: { collapsed: boolean }) {
-  const t = useT();
-  const location = useLocation();
-  const active = location.pathname === HOME_PATH;
+/** ARGUE IT screens (Task 6). Chat threads stay below; the agent sidebar stays on the right. */
+const ARGUE_NAV: ReadonlyArray<{
+  to: string;
+  label: string;
+  icon: typeof IconHome;
+  match: (pathname: string) => boolean;
+}> = [
+  { to: "/", label: "Feed", icon: IconHome, match: (p) => p === "/" || p.startsWith("/a/") },
+  { to: "/new", label: "Post an argument", icon: IconPencil, match: (p) => p === "/new" },
+  {
+    to: "/admin/review",
+    label: "Review queue",
+    icon: IconGavel,
+    match: (p) => p.startsWith("/admin"),
+  },
+  { to: "/rules", label: "How judging works", icon: IconScale, match: (p) => p === "/rules" },
+];
+
+function ArgueNavLink({
+  collapsed,
+  to,
+  label,
+  icon: Icon,
+  active,
+}: {
+  collapsed: boolean;
+  to: string;
+  label: string;
+  icon: typeof IconHome;
+  active: boolean;
+}) {
   const link = (
     <Link
-      to={HOME_PATH}
+      to={to}
       aria-current={active ? "page" : undefined}
-      aria-label={collapsed ? t("navigation.home") : undefined}
+      aria-label={collapsed ? label : undefined}
       className={cn(
         "flex items-center text-sidebar-accent-foreground transition-colors hover:bg-sidebar-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring",
         active && "bg-sidebar-accent",
@@ -134,10 +165,8 @@ function HomeNavLink({ collapsed }: { collapsed: boolean }) {
           : "h-8 w-full gap-3 rounded-lg px-3 text-sm font-medium",
       )}
     >
-      <IconHome className="size-4 shrink-0" strokeWidth={1.8} />
-      <span className={collapsed ? "sr-only" : "truncate"}>
-        {t("navigation.home")}
-      </span>
+      <Icon className="size-4 shrink-0" strokeWidth={1.8} />
+      <span className={collapsed ? "sr-only" : "truncate"}>{label}</span>
     </Link>
   );
 
@@ -145,12 +174,30 @@ function HomeNavLink({ collapsed }: { collapsed: boolean }) {
     return (
       <Tooltip>
         <TooltipTrigger asChild>{link}</TooltipTrigger>
-        <TooltipContent side="right">{t("navigation.home")}</TooltipContent>
+        <TooltipContent side="right">{label}</TooltipContent>
       </Tooltip>
     );
   }
 
   return <div className="px-2">{link}</div>;
+}
+
+function ArgueNavLinks({ collapsed }: { collapsed: boolean }) {
+  const { pathname } = useLocation();
+  return (
+    <div className={cn("flex flex-col gap-0.5", collapsed ? "items-center" : "pb-2")}>
+      {ARGUE_NAV.map((item) => (
+        <ArgueNavLink
+          key={item.to}
+          collapsed={collapsed}
+          to={item.to}
+          label={item.label}
+          icon={item.icon}
+          active={item.match(pathname)}
+        />
+      ))}
+    </div>
+  );
 }
 
 function ChatThreadsSection({ collapsed }: { collapsed: boolean }) {
@@ -371,7 +418,7 @@ export function Sidebar({
             <TooltipTrigger asChild>
               <Link
                 to="/"
-                aria-label={APP_TITLE}
+                aria-label={ARGUE_TITLE}
                 className="flex size-8 items-center justify-center rounded outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring"
               >
                 <AgentNativeIcon
@@ -380,7 +427,7 @@ export function Sidebar({
                 />
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">{APP_TITLE}</TooltipContent>
+            <TooltipContent side="right">{ARGUE_TITLE}</TooltipContent>
           </Tooltip>
         ) : (
           <>
@@ -393,7 +440,7 @@ export function Sidebar({
                 className="h-3.5 w-6 shrink-0 text-sidebar-accent-foreground"
               />
               <span className="truncate text-sm font-semibold text-sidebar-accent-foreground">
-                {APP_TITLE}
+                {ARGUE_TITLE}
               </span>
             </Link>
           </>
@@ -407,7 +454,7 @@ export function Sidebar({
           collapsed ? "items-center gap-1 px-1 py-2" : "pt-1",
         )}
       >
-        <HomeNavLink collapsed={collapsed} />
+        <ArgueNavLinks collapsed={collapsed} />
         <ChatThreadsSection collapsed={collapsed} />
       </nav>
 

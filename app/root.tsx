@@ -21,12 +21,13 @@ import {
 } from "react-router";
 import type { LinksFunction } from "react-router";
 
+import { ArgueFrame } from "@/components/layout/ArgueFrame";
 import { Layout as AppLayout } from "@/components/layout/Layout";
 import { AppToolkitProvider } from "@/components/ui/toolkit-provider";
 import { useNavigationState } from "@/hooks/use-navigation-state";
+import { useRevalidateOnAgentWrites } from "@/hooks/use-revalidate-on-agent-writes";
 import { APP_TITLE } from "@/lib/app-config";
 import {
-  HOME_PATH,
   isChatPathname,
   NEW_CHAT_PATH,
   skeletonLayoutForPath,
@@ -41,7 +42,7 @@ import stylesheet from "./global.css?url";
 configureTracking({
   getDefaultProps: (_name, properties) => ({
     ...properties,
-    app: "argue-it-agent",
+    app: "argue-it",
     template: "chat",
   }),
 });
@@ -95,6 +96,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
 function DbSyncSetup() {
   const qc = useQueryClient();
   useNavigationState();
+  // Review Focus #4: re-run route loaders when the agent (or any action) writes.
+  useRevalidateOnAgentWrites();
   useDbSync({
     queryClient: qc,
     ignoreSource: TAB_ID,
@@ -140,8 +143,8 @@ function AppContent() {
               {t("chat.newChat")}
             </CommandMenu.Item>
           ) : null}
-          {location.pathname !== HOME_PATH ? (
-            <CommandMenu.Item onSelect={() => navigate(HOME_PATH)}>
+          {location.pathname !== "/" ? (
+            <CommandMenu.Item onSelect={() => navigate("/")}>
               {t("navigation.home")}
             </CommandMenu.Item>
           ) : null}
@@ -169,7 +172,9 @@ function AppContent() {
         </CommandMenu.Group>
       </CommandMenu>
       <AppLayout>
-        <Outlet />
+        <ArgueFrame>
+          <Outlet />
+        </ArgueFrame>
       </AppLayout>
     </>
   );
