@@ -14,7 +14,10 @@
     "script": "agent-native script",
     "test": "vitest --run --passWithNoTests",
     "agent-native:doctor": "agent-native doctor",
-    "db:generate": "drizzle-kit generate"
+    "db:generate": "drizzle-kit generate",
+    "e2e": "playwright test",
+    "seed": "tsx scripts/seed.ts",
+    "fairness": "tsx scripts/fairness.ts"
   },
   "dependencies": {
     "@agent-native/agentkit": "^0.222.2",
