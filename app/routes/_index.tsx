@@ -5,7 +5,8 @@
 // Differences from the reference, on purpose:
 // - Signed-out landing shows no live arguments: there is no public (signed-out) feed action, and the
 //   reference read the DB directly. The landing copy covers the empty case already.
-// - The greeting is "Your feed": no action returns the viewer's display name yet.
+// - The greeting ("Hi, <first name>") comes from `get-session`; if that call fails it falls back to
+//   "Your feed" (the reference's no-display-name text).
 import { PenLine } from "lucide-react";
 import { redirect, useLoaderData, type ClientLoaderFunctionArgs, type MetaFunction } from "react-router";
 
@@ -14,6 +15,7 @@ import { FeedEmpty, FeedEnd } from "@/components/argue/feed/feed-empty";
 import { FeedList } from "@/components/argue/feed/feed-list";
 import { Landing } from "@/components/argue/feed/landing";
 import { normaliseCategories, normaliseFeedPage } from "@/components/argue/loaders/screen-a";
+import { loadViewer } from "@/components/argue/loaders/viewer";
 import { PageContainer } from "@/components/argue/shell/page";
 import { ButtonLink } from "@/components/argue/ui/button";
 import { LinkTabs } from "@/components/argue/ui/link-tabs";
@@ -55,9 +57,13 @@ export async function clientLoader({ request }: ClientLoaderFunctionArgs) {
   const categorySlug = category?.slug ?? null;
 
   try {
-    const raw = await callAction("list-feed", { tab, ...(categorySlug ? { category: categorySlug } : {}) }, { method: "GET" });
+    const [raw, viewer] = await Promise.all([
+      callAction("list-feed", { tab, ...(categorySlug ? { category: categorySlug } : {}) }, { method: "GET" }),
+      loadViewer(),
+    ]);
     return {
       kind: "feed" as const,
+      displayName: viewer?.displayName ?? null,
       tab,
       categories,
       categorySlug,
@@ -89,11 +95,13 @@ export default function HomePage() {
   const data = useLoaderData<typeof clientLoader>();
   if (data.kind === "landing") return <Landing live={[]} />;
 
-  const { tab, categories, categorySlug, categoryName, page } = data;
+  const { tab, categories, categorySlug, categoryName, page, displayName } = data;
   return (
     <PageContainer>
       <div className="mb-4 flex items-center justify-between gap-3">
-        <h1 className="text-4xl text-ink sm:text-5xl">Your feed</h1>
+        <h1 className="text-4xl text-ink sm:text-5xl">
+          {displayName ? `Hi, ${displayName.split(" ")[0]}` : "Your feed"}
+        </h1>
         <ButtonLink href="/new" size="sm" icon={<PenLine aria-hidden className="size-4" />}>
           Post
         </ButtonLink>

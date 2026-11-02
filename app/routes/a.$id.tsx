@@ -1,11 +1,15 @@
 // Owner: 5a-screens-a (ported from reference src/app/a/[id]/page.tsx). Argument detail (design §6): the
 // post, positions, challenge entry point, debates started from it and the discussion.
-// Data: clientLoader → `get-argument` ({ visibility, argument, positions, challenges, comments }), which
-// applies the reference `visibilityFor` gate on the server; plus `get-session` (who-am-I) when available.
+// Data: clientLoader → `get-argument` ({ visibility, argument, viewer, positions, challenges, comments
+// (+ total), reaction, follow }), which applies the reference `visibilityFor` gate on the server; plus
+// `get-session` (who-am-I) for the viewer's handle and suspension. Dates arrive as ISO strings; only
+// `argument` (ArgumentDetail) is revived, the social/challenge view models are strings by design.
+// The viewer's id comes from get-argument's `viewer.id` (always present: it requires a signed-in user), so a
+// failed get-session never makes the author look like a stranger.
 //
 // Left out on purpose (no fake controls): owner Edit/Delete, Report, reactions and Follow. Their actions
-// are not ported (app/lib/server-actions.ts UNPORTED_ACTIONS) or their data isn't returned yet; a button
-// that always fails is worse than no button. Sections whose data is missing are omitted, never zeroed.
+// are not ported (app/lib/server-actions.ts UNPORTED_ACTIONS); a button that always fails is worse than
+// no button. Sections whose data is missing are omitted, never zeroed.
 import { ShieldAlert } from "lucide-react";
 import { useLoaderData, type ClientLoaderFunctionArgs, type MetaFunction } from "react-router";
 
@@ -17,11 +21,12 @@ import { ArgumentChallenges } from "@/components/argue/competitions/argument-cha
 import { ChallengeButton } from "@/components/argue/competitions/challenge-button";
 import {
   isFullArgument,
+  isViewerSuspended,
   normaliseArgumentPage,
-  normaliseViewer,
   type ArgueViewer,
   type ArgumentPageData,
 } from "@/components/argue/loaders/screen-a";
+import { loadViewer } from "@/components/argue/loaders/viewer";
 import { PageContainer } from "@/components/argue/shell/page";
 import { CommentThread } from "@/components/argue/social/comment-thread";
 import { PositionBar } from "@/components/argue/social/position-bar";
@@ -30,20 +35,11 @@ import { Avatar } from "@/components/argue/ui/avatar";
 import { Badge } from "@/components/argue/ui/badge";
 import { ButtonLink } from "@/components/argue/ui/button";
 import Link from "@/shims/next-link";
-import { callAction } from "@agent-native/core/client/hooks";
 import type { ArgumentDetail } from "@domain/arguments/queries";
 import { formatDateTime, formatRelative } from "@domain/lib/time";
 
 import { loadAction, requireUuid } from "./_lib/route-data";
 import { RouteErrorState, RouteLoading } from "./_lib/route-states";
-
-async function loadViewer(): Promise<ArgueViewer | null | undefined> {
-  try {
-    return normaliseViewer(await callAction("get-session", {}, { method: "GET" }));
-  } catch {
-    return undefined; // No who-am-I action yet (or it failed): viewer-dependent controls stay hidden.
-  }
-}
 
 export async function clientLoader({ params, request }: ClientLoaderFunctionArgs) {
   const id = requireUuid(params.id);
@@ -132,11 +128,11 @@ export default function ArgumentPage() {
               }
               argumentOpen={full.status === "visible"}
               blocked={full.viewerBlockedAuthor || full.authorBlockedViewer}
-              // Suspension isn't known on the client yet; create-comment refuses a suspended user itself.
+              // From get-session (with expiry); create-comment still refuses a suspended user itself.
               closedReason={commentClosedReason(
                 full.status === "visible",
                 full.viewerBlockedAuthor || full.authorBlockedViewer,
-                false,
+                isViewerSuspended(viewer),
               )}
               viewerSide={page.positions?.viewerSide ?? null}
             />
@@ -159,7 +155,9 @@ function ArgumentBody({
   revealed: boolean;
 }) {
   const isPublic = argument.status === "visible";
-  const isAuthor = viewer ? viewer.id === argument.authorId : false;
+  // get-argument's own viewer id first (always there), then get-session's.
+  const viewerId = page.viewerId ?? viewer?.id ?? null;
+  const isAuthor = viewerId !== null && viewerId === argument.authorId;
   const blocked = argument.viewerBlockedAuthor || argument.authorBlockedViewer;
 
   return (
@@ -203,7 +201,7 @@ function ArgumentBody({
           argumentId={argument.id}
           summary={page.positions}
           // get-argument requires a signed-in user, so the viewer is signed in here.
-          mode={positionModeFor({ id: viewer?.id ?? "" }, { authorId: argument.authorId, open: isPublic }, blocked)}
+          mode={positionModeFor({ id: viewerId ?? "" }, { authorId: argument.authorId, open: isPublic }, blocked)}
         />
       ) : null}
 

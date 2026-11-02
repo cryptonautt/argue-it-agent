@@ -9,13 +9,20 @@
 //   challenges are refused there with the reference messages.
 // - The "you already have an open challenge with @x" notice isn't shown up front (no action exposes
 //   `findOpenChallenge`); sending a duplicate is refused with CONFLICT.
-// - `challengerId` in the terms preview is empty (no action returns the viewer's id yet). It's display-only
-//   in the preview; the server freezes the real snapshot.
+// - `challengerId` is get-argument's `viewer.id` (display-only in the terms preview; the server freezes the
+//   real snapshot). The suspended notice uses `get-session` (it carries `suspendedUntil`); if that call
+//   fails the form stays enabled and `send-challenge` refuses a suspended user with SUSPENDED.
 import { Swords } from "lucide-react";
 import { useLoaderData, type ClientLoaderFunctionArgs, type MetaFunction } from "react-router";
 
 import { ChallengeSetupForm } from "@/components/argue/competitions/challenge-setup-form";
-import { challengeTargetFrom, normaliseArgumentPage, rubricForCategory } from "@/components/argue/loaders/screen-a";
+import {
+  challengeTargetFrom,
+  isViewerSuspended,
+  normaliseArgumentPage,
+  rubricForCategory,
+} from "@/components/argue/loaders/screen-a";
+import { loadViewer } from "@/components/argue/loaders/viewer";
 import { PageContainer, PageHeader } from "@/components/argue/shell/page";
 import { ButtonLink } from "@/components/argue/ui/button";
 import { EmptyState } from "@/components/argue/ui/empty-state";
@@ -36,13 +43,21 @@ export async function clientLoader({ request }: ClientLoaderFunctionArgs) {
   if (!argumentId) return { kind: "pick-argument" as const };
 
   // loadAction handles the reference `requirePageUser` (sign-in / welcome redirects) and 404s.
-  const data = normaliseArgumentPage(await loadAction<unknown>("get-argument", { id: argumentId }, request));
+  const [raw, viewer] = await Promise.all([
+    loadAction<unknown>("get-argument", { id: argumentId }, request),
+    loadViewer(),
+  ]);
+  const data = normaliseArgumentPage(raw);
   if (!data) return { kind: "blocked" as const, argumentId, reason: "That argument doesn't exist." };
-  const target = challengeTargetFrom(data, { commentId, opponentId });
+  const viewerId = data.viewerId ?? viewer?.id ?? null;
+  const target = challengeTargetFrom(data, { commentId, opponentId }, viewerId);
   if (typeof target === "string") return { kind: "blocked" as const, argumentId, reason: target };
   const rubric = rubricForCategory(target.category.slug);
   if (!rubric) return { kind: "no-rubric" as const };
-  return { kind: "ready" as const, target, rubric };
+  const disabledReason = isViewerSuspended(viewer)
+    ? "Your account is suspended, so you can’t send challenges right now."
+    : null;
+  return { kind: "ready" as const, target, rubric, challengerId: viewerId ?? "", disabledReason };
 }
 clientLoader.hydrate = true as const;
 
@@ -111,19 +126,19 @@ export default function NewChallengePage() {
     );
   }
 
-  const { target, rubric } = data;
+  const { target, rubric, challengerId, disabledReason } = data;
   return (
     <PageContainer>
       <Header />
       <ChallengeSetupForm
-        challengerId=""
+        challengerId={challengerId}
         argument={target.argument}
         category={target.category}
         comment={target.comment}
         opponent={target.opponent}
         opponentFixed={target.opponentFixed}
         rubric={rubric}
-        disabledReason={null}
+        disabledReason={disabledReason}
       />
     </PageContainer>
   );

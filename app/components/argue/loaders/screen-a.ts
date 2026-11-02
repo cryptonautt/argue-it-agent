@@ -10,7 +10,7 @@ import type { ArgumentCardData, CategoryOption } from "@domain/arguments/types";
 import type { ChallengeListItem } from "@domain/competitions/queries";
 import type { RubricView } from "@domain/competitions/terms";
 import { ALL_RUBRICS } from "@domain/judging/rubrics/v1";
-import type { CommentPage, PositionSummary } from "@domain/social/types";
+import type { CommentPage, PositionSummary, ReactionSummary } from "@domain/social/types";
 
 // ---------------------------------------------------------------------------------------------------
 // list-feed / list-categories
@@ -58,6 +58,11 @@ export interface ArgumentPageData {
   positions: PositionSummary | null;
   challenges: ChallengeListItem[] | null;
   comments: CommentPage | null;
+  /** Total visible comments (reference `getCommentCounts`), when returned. */
+  commentTotal: number | null;
+  reaction: Pick<ReactionSummary, "count" | "viewerReacted"> | null;
+  /** The id of the viewer get-argument resolved (it requires a signed-in user). */
+  viewerId: string | null;
 }
 
 export function isFullArgument(data: ArgumentPageData): data is ArgumentPageData & { argument: ArgumentDetail } {
@@ -71,13 +76,18 @@ export function normaliseArgumentPage(raw: unknown): ArgumentPageData | null {
   if (!argument || typeof argument !== "object" || typeof argument.id !== "string") return null;
   const visibility: ArgumentVisibility =
     value.visibility === "revealed" || value.visibility === "placeholder" ? value.visibility : "full";
-  const comments = value.comments as CommentPage | undefined;
+  const comments = value.comments as (CommentPage & { total?: unknown }) | undefined;
+  const reaction = value.reaction as ReactionSummary | null | undefined;
+  const viewer = value.viewer as { id?: unknown } | null | undefined;
   return {
     visibility,
     argument,
     positions: (value.positions as PositionSummary | undefined) ?? null,
     challenges: Array.isArray(value.challenges) ? (value.challenges as ChallengeListItem[]) : null,
-    comments: comments && Array.isArray(comments.threads) ? comments : null,
+    comments: comments && Array.isArray(comments.threads) ? { threads: comments.threads, nextCursor: comments.nextCursor ?? null } : null,
+    commentTotal: comments && typeof comments.total === "number" ? comments.total : null,
+    reaction: reaction && typeof reaction.count === "number" ? { count: reaction.count, viewerReacted: !!reaction.viewerReacted } : null,
+    viewerId: viewer && typeof viewer.id === "string" ? viewer.id : null,
   };
 }
 
@@ -124,6 +134,7 @@ export function excerpt(text: string, max = 220): string {
 export function challengeTargetFrom(
   data: ArgumentPageData,
   query: { commentId: string | null; opponentId: string | null },
+  viewerId: string | null = null,
 ): ChallengeTargetView | string {
   if (!isFullArgument(data) || data.argument.status !== "visible") {
     return "This argument isn't open for challenges.";
@@ -161,7 +172,9 @@ export function challengeTargetFrom(
       ? { userId: author.id, handle: author.handle, displayName: author.displayName, avatarUrl: author.avatarUrl }
       : null;
   // Default opponent is the argument's author (reference); `?opponent=` other than the author is typed in.
-  const opponent = !query.opponentId || query.opponentId === a.authorId ? authorChip : null;
+  // Challenging from your own argument: no default opponent, you type a handle (reference behaviour).
+  const isAuthor = viewerId !== null && viewerId === a.authorId;
+  const opponent = !isAuthor && (!query.opponentId || query.opponentId === a.authorId) ? authorChip : null;
   return { ...base, comment: null, opponent, opponentFixed: false };
 }
 
@@ -175,12 +188,14 @@ export interface ArgueViewer {
   displayName: string | null;
   avatarUrl: string | null;
   role: string;
+  status: string;
+  suspendedUntil: Date | null;
 }
 
 /**
- * `undefined` = unknown (the who-am-I action isn't there, or failed): screens then leave out the
- * viewer-dependent controls instead of guessing. Requested from 4-actions in docs/port-notes.md as a GET
- * action `get-session` returning `{ id, handle, displayName, avatarUrl, role, ... } | null`.
+ * Shapes the `get-session` GET action result (`{ id, role, status, suspendedUntil, handle, displayName,
+ * avatarUrl } | null`). `undefined` = unknown (the call failed): screens then leave out the
+ * viewer-dependent controls instead of guessing.
  */
 export function normaliseViewer(raw: unknown): ArgueViewer | null | undefined {
   if (raw === null) return null;
@@ -194,5 +209,20 @@ export function normaliseViewer(raw: unknown): ArgueViewer | null | undefined {
     displayName: typeof v.displayName === "string" ? v.displayName : null,
     avatarUrl: typeof v.avatarUrl === "string" ? v.avatarUrl : null,
     role: typeof v.role === "string" ? v.role : "user",
+    status: typeof v.status === "string" ? v.status : "active",
+    suspendedUntil: parseDate((v as { suspendedUntil?: unknown }).suspendedUntil),
   };
+}
+
+function parseDate(value: unknown): Date | null {
+  if (value instanceof Date) return value;
+  if (typeof value !== "string") return null;
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
+/** Reference `isSuspended` (auth/roles), on the shaped viewer. */
+export function isViewerSuspended(viewer: ArgueViewer | null | undefined, at: Date = new Date()): boolean {
+  if (!viewer || viewer.status !== "suspended") return false;
+  return viewer.suspendedUntil === null || viewer.suspendedUntil.getTime() > at.getTime();
 }
