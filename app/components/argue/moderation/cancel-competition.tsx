@@ -9,7 +9,7 @@ import { Dialog } from "@/components/argue/ui/dialog";
 import { Textarea } from "@/components/argue/ui/textarea";
 import { useToast } from "@/components/argue/ui/toast";
 import type { FieldErrors } from "@domain/lib/action-result";
-import { adminCancelCompetition } from "@domain/lib/server-actions";
+import { adminCancelCompetition } from "@/lib/server-actions";
 
 const REASON_MAX = 500;
 

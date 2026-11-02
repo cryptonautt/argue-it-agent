@@ -11,7 +11,16 @@ import { ThemeToggle } from "./theme";
  * Global chrome: sticky header (logo, nav, bell, profile menu, theme) + phone bottom nav.
  * Pages render inside <main>; use <PageContainer> for the standard reading width.
  */
-export function AppShell({ user, children }: { user: SessionUser | null; children: ReactNode }) {
+export function AppShell({
+  user,
+  unread = null,
+  children,
+}: {
+  user: SessionUser | null;
+  /** Unread notification count; the bell is hidden when null (no notifications action in the port yet). */
+  unread?: number | null;
+  children: ReactNode;
+}) {
   const displayName = user?.displayName ?? user?.handle ?? "You";
   return (
     <>
@@ -31,9 +40,11 @@ export function AppShell({ user, children }: { user: SessionUser | null; childre
             <ThemeToggle />
             {user ? (
               <>
-                <div className="hidden md:block">
-                  <NotificationBell />
-                </div>
+                {unread !== null ? (
+                  <div className="hidden md:block">
+                    <NotificationBell unread={unread} />
+                  </div>
+                ) : null}
                 <ProfileMenu
                   displayName={displayName}
                   handle={user.handle}
@@ -58,7 +69,7 @@ export function AppShell({ user, children }: { user: SessionUser | null; childre
         {children}
       </main>
       {user ? (
-        <BottomNav profileHref={user.handle ? `/u/${user.handle}` : "/settings"} unreadSlot={<NotificationNavBadge />} />
+        <BottomNav profileHref={user.handle ? `/u/${user.handle}` : "/settings"} unreadSlot={unread !== null ? <NotificationNavBadge unread={unread} /> : null} />
       ) : null}
     </>
   );

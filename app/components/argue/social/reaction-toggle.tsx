@@ -6,7 +6,7 @@ import { Flame } from "lucide-react";
 import { useToast } from "@/components/argue/ui/toast";
 import { cn } from "@domain/lib/cn";
 import type { ReactionTarget } from "@domain/db/schema";
-import { setReaction } from "@domain/lib/server-actions";
+import { setReaction } from "@/lib/server-actions";
 
 /** open = can react; signed-out = link to sign-in; own/disabled = count only. */
 export type ReactionMode = "open" | "signed-out" | "own" | "disabled";

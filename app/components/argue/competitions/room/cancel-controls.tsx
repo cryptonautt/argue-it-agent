@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Button } from "@/components/argue/ui/button";
 import { Dialog } from "@/components/argue/ui/dialog";
 import { Textarea } from "@/components/argue/ui/textarea";
-import { requestCancel, retractCancel } from "@domain/lib/server-actions";
+import { requestCancel, retractCancel } from "@/lib/server-actions";
 import { CANCEL_REASON_MAX_CHARS } from "@domain/competitions/terms";
 import { useCompetitionAction } from "../use-competition-action";
 

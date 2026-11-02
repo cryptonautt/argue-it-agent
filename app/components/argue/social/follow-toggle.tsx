@@ -4,7 +4,7 @@ import { useOptimistic, useState, useTransition } from "react";
 import { UserCheck, UserPlus } from "lucide-react";
 import { Button } from "@/components/argue/ui/button";
 import { useToast } from "@/components/argue/ui/toast";
-import { followUser, unfollowUser } from "@domain/lib/server-actions";
+import { followUser, unfollowUser } from "@/lib/server-actions";
 import type { FollowState } from "@domain/social/types";
 
 export interface FollowToggleProps {

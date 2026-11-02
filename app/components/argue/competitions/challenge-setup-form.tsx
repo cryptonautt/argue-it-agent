@@ -11,7 +11,7 @@ import { Card } from "@/components/argue/ui/card";
 import { Input } from "@/components/argue/ui/input";
 import { Textarea } from "@/components/argue/ui/textarea";
 import { cn } from "@domain/lib/cn";
-import { sendChallenge, type SendChallengeInput } from "@domain/lib/server-actions";
+import { sendChallenge, type SendChallengeInput } from "@/lib/server-actions";
 import {
   PROPOSITION_MAX_CHARS,
   ROUND_DURATION_HOURS,

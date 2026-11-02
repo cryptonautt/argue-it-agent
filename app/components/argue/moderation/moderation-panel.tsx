@@ -11,7 +11,7 @@ import { Textarea } from "@/components/argue/ui/textarea";
 import { useToast } from "@/components/argue/ui/toast";
 import type { ActionResult, FieldErrors } from "@domain/lib/action-result";
 import type { ReportReason, ReportTarget } from "@domain/db/schema";
-import { dismissReport, moderateContent, suspendUser, unsuspendUser, warnUser } from "@domain/lib/server-actions";
+import { dismissReport, moderateContent, suspendUser, unsuspendUser, warnUser } from "@/lib/server-actions";
 import {
   MODERATION_NOTE_MAX,
   MODERATION_REASON_CODES,

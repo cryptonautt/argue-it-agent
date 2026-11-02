@@ -6,7 +6,7 @@ import { Ban } from "lucide-react";
 import { Button } from "@/components/argue/ui/button";
 import { Dialog } from "@/components/argue/ui/dialog";
 import { useToast } from "@/components/argue/ui/toast";
-import { blockUser, unblockUser } from "@domain/lib/server-actions";
+import { blockUser, unblockUser } from "@/lib/server-actions";
 
 export interface BlockToggleProps {
   userId: string;

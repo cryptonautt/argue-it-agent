@@ -1,14 +1,14 @@
 import Link from "@/shims/next-link";
 import { Bell } from "lucide-react";
-import { getSession } from "@domain/auth";
-import { countUnreadNotifications } from "@domain/notifications/queries";
 import { UnreadBadge } from "./unread-badge";
 
-/** Header bell with unread count, linking to /notifications. Rendered only for signed-in users. */
-export async function NotificationBell() {
-  const viewer = await getSession();
-  if (!viewer) return null;
-  const unread = await countUnreadNotifications(viewer.id);
+/**
+ * Header bell with unread count, linking to /notifications.
+ * Ported from an async server component: the caller passes the unread count (reference
+ * `countUnreadNotifications(viewer.id)`). Not mounted in the port yet: there is no notifications action
+ * (go/no-go cut, plan Task 6 step 3b).
+ */
+export function NotificationBell({ unread }: { unread: number }) {
   return (
     <Link
       href="/notifications"
@@ -21,13 +21,7 @@ export async function NotificationBell() {
   );
 }
 
-/**
- * Unread dot for the phone bottom nav's "Alerts" tab (pass as `BottomNav`'s `unreadSlot`).
- * Renders nothing for signed-out viewers.
- */
-export async function NotificationNavBadge() {
-  const viewer = await getSession();
-  if (!viewer) return null;
-  const unread = await countUnreadNotifications(viewer.id);
+/** Unread dot for the phone bottom nav's "Alerts" tab (pass as `BottomNav`'s `unreadSlot`). */
+export function NotificationNavBadge({ unread }: { unread: number }) {
   return <UnreadBadge key={unread} initialCount={unread} variant="dot" />;
 }

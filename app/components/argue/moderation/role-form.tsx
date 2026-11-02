@@ -9,7 +9,7 @@ import { Textarea } from "@/components/argue/ui/textarea";
 import { useToast } from "@/components/argue/ui/toast";
 import type { FieldErrors } from "@domain/lib/action-result";
 import type { UserRole } from "@domain/db/schema";
-import { changeUserRole } from "@domain/lib/server-actions";
+import { changeUserRole } from "@/lib/server-actions";
 import { MODERATION_NOTE_MAX } from "@domain/moderation/policy";
 
 const ROLE_OPTIONS = [

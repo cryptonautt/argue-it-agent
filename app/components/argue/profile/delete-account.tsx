@@ -6,7 +6,7 @@ import { Button } from "@/components/argue/ui/button";
 import { Dialog } from "@/components/argue/ui/dialog";
 import { Input } from "@/components/argue/ui/input";
 import { useToast } from "@/components/argue/ui/toast";
-import { deleteAccount } from "@domain/lib/server-actions";
+import { deleteAccount } from "@/lib/server-actions";
 
 export interface DeleteAccountProps {
   handle: string;

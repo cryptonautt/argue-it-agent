@@ -12,7 +12,7 @@ import { useToast } from "@/components/argue/ui/toast";
 import { cn } from "@domain/lib/cn";
 import type { FieldErrors } from "@domain/lib/action-result";
 import type { ReportTarget } from "@domain/db/schema";
-import { fileReport } from "@domain/lib/server-actions";
+import { fileReport } from "@/lib/server-actions";
 import { REASON_INFO, REPORT_DETAILS_MAX, TARGET_LABEL, USER_REPORT_REASONS, type UserReportReason } from "@domain/moderation/policy";
 
 export interface ReportDialogProps {

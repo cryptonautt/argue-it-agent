@@ -7,7 +7,7 @@ import { SplitBar } from "@/components/argue/ui/score-bar";
 import { useToast } from "@/components/argue/ui/toast";
 import { cn } from "@domain/lib/cn";
 import type { PositionSide } from "@domain/db/schema";
-import { removePosition, setPosition } from "@domain/lib/server-actions";
+import { removePosition, setPosition } from "@/lib/server-actions";
 import type { PositionSummary } from "@domain/social/types";
 import {
   POSITION_EVENT,

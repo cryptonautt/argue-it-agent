@@ -4,7 +4,7 @@ import { useState, useTransition, type ReactNode } from "react";
 import { ArgumentCard } from "@/components/argue/arguments/argument-card";
 import { Button } from "@/components/argue/ui/button";
 import { useToast } from "@/components/argue/ui/toast";
-import { loadFeedPage } from "@domain/lib/server-actions";
+import { loadFeedPage } from "@/lib/server-actions";
 import type { FeedTab } from "@domain/arguments/feed-params";
 import type { ArgumentCardData } from "@domain/arguments/types";
 

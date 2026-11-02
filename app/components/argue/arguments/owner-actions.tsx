@@ -6,7 +6,7 @@ import { Lock, PencilLine, Trash2 } from "lucide-react";
 import { Button, ButtonLink } from "@/components/argue/ui/button";
 import { Dialog } from "@/components/argue/ui/dialog";
 import { useToast } from "@/components/argue/ui/toast";
-import { deleteArgument } from "@domain/lib/server-actions";
+import { deleteArgument } from "@/lib/server-actions";
 
 export interface OwnerActionsProps {
   argumentId: string;

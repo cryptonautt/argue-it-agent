@@ -7,7 +7,7 @@ import { Button } from "@/components/argue/ui/button";
 import { Card } from "@/components/argue/ui/card";
 import { Dialog } from "@/components/argue/ui/dialog";
 import { Textarea } from "@/components/argue/ui/textarea";
-import { acceptChallenge, declineChallenge, withdrawChallenge } from "@domain/lib/server-actions";
+import { acceptChallenge, declineChallenge, withdrawChallenge } from "@/lib/server-actions";
 import { DECLINE_REASON_MAX_CHARS } from "@domain/competitions/terms";
 import { useCompetitionAction } from "../use-competition-action";
 

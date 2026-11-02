@@ -1,24 +1,21 @@
 // Owner: challenges. Active and past direct challenges started from an argument (design §6 /a/[id]).
-// Async Server Component: reads the DB itself; callers pass only the argument id.
+// Ported from an async server component: the route loader passes the list (reference listArgumentChallenges).
 import Link from "@/shims/next-link";
 import { ChevronRight, Swords } from "lucide-react";
-import { z } from "zod";
 import { Badge } from "@/components/argue/ui/badge";
 import { Countdown } from "@/components/argue/ui/countdown";
 import { SideTag } from "@/components/argue/ui/side-tag";
 import { formatRelative } from "@domain/lib/time";
-import { listArgumentChallenges, type ChallengeListItem } from "@domain/competitions/queries";
+import type { ChallengeListItem } from "@domain/competitions/queries";
 import { DEADLINE_LABEL, PHASE_LABEL, PHASE_TONE } from "./labels";
 
 export interface ArgumentChallengesProps {
-  argumentId: string;
+  /** Loader-fed (reference `listArgumentChallenges(argumentId)`). */
+  items: ChallengeListItem[];
 }
 
-const uuid = z.uuid();
-
 /** Active and past challenges started from this argument. */
-export async function ArgumentChallenges({ argumentId }: ArgumentChallengesProps) {
-  const items = uuid.safeParse(argumentId).success ? await listArgumentChallenges(argumentId) : [];
+export function ArgumentChallenges({ items }: ArgumentChallengesProps) {
   return (
     <section aria-label="Challenges on this argument" className="flex flex-col gap-3">
       <h2 className="flex items-center gap-2 text-2xl text-ink">

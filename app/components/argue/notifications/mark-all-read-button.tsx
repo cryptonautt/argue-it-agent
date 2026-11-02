@@ -4,7 +4,7 @@ import { useTransition } from "react";
 import { CheckCheck } from "lucide-react";
 import { Button } from "@/components/argue/ui/button";
 import { useToast } from "@/components/argue/ui/toast";
-import { markAllNotificationsRead } from "@domain/lib/server-actions";
+import { markAllNotificationsRead } from "@/lib/server-actions";
 
 export function MarkAllReadButton() {
   const [pending, startTransition] = useTransition();

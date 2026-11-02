@@ -6,7 +6,7 @@ import { Check } from "lucide-react";
 import { Button } from "@/components/argue/ui/button";
 import { useToast } from "@/components/argue/ui/toast";
 import { cn } from "@domain/lib/cn";
-import { saveInterests } from "@domain/lib/server-actions";
+import { saveInterests } from "@/lib/server-actions";
 import { MAX_INTERESTS } from "@domain/profiles/schemas";
 
 export interface InterestOption {

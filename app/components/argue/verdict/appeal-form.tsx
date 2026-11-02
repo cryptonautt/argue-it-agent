@@ -10,7 +10,7 @@ import { Textarea } from "@/components/argue/ui/textarea";
 import { useToast } from "@/components/argue/ui/toast";
 import { cn } from "@domain/lib/cn";
 import type { FieldErrors } from "@domain/lib/action-result";
-import { fileAppeal } from "@domain/lib/server-actions";
+import { fileAppeal } from "@/lib/server-actions";
 import { APPEAL_GROUNDS, APPEAL_TEXT_MAX, APPEAL_TEXT_MIN, NOT_A_GROUND } from "@domain/appeals/rules";
 import type { AppealGround } from "@domain/db/schema";
 

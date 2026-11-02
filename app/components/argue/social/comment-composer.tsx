@@ -5,7 +5,7 @@ import { ButtonLink, Button } from "@/components/argue/ui/button";
 import { Textarea } from "@/components/argue/ui/textarea";
 import { useToast } from "@/components/argue/ui/toast";
 import type { FieldErrors } from "@domain/lib/action-result";
-import { createComment } from "@domain/lib/server-actions";
+import { createComment } from "@/lib/server-actions";
 import type { CommentView } from "@domain/social/types";
 import { useComments } from "./comments-context";
 

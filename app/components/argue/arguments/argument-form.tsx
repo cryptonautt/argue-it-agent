@@ -10,7 +10,7 @@ import { Input } from "@/components/argue/ui/input";
 import { Select } from "@/components/argue/ui/select";
 import { Textarea } from "@/components/argue/ui/textarea";
 import { useToast } from "@/components/argue/ui/toast";
-import { createArgument, updateArgument } from "@domain/lib/server-actions";
+import { createArgument, updateArgument } from "@/lib/server-actions";
 import type { CategoryOption } from "@domain/arguments/types";
 import { ARGUMENT_LIMITS, propositionHints } from "@domain/arguments/validation";
 import { ArgumentLinks } from "./argument-links";

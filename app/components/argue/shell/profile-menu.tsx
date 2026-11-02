@@ -6,7 +6,7 @@ import { useEffect, useId, useRef, useState, useTransition } from "react";
 import { LogOut, Settings, Shield, User } from "lucide-react";
 import { Avatar } from "@/components/argue/ui/avatar";
 import { useToast } from "@/components/argue/ui/toast";
-import { signOut } from "@domain/lib/server-actions";
+import { signOut } from "@/lib/server-actions";
 
 export interface ProfileMenuProps {
   displayName: string;

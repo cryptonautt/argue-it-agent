@@ -5,7 +5,7 @@ import { useState, useTransition } from "react";
 import { Avatar } from "@/components/argue/ui/avatar";
 import { Button } from "@/components/argue/ui/button";
 import { useToast } from "@/components/argue/ui/toast";
-import { unblockUser } from "@domain/lib/server-actions";
+import { unblockUser } from "@/lib/server-actions";
 import { formatShortDate } from "./format";
 
 export interface BlockedUserItem {

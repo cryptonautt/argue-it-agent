@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getUnreadNotificationCount } from "@domain/lib/server-actions";
+import { getUnreadNotificationCount } from "@/lib/server-actions";
 
 /** Poll interval for the unread count (design: no websockets in v1). Paused while the tab is hidden. */
 export const UNREAD_POLL_MS = 60_000;

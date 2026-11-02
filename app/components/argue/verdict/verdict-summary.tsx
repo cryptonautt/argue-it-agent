@@ -1,26 +1,25 @@
 // Owner: verdict. Compact "The AI verdict is in" card for the argument page and profiles.
-// Async Server Component: callers pass only the competition id (CONVENTIONS §8).
+// Ported from an async server component: the loader passes the data (reference getVerdictSummaryData).
 import Link from "@/shims/next-link";
 import { ChevronRight, Gavel, Hourglass, UserCheck } from "lucide-react";
 import { Badge } from "@/components/argue/ui/badge";
 import { SplitBar } from "@/components/argue/ui/score-bar";
 import { SideTag } from "@/components/argue/ui/side-tag";
 import { cn } from "@domain/lib/cn";
-import { getVerdictSummaryData } from "@domain/appeals/queries";
+import type { VerdictSummaryData } from "@domain/appeals/queries";
 import { verdictKicker } from "@domain/appeals/verdict-view";
 import { ConfidenceMeter } from "./confidence";
 
 export interface VerdictSummaryProps {
   competitionId: string;
+  /** Loader-fed (reference `getVerdictSummaryData(competitionId)`); null renders nothing. */
+  data: VerdictSummaryData | null | undefined;
 }
 
 const nf = new Intl.NumberFormat("en-GB", { maximumFractionDigits: 1 });
-const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 /** Compact verdict card (outcome, both names, totals, confidence) linking to /c/[id]/verdict. */
-export async function VerdictSummary({ competitionId }: VerdictSummaryProps) {
-  if (!UUID.test(competitionId)) return null;
-  const data = await getVerdictSummaryData(competitionId);
+export function VerdictSummary({ competitionId, data }: VerdictSummaryProps) {
   if (!data) return null;
   const href = `/c/${competitionId}/verdict`;
   const { A, B } = data.sides;

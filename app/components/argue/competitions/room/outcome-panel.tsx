@@ -3,9 +3,17 @@ import { Ban, Gavel, Hourglass, UserCheck } from "lucide-react";
 import { VerdictSummary } from "@/components/argue/verdict/verdict-summary";
 import { ButtonLink } from "@/components/argue/ui/button";
 import { Card } from "@/components/argue/ui/card";
+import type { VerdictSummaryData } from "@domain/appeals/queries";
 import type { CompetitionRoomView } from "@domain/competitions/queries";
 
-export function OutcomePanel({ room }: { room: CompetitionRoomView }) {
+export function OutcomePanel({
+  room,
+  verdictSummary,
+}: {
+  room: CompetitionRoomView;
+  /** Loader-fed (reference `getVerdictSummaryData(room.id)`); the compact card is omitted when absent. */
+  verdictSummary?: VerdictSummaryData | null;
+}) {
   const isParticipant = room.viewer.role !== null;
   const verdictLink = (
     <ButtonLink href={`/c/${room.id}/verdict`} variant="judge" icon={<Gavel aria-hidden className="size-4" />}>
@@ -31,7 +39,7 @@ export function OutcomePanel({ room }: { room: CompetitionRoomView }) {
     case "under_appeal":
       return (
         <div className="flex flex-col gap-3">
-          <VerdictSummary competitionId={room.id} />
+          <VerdictSummary competitionId={room.id} data={verdictSummary} />
           {room.phase === "under_appeal" ? (
             <p role="status" className="text-sm text-ink-2">
               This verdict is under appeal. A human reviewer will uphold it, order a fresh evaluation, or overturn it.

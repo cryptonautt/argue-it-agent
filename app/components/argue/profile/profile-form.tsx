@@ -8,7 +8,7 @@ import { Input } from "@/components/argue/ui/input";
 import { Textarea } from "@/components/argue/ui/textarea";
 import { useToast } from "@/components/argue/ui/toast";
 import type { FieldErrors } from "@domain/lib/action-result";
-import { updateProfile } from "@domain/lib/server-actions";
+import { updateProfile } from "@/lib/server-actions";
 import { BIO_MAX } from "@domain/profiles/schemas";
 
 export interface ProfileFormProps {

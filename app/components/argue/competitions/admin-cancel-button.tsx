@@ -7,7 +7,7 @@ import { ShieldX } from "lucide-react";
 import { Button } from "@/components/argue/ui/button";
 import { Dialog } from "@/components/argue/ui/dialog";
 import { Textarea } from "@/components/argue/ui/textarea";
-import { adminCancelCompetition } from "@domain/lib/server-actions";
+import { adminCancelCompetition } from "@/lib/server-actions";
 import { CANCEL_REASON_MAX_CHARS } from "@domain/competitions/terms";
 import { useCompetitionAction } from "./use-competition-action";
 

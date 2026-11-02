@@ -12,7 +12,7 @@ import { Textarea } from "@/components/argue/ui/textarea";
 import { cn } from "@domain/lib/cn";
 import { parseLinkList } from "@domain/lib/links";
 import { formatDateTime } from "@domain/lib/time";
-import { lockSubmission, saveSubmission } from "@domain/lib/server-actions";
+import { lockSubmission, saveSubmission } from "@/lib/server-actions";
 import { useCompetitionAction } from "../use-competition-action";
 
 export interface SubmissionEditorProps {

@@ -9,7 +9,7 @@ import { Textarea } from "@/components/argue/ui/textarea";
 import { useToast } from "@/components/argue/ui/toast";
 import { cn } from "@domain/lib/cn";
 import type { FieldErrors } from "@domain/lib/action-result";
-import { decideAppeal, resolveReview, retryFailedEvaluation, retryReputation } from "@domain/lib/server-actions";
+import { decideAppeal, resolveReview, retryFailedEvaluation, retryReputation } from "@/lib/server-actions";
 import { APPEAL_DECISIONS, DECISION_NOTE_MAX, type AppealDecision } from "@domain/appeals/rules";
 import type { VerdictOutcome } from "@domain/db/schema";
 

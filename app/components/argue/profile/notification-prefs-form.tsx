@@ -8,7 +8,7 @@ import {
   MUTABLE_NOTIFICATION_TYPES,
   type NotificationPrefsInput,
 } from "@domain/lib/notification-prefs";
-import { saveNotificationPrefs } from "@domain/lib/server-actions";
+import { saveNotificationPrefs } from "@/lib/server-actions";
 
 export interface NotificationPrefsFormProps {
   initial: NotificationPrefsInput;

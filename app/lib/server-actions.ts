@@ -138,7 +138,7 @@ export const UNPORTED_ACTIONS = new Set<string>();
 
 function notPorted<F extends AnyFn>(name: string) {
   UNPORTED_ACTIONS.add(name);
-  return async (_input?: In<F>): Promise<ActionResult<DataOf<F>>> =>
+  return async (..._args: Parameters<F>): Promise<ActionResult<DataOf<F>>> =>
     failure(NOT_PORTED_MESSAGE, "INTERNAL");
 }
 

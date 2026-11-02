@@ -7,7 +7,7 @@ import { Dialog } from "@/components/argue/ui/dialog";
 import { Textarea } from "@/components/argue/ui/textarea";
 import { useToast } from "@/components/argue/ui/toast";
 import { cn } from "@domain/lib/cn";
-import { deleteComment, editComment } from "@domain/lib/server-actions";
+import { deleteComment, editComment } from "@/lib/server-actions";
 import type { CommentView } from "@domain/social/types";
 import { CommentCard, CommentPlaceholder } from "./comment-card";
 import { COMMENT_MAX_CHARS } from "./comment-composer";

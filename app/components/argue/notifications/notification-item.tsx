@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Gavel, MessageSquare, ShieldAlert, Swords, UserPlus, type LucideIcon } from "lucide-react";
 import { cn } from "@domain/lib/cn";
 import { formatDateTime, formatRelative } from "@domain/lib/time";
-import { markNotificationsRead } from "@domain/lib/server-actions";
+import { markNotificationsRead } from "@/lib/server-actions";
 import type { NotificationKind } from "./notification-format";
 
 export interface NotificationItemView {
