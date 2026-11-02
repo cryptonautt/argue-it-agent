@@ -1,5 +1,30 @@
 # Office hours
 
+**When:** Tue 3 Nov 2026, 8:30 AM PT (16:30 Lagos, UTC+1). Agent-Native Hackathon office hours.
+
+## Questions
+
+1. Is "Use Builder.io" LLM usage free for hackathon entries, and is there a quota?
+2. Our judge is a fixed multi-pass scorer (blind case file, two passes in swapped order, quote checks) that runs in a
+   background job through `resolveEngine()`. Is that acceptable "use of Agent-Native", or do you want it through
+   `decide()`?
+3. What's the recommended way to seed several demo accounts in the framework's Better Auth?
+   (Our spike findings are under "Seeding" below.)
+4. Does "Clips" mean the hosted Builder Clips or the `clips` template?
+
+## Answers
+
+_To fill in during the session (Tue 3 Nov)._
+
+1. 
+2. 
+3. 
+4. 
+
+## Findings recorded during the build
+
+Other tasks append what they learn here (the seeding spike from Task 2, which judge path won from Task 4).
+
 ## Seeding
 
 Seeding spike (Task 2, Step 5, about 30 min, code reading only; not yet verified against a running server).
