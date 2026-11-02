@@ -1,6 +1,34 @@
-# Chat — Agent Guide
+# ARGUE IT — Agent Guide
 
-Chat is the minimal chat-first agent-native app. `/` redirects to shared sign-in, then `/home`, the editable Get started page. Chat lives at `/chat`; new chats start there. Actions carry capabilities; screens exist only for durable workflows.
+ARGUE IT is a debate app built on Agent-Native (ported from the Next.js reference app). People post arguments, challenge each other to two-round debates, and a blind AI judge (background job, never an action) scores both sides. Appeals and undecided debates go to human moderators. The agent drafts and explains; people decide. Actions carry capabilities; screens exist only for durable workflows.
+
+## Actions
+
+Every ARGUE IT action wraps the reference domain function unchanged (`server/domain/**`, imported as `@domain/*`) through `runDomain` in `server/lib/domain-action.ts`. Input schemas are the reference zod schemas (`server/lib/domain-action-schemas.ts`); `idempotencyKey` is optional (the server fills one in). Failures throw a typed action error whose `errorCode` is the reference `ActionErrorCode` (`VALIDATION`, `UNAUTHENTICATED`, `SUSPENDED`, `FORBIDDEN`, `NOT_FOUND`, `CONFLICT`, `RATE_LIMITED`, `IN_PROGRESS`, `INTERNAL`) plus `NEEDS_HANDLE` (signed in, no ARGUE IT profile yet), with `details.fieldErrors` for VALIDATION. Results are JSON (ISO date strings).
+
+| Action | Wraps (reference) | HTTP | Who / gate | Use it to |
+| --- | --- | --- | --- | --- |
+| `list-feed` | `arguments/actions.loadFeedPage` (first page: `arguments/feed.getFeedPage`) | GET | signed in | Page through the feed (`tab`, `category`, `cursor` from `nextCursor`). |
+| `get-argument` | `arguments/queries.getArgumentDetail` + positions, debates, comments | GET | signed in; hidden/removed bodies only for staff or author | Read one argument by `id`. |
+| `list-categories` | `arguments/queries.listActiveCategories` | GET | signed in | Get category slugs for create/filter. |
+| `create-argument` | `arguments/actions.createArgument` | POST | signed in, not suspended | Publish an argument. |
+| `set-position` | `social/actions.setPosition` | POST | signed in | AGREE / AGAINST on an argument. |
+| `create-comment` | `social/actions.createComment` | POST | signed in | Comment or reply (never judged). |
+| `send-challenge` | `competitions/actions.sendChallenge` | POST | signed in | Start a debate on an argument (terms frozen at send). |
+| `respond-to-challenge` | `competitions/actions.acceptChallenge` / `declineChallenge` | POST | the recipient | `response: "accept" \| "decline"`; accept needs `termsHash` from `get-competition`. |
+| `get-competition` | `competitions/queries.getCompetitionRoom` | GET | signed in; drafts sealed | Read the debate room by `id`. |
+| `save-submission` | `competitions/actions.saveSubmission` | POST | a debater | Save a draft for the current round. |
+| `lock-submission` | `competitions/actions.lockSubmission` | POST | a debater; `needsApproval` | Make the round entry final (the user's act). |
+| `get-verdict` | `appeals/queries.getVerdictPageData` | GET | signed in | Read the verdict, scores, quotes, appeals, eligibility. |
+| `file-appeal` | `appeals/actions.fileAppeal` | POST | a debater; `needsApproval` | Appeal the current verdict (the user's act). |
+| `list-review-queue` | `appeals/queries.getReviewQueue` + `getAppealQueue` | GET | `authorize`: moderator | Read both review queues. |
+| `decide-appeal` | `appeals/actions.decideAppeal` | POST | `authorize`: moderator; `needsApproval` | Uphold / reevaluate / overturn an appeal (a human decision). |
+| `resolve-review` | `appeals/actions.resolveReview` | POST | `authorize`: moderator; `needsApproval` | Settle a needs-review debate (a human decision). |
+| `retry-evaluation` | `appeals/actions.retryFailedEvaluation` | POST | `authorize`: moderator | Re-queue a judge run that failed outright. |
+| `get-profile` | `profiles/queries.getProfileByHandle` + record, history | GET | signed in | Read a profile by `handle`. |
+| `create-profile` | new: insert `users` + `profiles` for the signed-in email | POST | framework session, no profile yet | Onboarding (`/welcome`): pick a handle. |
+
+The agent never finalises a verdict, appeal decision or moderation action: those actions require human approval per agent call, and the UI path is a human click. Agent-role actions (screen context, drafts, explainer, prefill) are documented by their skills in `.agents/skills/`.
 
 ## Skills
 
@@ -19,7 +47,7 @@ For custom branding, keep `server/plugins/agent-native-email-branding.ts` aligne
 
 ## Application state
 
-- `navigation` describes the view and selected ids. Chat is `chat` at `/chat` and `/chat/<threadId>`; the Get started page is `home` at `/home`; `/` opens shared sign-in/signup.
+- `navigation` describes the view and selected ids (ARGUE IT routes: feed `/`, argument `/a/<id>`, new argument `/new`, debate `/c/<id>`, verdict `/c/<id>/verdict`, review queue `/admin/review`, profile `/u/<handle>`, rules `/rules`). Chat is `chat` at `/chat` and `/chat/<threadId>`.
 - Use `navigate` when supported and `view-screen` for a fresh read of visible details; basic navigation is already in `<current-screen>`.
 
 ## Building a domain app
