@@ -14,6 +14,7 @@ import {
   type ShouldRevalidateFunctionArgs,
 } from "react-router";
 
+import { AgentDraftSlot, TriageQueueButton } from "@/components/argue/moderation/draft-card";
 import { PageContainer } from "@/components/argue/shell/page";
 import { Badge } from "@/components/argue/ui/badge";
 import { ButtonLink } from "@/components/argue/ui/button";
@@ -95,6 +96,7 @@ export default function AdminReviewPage() {
           AGENT-7 SLOT (Task 8): queue-level "Triage queue" button goes here. It calls
           sendToAgentChat({ message: "Triage the review queue", submit: true, openSidebar: true }).
         */}
+        <TriageQueueButton />
         {/* END AGENT-7 SLOT (Triage queue) */}
       </div>
       <LinkTabs
@@ -187,6 +189,11 @@ function ReviewTab({ items, viewerId }: { items: ReviewQueueItem[]; viewerId: st
                     AGENT-7 SLOT (Task 8): per-item "Draft with agent" button + <DraftCard> for
                     kind="review", targetId={item.header.competitionId}. Show the case title on the card.
                   */}
+                  <AgentDraftSlot
+                    kind="review"
+                    targetId={item.header.competitionId}
+                    title={item.header.proposition}
+                  />
                   {/* END AGENT-7 SLOT (review item) */}
                   {item.canRetry ? (
                     <div className="flex flex-wrap items-center gap-3 rounded-[var(--radius)] border border-dashed border-line-strong p-3">
@@ -274,6 +281,7 @@ function AppealsTab({ queue, viewerId }: { queue: AppealQueue; viewerId: string 
                       AGENT-7 SLOT (Task 8): per-item "Draft with agent" button + <DraftCard> for
                       kind="appeal", targetId={item.appeal.id}. Show the case title on the card.
                     */}
+                    <AgentDraftSlot kind="appeal" targetId={item.appeal.id} title={item.header.proposition} />
                     {/* END AGENT-7 SLOT (appeal item) */}
                     <AppealDecisionForm
                       appealId={item.appeal.id}

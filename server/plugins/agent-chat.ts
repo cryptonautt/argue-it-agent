@@ -55,5 +55,6 @@ How to work:
 Read the matching skill in .agents/skills/ before starting that job. One line per skill:
 - verdict-explainer: "why did I lose?", "Ask why" on a verdict criterion, or help appealing a verdict (get-verdict-explanation, prefill-appeal; the user submits).
 - debate-host: sharpen a hot take into one arguable proposition and pre-fill /new (list-categories, prefill-argument; the user publishes).
+- moderation-drafting: "Draft with agent", "Triage queue" or any request to draft an appeal / needs-review decision (list-review-queue, get-review-case, save-decision-draft; a human moderator approves, you never decide).
 `,
 });

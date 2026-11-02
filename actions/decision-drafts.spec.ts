@@ -7,9 +7,9 @@ import { eq } from "drizzle-orm";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import type { DbOrTx } from "@domain/db";
-import { appeals, auditLogs } from "@domain/db/schema";
+import { appeals, auditLogs, competitions } from "@domain/db/schema";
 import { decisionDrafts } from "@domain/drafts/schema";
-import { addSubmissions, createJudgedCompetition, type AppealFixture } from "@domain/appeals/test-fixtures";
+import { addFailedRun, addSubmissions, createJudgedCompetition, type AppealFixture } from "@domain/appeals/test-fixtures";
 import { HOUR_MS, resetClock, setClock } from "@domain/lib/time";
 import { actAs } from "@domain/test-helpers/auth";
 import { setupTestDb } from "@domain/test-helpers/db";
@@ -147,5 +147,46 @@ describe("deciding with a draftId", () => {
     expect(error.errorCode).toBe("CONFLICT");
     const [appeal] = await t.db.select().from(appeals).where(eq(appeals.id, f.appealId));
     expect(appeal?.status).toBe("open");
+  });
+
+  it("resolve-review with draftId approves the review draft (note unchanged -> edited=false)", async () => {
+    const resolveReview = (await import("./resolve-review")).default;
+    const f = await createJudgedCompetition(t.db, { status: "needs_review", outcome: "inconclusive" });
+    await addSubmissions(t.db, f);
+    actAs(f.reviewer.user.id);
+    const note = "Side A backed every claim with records; side B relied on assertion.";
+    const { id: draftId } = await saveDecisionDraft.run(
+      { kind: "review", targetId: f.competitionId, recommendation: "A", note, citations: [], confidence: "low" },
+      tool,
+    );
+    await resolveReview.run({ competitionId: f.competitionId, outcome: "A", note, draftId } as never, tool);
+    const [row] = await t.db.select().from(decisionDrafts).where(eq(decisionDrafts.id, draftId));
+    expect(row).toMatchObject({ status: "approved", edited: false });
+    const [competition] = await t.db.select().from(competitions).where(eq(competitions.id, f.competitionId));
+    expect(competition?.status).toBe("completed");
+  });
+
+  it("retry-evaluation with draftId approves a retry draft", async () => {
+    const retryEvaluation = (await import("./retry-evaluation")).default;
+    const f = await createJudgedCompetition(t.db, { status: "needs_review", outcome: null });
+    await addFailedRun(t.db, f.competitionId);
+    mocks.enqueueEvaluation.mockImplementation(async (competitionId, _reason, tx) => {
+      await (tx ?? t.db).update(competitions).set({ status: "evaluating" }).where(eq(competitions.id, competitionId));
+    });
+    actAs(f.reviewer.user.id);
+    const { id: draftId } = await saveDecisionDraft.run(
+      {
+        kind: "review",
+        targetId: f.competitionId,
+        recommendation: "retry",
+        note: "The provider was down; nothing was judged. Run it again.",
+        citations: [],
+        confidence: "high",
+      },
+      tool,
+    );
+    await retryEvaluation.run({ competitionId: f.competitionId, draftId } as never, tool);
+    const [row] = await t.db.select().from(decisionDrafts).where(eq(decisionDrafts.id, draftId));
+    expect(row).toMatchObject({ status: "approved", edited: false });
   });
 });

@@ -740,7 +740,8 @@ export async function approveDraft(
     if (draft.status === "approved" && draft.decidedBy === actor.id) return; // replay
     if (draft.status !== "draft") throw new ActionError("CONFLICT", `This draft was already ${draft.status}.`);
 
-    const edited = finalNote.trim() !== draft.note.trim();
+    // A "retry" decision has no written note (retry-evaluation takes none), so it can't have been edited.
+    const edited = draft.recommendation === "retry" ? false : finalNote.trim() !== draft.note.trim();
     await tx
       .update(decisionDrafts)
       .set({ status: "approved", decidedBy: actor.id, decidedAt: now(), edited })
@@ -760,7 +761,7 @@ export async function approveDraft(
           outcome: draft.outcome ?? null,
           confidence: draft.confidence,
           edited,
-          finalNote: finalNote.trim(),
+          finalNote: draft.recommendation === "retry" ? null : finalNote.trim(),
         },
       },
       tx,

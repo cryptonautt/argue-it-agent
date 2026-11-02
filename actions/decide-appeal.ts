@@ -2,6 +2,7 @@ import { defineAction } from "@agent-native/core/action";
 import { z } from "zod";
 
 import { decideAppeal } from "@domain/appeals/actions";
+import { decideWithOptionalDraft } from "@domain/drafts/actions";
 
 import { authorizeModerator, domainErrors, runDomain, withIdempotencyKey } from "../server/lib/domain-action.js";
 import { decideAppealInput } from "../server/lib/domain-action-schemas.js";
@@ -9,7 +10,15 @@ import { decideAppealInput } from "../server/lib/domain-action-schemas.js";
 export default defineAction({
   description:
     'Moderators only. Decide an open appeal: "uphold" (verdict stands), "reevaluate" (re-run the AI judge once) or "overturn" (set the outcome), with a note both debaters read. A human decides: an agent call always needs the moderator\'s approval.',
-  schema: decideAppealInput,
+  schema: decideAppealInput.and(
+    z.object({
+      draftId: z
+        .string()
+        .min(1)
+        .optional()
+        .describe("Optional: the agent draft being approved (from list-decision-drafts). Must match this appeal and decision."),
+    }),
+  ),
   outputSchema: z.object({
     appealId: z.string(),
     competitionId: z.string(),
@@ -21,5 +30,18 @@ export default defineAction({
   http: { method: "POST" },
   needsApproval: true,
   authorize: authorizeModerator,
-  run: async (args) => runDomain(decideAppeal(withIdempotencyKey(args))),
+  run: async ({ draftId, ...input }) =>
+    runDomain(
+      decideWithOptionalDraft(
+        draftId,
+        {
+          kind: "appeal",
+          targetId: input.appealId,
+          recommendation: input.decision,
+          outcome: input.decision === "overturn" ? input.outcome : undefined,
+        },
+        input.note,
+        () => decideAppeal(withIdempotencyKey(input)),
+      ),
+    ),
 });
