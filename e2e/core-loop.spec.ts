@@ -101,8 +101,10 @@ test("core loop: two users debate and a verdict page renders", async ({ browser 
   const verdictUrl = `${roomUrl}/verdict`;
   await expect(async () => {
     await author.page.goto(verdictUrl);
-    await expect(author.page.getByRole("heading", { name: "How this was judged" })).toBeVisible({ timeout: 2_000 });
-  }).toPass({ timeout: 180_000, intervals: [2_000, 3_000, 5_000] });
+    // Each attempt re-navigates; the page's client loader needs well over 2 s on the dev server, so a short inner
+    // timeout here never matched even when the verdict was already rendered (seen in the 2026-11-02 run).
+    await expect(author.page.getByRole("heading", { name: "How this was judged" })).toBeVisible({ timeout: 60_000 });
+  }).toPass({ timeout: 300_000, intervals: [2_000, 3_000, 5_000] });
 
   // 9. The verdict page shows the outcome, per-criterion scores, verbatim quotes and the fairness panel.
   const verdictPage = author.page;

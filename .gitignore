@@ -41,3 +41,7 @@ learnings.md
 .vercel/
 .agent-native/
 data/*.lock
+
+# Playwright output
+test-results/
+playwright-report/

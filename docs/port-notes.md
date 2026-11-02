@@ -754,3 +754,36 @@ AGENT_NATIVE_DISABLE_AUTO_DEV_ACCOUNT=1, port 3000 is the user's reference Next 
   fresh `data/pglite` before the demo removes them and the two Better Auth accounts.
 - Database page (`/database`) lists ARGUE IT tables with rows (unlike `db-query`): `decision_drafts` showed 2 rows.
 
+**E2E (`pnpm e2e`, throwaway `data/e2e-pglite`, JUDGE_PROVIDER=mock set by playwright.config.ts only):**
+- Run 1 (HEAD 1a68278, before the vite/spec fixes): 3 passed, 2 failed, 1 skipped (17.7 m). Both failures were
+  core-loop hitting the 5-min test timeout mid-flow (see the vite.config.ts root cause above).
+- Run 2 (vite include + 15-min budget): 3 passed, 2 failed, 1 skipped (28.6 m).
+  - Mobile core-loop: the author's context hit `net::ERR_NETWORK_IO_SUSPENDED` on 297 module requests (toolkit
+    chunks, `.vite/deps/agent-sidebar-url`). It made no requests after that and sat on the framework's "Loading
+    application" splash. This is the dev transport under load, not app logic; the step passed in run 1 and run 4.
+  - Desktop core-loop: the verdict page HAD rendered ("Ada E2E wins", "How this was judged", "Judged by
+    mock-judge-v1 · 2 passes"), but the spec's `toPass` loop re-navigates on every attempt and gave the heading
+    only 2 s. Fixed in the spec: 60 s inner wait, 300 s outer.
+- Run 3 `npx playwright test e2e/core-loop.spec.ts --project=desktop`: **1 passed** (test 5.0 m, run 7.6 m).
+- Run 4 `... --project=mobile`: **1 passed** (test 5.3 m, run 7.3 m).
+- Moderator spec (runs 1 and 2): "moderator approves an agent draft" passed on desktop both times. It is
+  desktop-only by design, since the seeded appeal can be decided once. "non-staff cannot write a decision draft
+  (FORBIDDEN)" passed on both projects, both runs.
+- So every spec has passed on HEAD's code. The full suite has not passed in a single invocation: the mobile flake
+  above was the remaining failure, and runs 3/4 were split runs.
+
+**Go/no-go (everything except the live model): GO for a local dev demo.** Two fresh users complete post →
+position + comment → challenge → accept → both openings → both rebuttals → judge (mock, after() kick) → verdict
+page with outcome, per-criterion scores, verbatim quotes checked against the submissions, and "How this was
+judged". This passed on both viewports (runs 3 and 4). The seeded dev DB has the demo fixtures, the review queue
+shows them, and the DraftCard approve path works.
+**Still human:**
+- Live model: `JUDGE_PROVIDER=engine` (or `anthropic` + key) in `.env`, agent chat LLM connection, and Task 4
+  Step 6 (does `resolveEngine()` work outside a request?).
+- Agent-chat checks (Tasks 5-8) and the Clips recording.
+- Deploy needs hosted Postgres plus `BETTER_AUTH_SECRET`.
+
+**Cleanup:** the dev server (3200), the production probe (3300) and both e2e servers (3100) are stopped. Node
+processes match the pre-run baseline (the user's reference Next dev server on :3000 and MCP helpers were left
+alone). Temporary scripts in `data/` (`_q.mjs`, `_perf.mjs`, `_shots*.mjs`) were deleted, along with the stale
+`data/a-verify-pglite.agent-native-pglite.lock`. `.gitignore` now ignores `test-results/` and `playwright-report/`.

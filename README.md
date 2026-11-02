@@ -212,7 +212,7 @@ locally and Postgres in production; the framework's Better Auth; zod; Vitest and
 | `pnpm dev` | dev server with the agent sidebar |
 | `pnpm typecheck` | TypeScript |
 | `pnpm vitest run` | unit and integration tests against in-memory PGlite |
-| `pnpm e2e` | e2e: the core loop (two users → debate → verdict page) and the moderator approving an agent draft, on phone and desktop viewports. It runs against a throwaway database (`data/e2e-pglite`) with `JUDGE_PROVIDER=mock`, and never touches your data or calls a model. Stop `pnpm dev` first. Uses your installed Chrome (`PW_CHANNEL=bundled` for Playwright's Chromium). |
+| `pnpm e2e` | e2e: the core loop (two users → debate → verdict page) and the moderator approving an agent draft, on phone and desktop viewports. It runs against a throwaway database (`data/e2e-pglite`) with `JUDGE_PROVIDER=mock`, and never touches your data or calls a model. Stop `pnpm dev` first. Uses your installed Chrome (`PW_CHANNEL=bundled` for Playwright's Chromium). Slow on Windows: each full page load on the dev server takes ~20-30 s, so a full run takes ~30 min; `npx playwright test e2e/core-loop.spec.ts --project=desktop` runs the core loop alone (~8 min). |
 | `JUDGE_PROVIDER=mock pnpm fairness` | fairness suite, plumbing check |
 | `pnpm seed` | demo data (dev server stopped) |
 | `pnpm action <name> --arg value` | call any action from the CLI, e.g. `pnpm action list-categories` (see the caveats below) |
