@@ -2,14 +2,12 @@ import { and, eq } from "drizzle-orm";
 import { describe, expect, it, vi } from "vitest";
 import { getSession } from "@domain/auth";
 import {
-  accounts,
   auditLogs,
   blocks,
   competitionParticipants,
   competitions,
   follows,
   profiles,
-  sessions,
   users,
   verdicts,
 } from "@domain/db/schema";
@@ -136,8 +134,6 @@ describe("deleteAccount", () => {
     const fan = await createTestUser(t.db, { handle: "halima" });
     const comp = await createFinishedCompetition(t.db, { forUserId: me.user.id, againstUserId: rival.user.id });
     await setVerdict(t.db, comp, "B");
-    await t.db.insert(sessions).values({ token: "tok-1", userId: me.user.id, expiresAt: new Date("2999-01-01") });
-    await t.db.insert(accounts).values({ accountId: me.user.id, providerId: "credential", userId: me.user.id, password: "hash" });
     await t.db.insert(follows).values([
       { followerId: fan.user.id, followingId: me.user.id },
       { followerId: me.user.id, followingId: rival.user.id },
@@ -162,8 +158,6 @@ describe("deleteAccount", () => {
     const [account] = await t.db.select().from(users).where(eq(users.id, me.user.id));
     expect(account?.status).toBe("deleted");
     expect(account?.email).not.toContain("funmi");
-    expect(await t.db.select().from(sessions).where(eq(sessions.userId, me.user.id))).toHaveLength(0);
-    expect(await t.db.select().from(accounts).where(eq(accounts.userId, me.user.id))).toHaveLength(0);
     expect(await getSession()).toBeNull();
 
     // Social graph: follows gone; the user's own blocks gone; blocks against them kept.

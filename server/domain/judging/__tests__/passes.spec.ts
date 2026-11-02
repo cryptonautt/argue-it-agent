@@ -137,10 +137,12 @@ describe("MockJudgeProvider", () => {
     expect(ab1.output.invalidQuoteCount).toBe(0);
   });
 
-  it("is selected when no API key is set or JUDGE_PROVIDER=mock", () => {
-    expect(selectedProviderKind({})).toBe("mock");
+  // Port: JUDGE_PROVIDER is required (plan Task 4). The reference's silent mock/anthropic inference is gone.
+  it("is selected only when JUDGE_PROVIDER=mock is set explicitly (never a silent default)", () => {
+    expect(() => selectedProviderKind({})).toThrow(/judge provider unavailable/);
+    expect(() => selectedProviderKind({ ANTHROPIC_API_KEY: "k" })).toThrow(/judge provider unavailable/);
     expect(selectedProviderKind({ ANTHROPIC_API_KEY: "k", JUDGE_PROVIDER: "mock" })).toBe("mock");
-    expect(selectedProviderKind({ ANTHROPIC_API_KEY: "k" })).toBe("anthropic");
+    expect(selectedProviderKind({ ANTHROPIC_API_KEY: "k", JUDGE_PROVIDER: "anthropic" })).toBe("anthropic");
   });
 });
 

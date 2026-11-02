@@ -11,7 +11,7 @@ import { writeAudit } from "@domain/audit";
 import { requireUser } from "@domain/auth";
 import { db } from "@domain/db";
 import { isUniqueViolation } from "@domain/db/errors";
-import { accounts, blocks, categories, follows, notifications, profiles, sessions, users } from "@domain/db/schema";
+import { blocks, categories, follows, notifications, profiles, users } from "@domain/db/schema";
 import { countBlockingCompetitions } from "./queries";
 import {
   DELETED_DISPLAY_NAME,
@@ -135,8 +135,10 @@ export async function saveNotificationPrefs(input: NotificationPrefsInput): Prom
  * Soft-delete the signed-in account (design §6 "/settings → delete account").
  *
  * - The profile is anonymised to "Deleted user" with a random-looking handle; bio/avatar/interests cleared.
- * - Login is removed: credentials (accounts) and all sessions are deleted; email is replaced so it can be
- *   reused for a new sign-up. users.status = "deleted" makes getSession() treat the user as signed out.
+ * - Login is removed: email is replaced (so it can be reused for a new sign-up) and users.status = "deleted",
+ *   so getSession() treats the user as signed out. Port note: credentials and sessions belong to the
+ *   framework's Better Auth (not ported tables); the auth bridge matches on users.email, so the old framework
+ *   login no longer resolves to this ARGUE IT user.
  * - Integrity is kept: competitions, submissions, verdicts, reputation events, audit logs, arguments and
  *   comments stay (shown as "Deleted user") so opponents' records and verdict history remain valid.
  * - Blocks *others* placed on this user are kept, so someone who blocked a harasser keeps not seeing them.
@@ -183,8 +185,6 @@ export async function deleteAccount(input: DeleteAccountInput): Promise<ActionRe
             updatedAt: at,
           })
           .where(eq(users.id, user.id));
-        await tx.delete(sessions).where(eq(sessions.userId, user.id));
-        await tx.delete(accounts).where(eq(accounts.userId, user.id));
         await tx.delete(follows).where(or(eq(follows.followerId, user.id), eq(follows.followingId, user.id)));
         await tx.delete(blocks).where(eq(blocks.blockerId, user.id));
         await tx.delete(notifications).where(eq(notifications.userId, user.id));
