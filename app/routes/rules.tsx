@@ -39,8 +39,8 @@ import { rubricsForRules, type RulesCategory } from "./_lib/screen-data";
 export async function clientLoader() {
   let categories: RulesCategory[] = [];
   try {
-    const result = await callAction("list-categories", {}, { method: "GET" });
-    if (Array.isArray(result)) categories = result as RulesCategory[];
+    const result = (await callAction("list-categories", {}, { method: "GET" })) as { categories?: unknown } | null;
+    if (Array.isArray(result?.categories)) categories = result.categories as RulesCategory[];
   } catch {
     // Category badges are decoration; the rules and rubrics still render.
   }

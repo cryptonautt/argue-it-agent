@@ -1,12 +1,20 @@
 // Owner: 5b-screens-b (ported from reference src/app/u/[handle]/page.tsx). Public profile: debate record
 // (rating, W/L/D, categories, judge-score averages), debate history, arguments posted, and a separate
-// community section (design §4.5, §6). Data: clientLoader → `get-profile` ({ handle, tab, cursor }).
+// community section (design §4.5, §6). Data: clientLoader → `get-profile` ({ handle }).
 //
 // Not shown in this port: Follow / Block / Report buttons. Their actions (followUser, blockUser, fileReport)
 // are not ported yet (app/lib/server-actions.ts UNPORTED_ACTIONS), and a button that always fails is worse
 // than no button. Panels whose data `get-profile` doesn't return are left out rather than faked.
 import { ShieldOff, UserX } from "lucide-react";
-import { data, redirect, useLoaderData, type ClientLoaderFunctionArgs, type MetaFunction } from "react-router";
+import {
+  data,
+  redirect,
+  useLoaderData,
+  useLocation,
+  type ClientLoaderFunctionArgs,
+  type MetaFunction,
+  type ShouldRevalidateFunctionArgs,
+} from "react-router";
 
 import { CommunityPanel } from "@/components/argue/profile/community-panel";
 import { DebateHistoryList } from "@/components/argue/profile/debate-history-list";
@@ -17,7 +25,6 @@ import { PageContainer } from "@/components/argue/shell/page";
 import { ButtonLink } from "@/components/argue/ui/button";
 import { EmptyState } from "@/components/argue/ui/empty-state";
 import { LinkTabs } from "@/components/argue/ui/link-tabs";
-import Link from "@/shims/next-link";
 import { normalizeHandle } from "@domain/lib/handles";
 import { strongestCriterion } from "@domain/reputation/criteria";
 
@@ -25,29 +32,33 @@ import { loadAction } from "./_lib/route-data";
 import { RouteErrorState, RouteLoading } from "./_lib/route-states";
 import { normaliseProfile, profileTab } from "./_lib/screen-data";
 
-function readParam(value: string | null): string | null {
-  return value && value.length > 0 ? value : null;
-}
-
 export async function clientLoader({ params, request }: ClientLoaderFunctionArgs) {
   const requested = decodeURIComponent(params.handle ?? "");
   const search = new URL(request.url).searchParams;
-  const tab = profileTab(search);
-  const cursor = readParam(search.get("cursor"));
-  const raw = await loadAction<unknown>(
-    "get-profile",
-    { handle: requested, tab, ...(cursor ? { cursor } : {}) },
-    request,
-  );
+  // get-profile takes only { handle } and returns the first page of both lists, so there is no cursor
+  // paging in this port ("load more" links are hidden).
+  const raw = await loadAction<unknown>("get-profile", { handle: requested }, request);
   const page = normaliseProfile(raw);
   if (!page) throw data({ message: "Not found" }, { status: 404 });
   // One canonical URL per profile (/u/Ada → /u/ada).
   if (requested !== page.profile.handle && normalizeHandle(requested) === page.profile.handle) {
     throw redirect(`/u/${page.profile.handle}${search.size ? `?${search.toString()}` : ""}`);
   }
-  return { page, tab, cursor };
+  return { page };
 }
 clientLoader.hydrate = true as const;
+
+/** Both lists come back in one call, so switching tabs doesn't refetch. Agent writes still revalidate. */
+export function shouldRevalidate({ currentUrl, nextUrl, defaultShouldRevalidate }: ShouldRevalidateFunctionArgs) {
+  if (currentUrl.pathname === nextUrl.pathname && currentUrl.search !== nextUrl.search) {
+    const a = new URLSearchParams(currentUrl.search);
+    const b = new URLSearchParams(nextUrl.search);
+    a.delete("tab");
+    b.delete("tab");
+    if (a.toString() === b.toString()) return false;
+  }
+  return defaultShouldRevalidate;
+}
 
 export const meta: MetaFunction<typeof clientLoader> = ({ loaderData: data }) => {
   const profile = data?.page.profile;
@@ -62,7 +73,8 @@ export const HydrateFallback = RouteLoading;
 export const ErrorBoundary = RouteErrorState;
 
 export default function ProfilePage() {
-  const { page, tab, cursor } = useLoaderData<typeof clientLoader>();
+  const { page } = useLoaderData<typeof clientLoader>();
+  const tab = profileTab(new URLSearchParams(useLocation().search));
   const { profile, viewer } = page;
 
   if (profile.status === "deleted") {
@@ -96,8 +108,6 @@ export default function ProfilePage() {
   }
 
   const base = `/u/${profile.handle}`;
-  const nextHref = (next: string | null) =>
-    next ? `${base}?${new URLSearchParams({ tab, cursor: next }).toString()}` : null;
 
   return (
     <PageContainer>
@@ -135,20 +145,12 @@ export default function ProfilePage() {
               },
             ]}
           />
-          {cursor ? (
-            <p className="text-sm text-ink-3">
-              Showing older items ·{" "}
-              <Link href={tab === "debates" ? base : `${base}?tab=arguments`} className="font-semibold text-ink underline">
-                Back to latest
-              </Link>
-            </p>
-          ) : null}
           {tab === "debates" && page.history ? (
             <DebateHistoryList
               items={page.history.items}
               displayName={profile.displayName}
               isOwnProfile={viewer.isOwnProfile}
-              nextHref={nextHref(page.history.nextCursor)}
+              nextHref={null}
             />
           ) : null}
           {tab === "arguments" && page.posted ? (
@@ -156,7 +158,7 @@ export default function ProfilePage() {
               items={page.posted.items}
               displayName={profile.displayName}
               isOwnProfile={viewer.isOwnProfile}
-              nextHref={nextHref(page.posted.nextCursor)}
+              nextHref={null}
             />
           ) : null}
         </section>

@@ -25,7 +25,7 @@ import { RouteErrorState, RouteLoading } from "./_lib/route-states";
 
 export async function clientLoader({ params, request }: ClientLoaderFunctionArgs) {
   const competitionId = requireUuid(params.id);
-  const room = await loadAction<CompetitionRoomView | null>("get-competition", { competitionId }, request);
+  const room = await loadAction<CompetitionRoomView | null>("get-competition", { id: competitionId }, request);
   return { room };
 }
 clientLoader.hydrate = true as const;

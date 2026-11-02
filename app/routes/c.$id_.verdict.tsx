@@ -26,6 +26,7 @@ import {
   useAppealDraft,
   useJudgedBy,
 } from "@/components/argue/agent/verdict-agent";
+import type { RubricDef } from "@domain/judging/types";
 
 import { loadAction, requireUuid } from "./_lib/route-data";
 import { RouteErrorState, RouteLoading } from "./_lib/route-states";
@@ -33,10 +34,16 @@ import { findCodeRubric } from "./_lib/screen-data";
 
 export async function clientLoader({ params, request }: ClientLoaderFunctionArgs) {
   const competitionId = requireUuid(params.id);
-  const data = await loadAction<VerdictPageData | null>("get-verdict", { competitionId }, request);
-  // Reference used `findRubric` (code rubrics, then the `rubrics` table). Code rubrics are the source of
-  // truth and are client-safe; an unknown id@version degrades the "How this was judged" panel to null.
-  const rubric = data.current ? findCodeRubric(data.rubric.id, data.rubric.version) : null;
+  const data = await loadAction<(VerdictPageData & { rubricDetail?: RubricDef | null }) | null>(
+    "get-verdict",
+    { competitionId },
+    request,
+  );
+  // The action resolves the pinned rubric server-side (reference `findRubric`: code rubrics, then the
+  // `rubrics` table) as `rubricDetail`. Fall back to the client-safe code rubrics if it is absent.
+  const rubric = data.current
+    ? (data.rubricDetail ?? findCodeRubric(data.rubric.id, data.rubric.version))
+    : null;
   return { data, rubric };
 }
 clientLoader.hydrate = true as const;

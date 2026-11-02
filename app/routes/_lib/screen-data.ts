@@ -122,30 +122,36 @@ export interface ProfilePageData {
 }
 
 /**
- * Accept the `get-profile` output either as the full page bundle (preferred; see port-notes) or as a bare
- * `PublicProfile`. Missing parts become null and the screen leaves those panels out.
+ * Shape the `get-profile` output for the screen. The action (actions/get-profile.ts) returns
+ * `{ availability: "available" | "deleted" | "blocked", isOwnProfile, viewerBlocks?, profile, record?,
+ *    community?: { followers, following, comments, arguments }, debates?, postedArguments? }`.
+ * A bare `PublicProfile` is accepted too. Missing parts become null and the screen leaves those panels out.
  */
 export function normaliseProfile(raw: unknown): ProfilePageData | null {
   if (!raw || typeof raw !== "object") return null;
   const r = raw as Record<string, unknown>;
   const profile = (r.profile ?? (typeof r.handle === "string" ? r : null)) as PublicProfile | null;
-  if (!profile) return null;
-  const v = (r.viewer ?? {}) as Partial<ProfilePageData["viewer"]>;
+  if (!profile || typeof profile.handle !== "string") return null;
   const num = (x: unknown) => (typeof x === "number" ? x : null);
+  const community = (r.community ?? null) as
+    | { followers?: unknown; following?: unknown; comments?: unknown; arguments?: unknown }
+    | null;
+  const followers = num(community?.followers);
+  const following = num(community?.following);
   return {
     profile,
     viewer: {
-      signedIn: Boolean(v.signedIn),
-      isOwnProfile: Boolean(v.isOwnProfile),
-      blockedEitherWay: Boolean(v.blockedEitherWay),
-      viewerBlocks: Boolean(v.viewerBlocks),
+      signedIn: true,
+      isOwnProfile: r.isOwnProfile === true,
+      blockedEitherWay: r.availability === "blocked",
+      viewerBlocks: r.viewerBlocks === true,
     },
     record: (r.record as ProfilePageData["record"]) ?? null,
-    follows: (r.follows as ProfilePageData["follows"]) ?? null,
-    commentCount: num(r.commentCount),
-    argumentCount: num(r.argumentCount),
-    history: (r.history as ProfilePageData["history"]) ?? null,
-    posted: (r.posted as ProfilePageData["posted"]) ?? null,
+    follows: followers !== null && following !== null ? { followers, following } : null,
+    commentCount: num(community?.comments),
+    argumentCount: num(community?.arguments),
+    history: (r.debates as ProfilePageData["history"]) ?? null,
+    posted: (r.postedArguments as ProfilePageData["posted"]) ?? null,
   };
 }
 

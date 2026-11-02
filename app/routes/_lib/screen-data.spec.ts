@@ -102,22 +102,33 @@ describe("profile", () => {
     const out = normaliseProfile(profile);
     expect(out?.profile.handle).toBe("ada");
     expect(out?.record).toBeNull();
-    expect(out?.viewer).toEqual({ signedIn: false, isOwnProfile: false, blockedEitherWay: false, viewerBlocks: false });
+    expect(out?.follows).toBeNull();
+    expect(out?.viewer).toEqual({ signedIn: true, isOwnProfile: false, blockedEitherWay: false, viewerBlocks: false });
   });
 
-  it("accepts the full bundle", () => {
+  it("maps the get-profile action output (available)", () => {
     const out = normaliseProfile({
+      availability: "available",
+      isOwnProfile: true,
       profile,
-      viewer: { signedIn: true, isOwnProfile: true },
-      commentCount: 3,
-      argumentCount: 2,
-      follows: { followers: 1, following: 0 },
-      history: { items: [], nextCursor: null },
+      record: { summary: {}, criteria: [] },
+      community: { followers: 1, following: 0, comments: 3, arguments: 2 },
+      debates: { items: [], nextCursor: null },
+      postedArguments: { items: [], nextCursor: "x" },
     });
     expect(out?.viewer.isOwnProfile).toBe(true);
+    expect(out?.follows).toEqual({ followers: 1, following: 0 });
     expect(out?.commentCount).toBe(3);
+    expect(out?.argumentCount).toBe(2);
     expect(out?.history).toEqual({ items: [], nextCursor: null });
-    expect(out?.posted).toBeNull();
+    expect(out?.posted).toEqual({ items: [], nextCursor: "x" });
+  });
+
+  it("maps a blocked profile without any activity", () => {
+    const out = normaliseProfile({ availability: "blocked", isOwnProfile: false, viewerBlocks: true, profile });
+    expect(out?.viewer.blockedEitherWay).toBe(true);
+    expect(out?.viewer.viewerBlocks).toBe(true);
+    expect(out?.history).toBeNull();
   });
 
   it("returns null for nothing", () => {
