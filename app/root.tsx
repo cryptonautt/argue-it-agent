@@ -180,19 +180,6 @@ function AppContent() {
   );
 }
 
-/**
- * ARGUE IT pages that anonymous visitors may open (the reference served `/rules` signed out). Path-based,
- * not visitor-based, so the SSR shell stays one cached page per URL. `/` stays private on purpose: the flag
- * also drops RequireSession and the agent bootstraps for signed-in users on that path, and the feed is the
- * main signed-in surface (so the reference's signed-out landing is not reachable; sign-in comes first).
- */
-const PUBLIC_PATHS: ReadonlySet<string> = new Set(["/rules"]);
-
-function isArguePublicPath(pathname: string): boolean {
-  const path = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
-  return PUBLIC_PATHS.has(path);
-}
-
 export default function Root() {
   const [queryClient] = useState(() => createAgentNativeQueryClient());
   // The path, not the visitor, picks the shell, so the SSR shell stays one
@@ -202,7 +189,6 @@ export default function Root() {
     <AppToolkitProvider>
       <AppProviders
         queryClient={queryClient}
-        isPublicPath={isArguePublicPath(pathname)}
         skeletonLayout={skeletonLayoutForPath(pathname)}
         i18n={{ catalog: i18nCatalog }}
       >
