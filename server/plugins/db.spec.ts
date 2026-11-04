@@ -40,7 +40,10 @@ describe("server/plugins/db", () => {
     expect(Number((rows[0] as { n: number }).n)).toBe(5);
 
     const named = await exec.execute(`select name from ${MIGRATIONS_TABLE}_named order by 1`);
-    expect(named.rows.map((r) => String((r as { name: string }).name))).toEqual(["0000_init.sql"]);
+    expect(named.rows.map((r) => String((r as { name: string }).name))).toEqual([
+      "0000_init.sql",
+      "0001_polymarket_event_slug.sql",
+    ]);
   });
 
   it("routes the @domain/db proxy to the same framework connection", async () => {

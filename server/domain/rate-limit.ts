@@ -19,6 +19,10 @@ export const RATE_LIMITS = {
   appeal: { limit: 5, windowMs: DAY_MS, label: "appeals per day" },
   // Password-reset emails per account. Checked silently (never surfaced) so it can't reveal which emails exist.
   password_reset: { limit: 5, windowMs: HOUR_MS, label: "password reset emails per hour" },
+  // Builder-signed relayer calls for in-app betting. Status polls are cheap; each relayer transaction counts
+  // against the app's daily Builder quota (100/day on the Unverified tier), so one user gets a small share.
+  polymarket_sign: { limit: 600, windowMs: HOUR_MS, label: "Polymarket signing requests per hour" },
+  polymarket_relay: { limit: 10, windowMs: DAY_MS, label: "Polymarket wallet transactions per day" },
 } as const satisfies Record<string, { limit: number; windowMs: number; label: string }>;
 
 export type RateLimitAction = keyof typeof RATE_LIMITS;

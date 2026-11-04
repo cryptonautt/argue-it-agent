@@ -24,6 +24,7 @@ import {
 import { positionSideEnum } from "@domain/db/schema";
 import { idempotencyKeySchema } from "@domain/idempotency";
 import { displayNameSchema, handleSchema } from "@domain/lib/handles";
+import { marketSlugSchema } from "@domain/polymarket/slug";
 import { COMMENT_MAX_LENGTH } from "@domain/social/comments";
 
 /** Optional for agent callers; the UI passes its own `crypto.randomUUID()`. */
@@ -37,8 +38,13 @@ const relaxKey = { idempotencyKey: optionalIdempotencyKey };
 // Arguments
 // ---------------------------------------------------------------------------------------------------
 
-/** Reference `createArgumentSchema` (module-local) = `argumentFieldsSchema.extend({ idempotencyKey })`. */
-export const createArgumentInput = argumentFieldsSchema.extend(relaxKey);
+/** MIRROR of `createArgumentSchema` (module-local) = `argumentFieldsSchema.extend({ idempotencyKey, marketSlug })`. */
+export const createArgumentInput = argumentFieldsSchema.extend({
+  ...relaxKey,
+  marketSlug: marketSlugSchema
+    .nullish()
+    .describe("Optional Polymarket event slug (from list-markets / get-market) when the argument debates that market."),
+});
 
 const feedTabKeys = FEED_TABS.map((tab) => tab.key) as [FeedTab, ...FeedTab[]];
 

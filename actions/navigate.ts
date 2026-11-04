@@ -7,7 +7,7 @@ import { navFromCommand, pathForNav } from "../app/hooks/navigation-map";
 const ARGUE_VIEW_HELP =
   'ARGUE IT views: "feed", "argument" (needs argumentId), "new-argument", "new-challenge" (optional argumentId), ' +
   '"debate" or "verdict" (need competitionId), "review-queue" (optional tab "review" | "appeals"), ' +
-  '"profile" (needs handle), "welcome", "rules". Template views ("chat", "settings", "database", …) also work.';
+  '"profile" (needs handle), "welcome", "rules", "markets", "market" (needs slug). Template views ("chat", "settings", "database", …) also work.';
 
 export default defineAction({
   description: `Navigate the user's UI to an ARGUE IT screen or a path. ${ARGUE_VIEW_HELP} Writes a one-shot navigate command the UI consumes.`,
@@ -17,6 +17,7 @@ export default defineAction({
     argumentId: z.string().optional().describe('Argument id for view "argument" or "new-challenge"'),
     competitionId: z.string().optional().describe('Competition (debate) id for view "debate" or "verdict"'),
     handle: z.string().optional().describe('Profile handle for view "profile"'),
+    slug: z.string().optional().describe('Polymarket event slug for view "market"'),
     tab: z.enum(["review", "appeals"]).optional().describe('Tab for view "review-queue": "review" (default) or "appeals"'),
     threadId: z.string().optional().describe("Chat thread ID to open (view \"chat\")"),
   }),

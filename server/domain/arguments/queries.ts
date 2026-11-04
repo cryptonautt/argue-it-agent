@@ -56,6 +56,8 @@ export interface ArgumentDetail {
   proposition: string;
   body: string;
   links: string[];
+  /** Polymarket event this argument was posted from (`/new?market=`); links back to `/markets/<slug>`. */
+  polymarketEventSlug: string | null;
   status: ContentStatus;
   createdAt: Date;
   editedAt: Date | null;
@@ -111,6 +113,7 @@ export async function getArgumentDetail(id: string, viewerId: string | null): Pr
     proposition: argument.proposition,
     body: argument.body,
     links: argument.links,
+    polymarketEventSlug: argument.polymarketEventSlug,
     status: argument.status,
     createdAt: argument.createdAt,
     editedAt: argument.editedAt,

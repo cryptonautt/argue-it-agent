@@ -20,6 +20,8 @@ describe("toNavigationState", () => {
       ["/u/ngozi", undefined, { view: "profile", handle: "ngozi" }],
       ["/welcome", undefined, { view: "welcome" }],
       ["/rules", undefined, { view: "rules" }],
+      ["/markets", undefined, { view: "markets" }],
+      ["/markets/kansas-senate-election-winner", undefined, { view: "market", slug: "kansas-senate-election-winner" }],
     ];
     for (const [pathname, search, expected] of table) {
       expect(toNavigationState(pathname, search), `${pathname}${search ?? ""}`).toEqual(expected);
@@ -54,6 +56,8 @@ describe("pathForNav", () => {
     { view: "profile", handle: "ngozi" },
     { view: "welcome" },
     { view: "rules" },
+    { view: "markets" },
+    { view: "market", slug: "kansas-senate-election-winner" },
   ];
 
   it("round-trips through toNavigationState", () => {

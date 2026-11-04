@@ -11,7 +11,7 @@ Every ARGUE IT action wraps the reference domain function unchanged (`server/dom
 | `list-feed` | `arguments/actions.loadFeedPage` (first page: `arguments/feed.getFeedPage`) | GET | signed in | Page through the feed (`tab`, `category`, `cursor` from `nextCursor`). |
 | `get-argument` | `arguments/queries.getArgumentDetail` + positions, debates, comments | GET | signed in; hidden/removed bodies only for staff or author | Read one argument by `id`. |
 | `list-categories` | `arguments/queries.listActiveCategories` | GET | signed in | Get category slugs for create/filter. |
-| `create-argument` | `arguments/actions.createArgument` | POST | signed in, not suspended | Publish an argument. |
+| `create-argument` | `arguments/actions.createArgument` | POST | signed in, not suspended | Publish an argument (optional `marketSlug` links it to a Polymarket event). |
 | `set-position` | `social/actions.setPosition` | POST | signed in | AGREE / AGAINST on an argument. |
 | `create-comment` | `social/actions.createComment` | POST | signed in | Comment or reply (never judged). |
 | `send-challenge` | `competitions/actions.sendChallenge` | POST | signed in | Start a debate on an argument (terms frozen at send). |
@@ -27,6 +27,10 @@ Every ARGUE IT action wraps the reference domain function unchanged (`server/dom
 | `retry-evaluation` | `appeals/actions.retryFailedEvaluation` | POST | `authorize`: moderator | Re-queue a judge run that failed outright. |
 | `get-profile` | `profiles/queries.getProfileByHandle` + record, history | GET | signed in | Read a profile by `handle`. |
 | `create-profile` | new: insert `users` + `profiles` for the signed-in email | POST | framework session, no profile yet | Onboarding (`/welcome`): pick a handle. |
+| `list-markets` | new: `polymarket/markets.listMarketEvents` (Polymarket Gamma API, cached) | GET | signed in | Live Polymarket events (most traded, or `query` search) with leading odds. |
+| `get-market` | new: `polymarket/markets.getMarketEvent` + price history + `polymarket/debates.listMarketDebates` | GET | signed in | One event by `slug`: options, Yes/No prices, odds history, linked arguments, whether betting is on. |
+
+Betting on Polymarket has no action on purpose: the user's own browser wallet signs each order in the trade panel (`app/lib/polymarket-trading.ts`), and the server only signs Builder headers at `POST /api/polymarket/builder-sign` (signed in, rate-limited; off unless `POLYMARKET_BUILDER_CODE`, `_API_KEY`, `_SECRET`, `_PASSPHRASE` are set). The agent reads markets and never places, sizes or recommends bets.
 
 The agent never finalises a verdict, appeal decision or moderation action: those actions require human approval per agent call, and the UI path is a human click. Agent-role actions (screen context, drafts, explainer, prefill) are documented by their skills in `.agents/skills/`.
 
@@ -47,7 +51,7 @@ For custom branding, keep `server/plugins/agent-native-email-branding.ts` aligne
 
 ## Application state
 
-- `navigation` describes the view and selected ids (ARGUE IT routes: feed `/`, argument `/a/<id>`, new argument `/new`, debate `/c/<id>`, verdict `/c/<id>/verdict`, review queue `/admin/review`, profile `/u/<handle>`, rules `/rules`). Chat is `chat` at `/chat` and `/chat/<threadId>`.
+- `navigation` describes the view and selected ids (ARGUE IT routes: feed `/`, argument `/a/<id>`, new argument `/new`, debate `/c/<id>`, verdict `/c/<id>/verdict`, review queue `/admin/review`, profile `/u/<handle>`, rules `/rules`, markets `/markets`, market `/markets/<slug>`). Chat is `chat` at `/chat` and `/chat/<threadId>`.
 - Use `navigate` when supported and `view-screen` for a fresh read of visible details; basic navigation is already in `<current-screen>`.
 
 ## Building a domain app

@@ -33,7 +33,20 @@ export default defineConfig({
   optimizeDeps: {
     // ARGUE IT routes are not in `entries`, so Vite never discovered these and served them unbundled:
     // lucide-react's barrel alone was ~8,000 module requests per e2e browser context (~30 s per page load).
-    include: ["lucide-react", "date-fns"],
+    // Agent-Native turns dependency discovery off (`noDiscovery`), so a dep missing here is served raw. The
+    // trade panel's lazily imported Polymarket SDK broke on that: ox imports `{ EventEmitter }` from
+    // eventemitter3, whose ESM wrapper re-exports a CommonJS file the browser can't load ("does not provide
+    // an export named 'default'"). Prebundling bundles ox and eventemitter3 in. viem alone was also ~1,000
+    // module requests per click. Browser entries only: `@polymarket/client/node` must never reach the client.
+    include: [
+      "lucide-react",
+      "date-fns",
+      "viem",
+      "viem/chains",
+      "@polymarket/client",
+      "@polymarket/client/viem",
+      "@polymarket/client/actions",
+    ],
     entries: [
       "app/entry.client.tsx",
       "app/root.tsx",

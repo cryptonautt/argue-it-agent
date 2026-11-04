@@ -23,6 +23,7 @@ import {
   IconPencil,
   IconScale,
   IconSearch,
+  IconTrendingUp,
 } from "@tabler/icons-react";
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
@@ -130,6 +131,7 @@ const ARGUE_NAV: ReadonlyArray<{
 }> = [
   { to: "/", label: "Feed", icon: IconHome, match: (p) => p === "/" || p.startsWith("/a/") },
   { to: "/new", label: "Post an argument", icon: IconPencil, match: (p) => p === "/new" },
+  { to: "/markets", label: "Markets", icon: IconTrendingUp, match: (p) => p === "/markets" || p.startsWith("/markets/") },
   {
     to: "/admin/review",
     label: "Review queue",

@@ -18,7 +18,9 @@ export type ArgueNav =
   | { view: "review-queue"; tab: ReviewTab }
   | { view: "profile"; handle: string }
   | { view: "welcome" }
-  | { view: "rules" };
+  | { view: "rules" }
+  | { view: "markets" }
+  | { view: "market"; slug: string };
 
 export type ArgueView = ArgueNav["view"];
 
@@ -33,6 +35,8 @@ export const ARGUE_VIEWS: readonly ArgueView[] = [
   "profile",
   "welcome",
   "rules",
+  "markets",
+  "market",
 ];
 
 export function isArgueView(view: unknown): view is ArgueView {
@@ -93,6 +97,9 @@ export function toNavigationState(pathname: string, search?: SearchInput): Argue
       return parts.length === 1 ? { view: "welcome" } : null;
     case "rules":
       return parts.length === 1 ? { view: "rules" } : null;
+    case "markets":
+      if (parts.length === 1) return { view: "markets" };
+      return parts.length === 2 && second ? { view: "market", slug: second } : null;
     default:
       return null;
   }
@@ -122,6 +129,10 @@ export function pathForNav(nav: ArgueNav): string {
       return "/welcome";
     case "rules":
       return "/rules";
+    case "markets":
+      return "/markets";
+    case "market":
+      return `/markets/${seg(nav.slug)}`;
   }
 }
 
@@ -132,6 +143,7 @@ export interface ArgueNavCommandFields {
   competitionId?: string;
   handle?: string;
   tab?: string;
+  slug?: string;
 }
 
 /**
@@ -152,7 +164,10 @@ export function navFromCommand(command: ArgueNavCommandFields): ArgueNav | null 
     case "new-argument":
     case "welcome":
     case "rules":
+    case "markets":
       return { view };
+    case "market":
+      return { view, slug: need(command.slug, "slug") };
     case "new-challenge":
       return command.argumentId?.trim() ? { view, argumentId: command.argumentId.trim() } : { view };
     case "argument":

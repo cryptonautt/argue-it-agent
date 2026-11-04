@@ -11,7 +11,9 @@ import { ArgumentForm } from "@/components/argue/arguments/argument-form";
 import { isViewerSuspended, normaliseCategories } from "@/components/argue/loaders/screen-a";
 import { fetchViewer } from "@/components/argue/loaders/viewer";
 import { PageContainer, PageHeader } from "@/components/argue/shell/page";
+import Link from "@/shims/next-link";
 import { parseCategorySlug } from "@domain/arguments/feed-params";
+import { parseMarketSlug } from "@domain/polymarket/slug";
 
 import { loadAction, readLoadError, responseForLoadError, returnPathOf, signInHref } from "./_lib/route-data";
 import { RouteErrorState, RouteLoading } from "./_lib/route-states";
@@ -31,7 +33,8 @@ export async function clientLoader({ request }: ClientLoaderFunctionArgs) {
   const requested = parseCategorySlug(search.get("category") ?? undefined);
   const categorySlug = categories.some((c) => c.slug === requested) ? (requested ?? "") : "";
   const title = search.get("title")?.slice(0, 120) ?? "";
-  return { categories, categorySlug, title, suspended: isViewerSuspended(viewer) };
+  const marketSlug = parseMarketSlug(search.get("market"));
+  return { categories, categorySlug, title, marketSlug, suspended: isViewerSuspended(viewer) };
 }
 clientLoader.hydrate = true as const;
 
@@ -44,7 +47,7 @@ export function ErrorBoundary() {
 }
 
 export default function NewArgumentPage() {
-  const { categories, categorySlug, title, suspended } = useLoaderData<typeof clientLoader>();
+  const { categories, categorySlug, title, marketSlug, suspended } = useLoaderData<typeof clientLoader>();
   const agentDraft = useAppliedArgumentDraft();
   return (
     <PageContainer>
@@ -57,6 +60,15 @@ export default function NewArgumentPage() {
           Your account is suspended, so you can read but not post right now.
         </p>
       ) : null}
+      {marketSlug ? (
+        <p className="mb-4 rounded-[var(--radius-sm)] bg-surface-2 px-3 py-2 text-sm text-ink-2">
+          This argument will be linked to the Polymarket market{" "}
+          <Link href={`/markets/${marketSlug}`} className="font-semibold text-ink underline underline-offset-2">
+            {title || marketSlug}
+          </Link>{" "}
+          and listed on its page.
+        </p>
+      ) : null}
       {/* Debate Host (agent 8): the agent pre-fills the form from a hot take; the user publishes. */}
       <SharpenWithAgent drafted={agentDraft.drafted} />
       <ArgumentForm
@@ -64,6 +76,7 @@ export default function NewArgumentPage() {
         mode="create"
         categories={categories}
         initial={agentDraft.initial ?? { categorySlug, title }}
+        marketSlug={marketSlug}
       />
     </PageContainer>
   );

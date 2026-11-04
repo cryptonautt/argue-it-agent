@@ -1,0 +1,2 @@
+ALTER TABLE "arguments" ADD COLUMN "polymarket_event_slug" text;--> statement-breakpoint
+CREATE INDEX "arguments_market_created_idx" ON "arguments" USING btree ("polymarket_event_slug","created_at" DESC NULLS LAST);

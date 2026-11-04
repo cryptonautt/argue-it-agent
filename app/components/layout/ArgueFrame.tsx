@@ -8,8 +8,8 @@ import { useLocation } from "react-router";
 
 import { ToastProvider } from "@/components/argue/ui/toast";
 
-const ARGUE_PREFIXES = ["/a/", "/c/", "/u/", "/challenge/", "/admin/"];
-const ARGUE_EXACT = new Set(["/", "/new", "/welcome", "/rules", "/admin"]);
+const ARGUE_PREFIXES = ["/a/", "/c/", "/u/", "/challenge/", "/admin/", "/markets/"];
+const ARGUE_EXACT = new Set(["/", "/new", "/welcome", "/rules", "/admin", "/markets"]);
 
 export function isArguePath(pathname: string): boolean {
   return ARGUE_EXACT.has(pathname) || ARGUE_PREFIXES.some((prefix) => pathname.startsWith(prefix));

@@ -76,6 +76,8 @@ async function argumentSummary(argumentId: string): Promise<Visible | null> {
     category: detail.category.name,
     author: detail.author,
     locked: detail.locked,
+    // Posted from a Polymarket market page: the agent can open `/markets/<slug>` for the live odds.
+    ...(detail.polymarketEventSlug ? { polymarketEventSlug: detail.polymarketEventSlug } : {}),
   };
 }
 
@@ -104,6 +106,19 @@ async function reviewQueueSummary(tab: "review" | "appeals"): Promise<Visible | 
   };
 }
 
+async function marketSummary(slug: string): Promise<Visible | null> {
+  const { getMarketEvent } = await import("@domain/polymarket/markets");
+  const event = await getMarketEvent(slug);
+  return {
+    source: "Polymarket (live)",
+    slug: event.slug,
+    title: event.title,
+    endDate: event.endDate,
+    volume: Math.round(event.volume),
+    options: event.outcomes.slice(0, 10).map((o) => ({ label: o.label, yes: o.yesPrice, no: o.noPrice })),
+  };
+}
+
 async function visibleFor(nav: ArgueNav): Promise<Visible | null> {
   switch (nav.view) {
     case "verdict":
@@ -114,6 +129,8 @@ async function visibleFor(nav: ArgueNav): Promise<Visible | null> {
       return argumentSummary(nav.argumentId);
     case "review-queue":
       return reviewQueueSummary(nav.tab);
+    case "market":
+      return marketSummary(nav.slug);
     default:
       return null;
   }

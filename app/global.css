@@ -293,6 +293,12 @@
  * ---------------------------------------------------------------------------------------------- */
 
 .argue-app {
+  /* Market chart series (categorical, fixed order; validated vs --surface for CVD separation) */
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+
   /* Surfaces */
   --paper: #f5f6fa;
   --surface: #ffffff;
@@ -355,6 +361,11 @@
 
 :where(.dark, [data-theme="dark"]) .argue-app {
   color-scheme: dark;
+
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
 
   --paper: #080d1f;
   --surface: #10172e;

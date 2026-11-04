@@ -6,11 +6,13 @@
 // `argument` (ArgumentDetail) is revived, the social/challenge view models are strings by design.
 // The viewer's id comes from get-argument's `viewer.id` (always present: it requires a signed-in user), so a
 // failed get-session never makes the author look like a stranger.
+// An argument posted from a Polymarket market (`polymarketEventSlug`) links back to `/markets/<slug>`; the
+// odds are never fetched here.
 //
 // Left out on purpose (no fake controls): owner Edit/Delete, Report, reactions and Follow. Their actions
 // are not ported (app/lib/server-actions.ts UNPORTED_ACTIONS); a button that always fails is worse than
 // no button. Sections whose data is missing are omitted, never zeroed.
-import { ShieldAlert } from "lucide-react";
+import { ShieldAlert, TrendingUp } from "lucide-react";
 import { useLoaderData, type ClientLoaderFunctionArgs, type MetaFunction } from "react-router";
 
 import { ArgumentLinks } from "@/components/argue/arguments/argument-links";
@@ -190,6 +192,8 @@ function ArgumentBody({
         <AuthorRow argument={argument} />
       </header>
 
+      {argument.polymarketEventSlug ? <MarketLink slug={argument.polymarketEventSlug} /> : null}
+
       <PropositionBlock proposition={argument.proposition} />
 
       <div className="text-[1.05rem] leading-relaxed whitespace-pre-wrap text-ink">{argument.body}</div>
@@ -233,6 +237,24 @@ function AuthorRow({ argument }: { argument: ArgumentDetail }) {
         {author.handle ? <span className="block truncate text-sm text-ink-3">@{author.handle}</span> : null}
       </div>
     </div>
+  );
+}
+
+/** Reverse of the market page's debate list: no Polymarket fetch here, the odds live on `/markets/<slug>`. */
+function MarketLink({ slug }: { slug: string }) {
+  return (
+    <Link
+      href={`/markets/${encodeURIComponent(slug)}`}
+      className="group flex w-fit max-w-full flex-wrap items-center gap-x-2 gap-y-1 rounded-[var(--radius-sm)] bg-surface-2 px-3 py-2 text-sm text-ink-2 hover:text-ink"
+    >
+      <TrendingUp aria-hidden className="size-4 shrink-0" />
+      <span>
+        Debating a live Polymarket market<span aria-hidden className="whitespace-nowrap">&nbsp;·</span>
+      </span>
+      <span className="font-semibold text-ink underline-offset-2 group-hover:underline">
+        See the odds <span aria-hidden>→</span>
+      </span>
+    </Link>
   );
 }
 

@@ -12,6 +12,7 @@ import { db, type DbOrTx } from "@domain/db";
 import { argumentsTable, categories, type Argument } from "@domain/db/schema";
 import { withIdempotency, idempotencyKeySchema } from "@domain/idempotency";
 import { assertContentAllowed, assessContent, flagForReviewIfNeeded } from "@domain/moderation";
+import { marketSlugSchema } from "@domain/polymarket/slug";
 import { enforceRateLimit } from "@domain/rate-limit";
 import { getFeedPage } from "./feed";
 import { isFeedTab } from "./feed-params";
@@ -20,7 +21,11 @@ import { ARGUMENT_DELETE_AUDIT_ACTION, hasAcceptedChallenge } from "./queries";
 import type { FeedPage } from "./types";
 import { argumentFieldsSchema } from "./validation";
 
-const createArgumentSchema = argumentFieldsSchema.extend({ idempotencyKey: idempotencyKeySchema });
+const createArgumentSchema = argumentFieldsSchema.extend({
+  idempotencyKey: idempotencyKeySchema,
+  /** Polymarket event this argument debates (from /markets/<slug>). */
+  marketSlug: marketSlugSchema.nullish(),
+});
 const updateArgumentSchema = argumentFieldsSchema.extend({ argumentId: z.uuid("That argument doesn't exist.") });
 const deleteArgumentSchema = z.object({ argumentId: z.uuid("That argument doesn't exist.") });
 
@@ -76,6 +81,7 @@ ${data.body}`, data.links);
             proposition: data.proposition,
             body: data.body,
             links: data.links,
+            polymarketEventSlug: data.marketSlug ?? null,
             createdAt: now(),
           })
           .returning({ id: argumentsTable.id });
@@ -87,7 +93,12 @@ ${data.body}`, data.links);
             action: "argument.create",
             targetType: "argument",
             targetId: row.id,
-            after: { title: data.title, categoryId: category.id, proposition: data.proposition },
+            after: {
+              title: data.title,
+              categoryId: category.id,
+              proposition: data.proposition,
+              ...(data.marketSlug ? { polymarketEventSlug: data.marketSlug } : {}),
+            },
           },
           tx,
         );

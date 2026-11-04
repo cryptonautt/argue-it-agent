@@ -74,6 +74,8 @@ export function normaliseArgumentPage(raw: unknown): ArgumentPageData | null {
   if (!value || typeof value !== "object") return null;
   const argument = reviveDates(value.argument) as ArgumentPageData["argument"] | undefined;
   if (!argument || typeof argument !== "object" || typeof argument.id !== "string") return null;
+  // Full detail only (a placeholder never carries it): an absent or non-string slug means "no market link".
+  if ("title" in argument && typeof argument.polymarketEventSlug !== "string") argument.polymarketEventSlug = null;
   const visibility: ArgumentVisibility =
     value.visibility === "revealed" || value.visibility === "placeholder" ? value.visibility : "full";
   const comments = value.comments as (CommentPage & { total?: unknown }) | undefined;

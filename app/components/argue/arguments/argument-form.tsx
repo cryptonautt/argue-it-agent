@@ -25,7 +25,13 @@ export interface ArgumentFormValues {
 }
 
 export type ArgumentFormProps =
-  | { mode: "create"; categories: CategoryOption[]; initial?: Partial<ArgumentFormValues> }
+  | {
+      mode: "create";
+      categories: CategoryOption[];
+      initial?: Partial<ArgumentFormValues>;
+      /** Polymarket event this argument debates (from /markets/<slug>). */
+      marketSlug?: string | null;
+    }
   | { mode: "edit"; categories: CategoryOption[]; argumentId: string; initial: ArgumentFormValues };
 
 function newKey(): string {
@@ -90,7 +96,7 @@ export function ArgumentForm(props: ArgumentFormProps) {
       let id: string;
       let message: string;
       if (props.mode === "create") {
-        const result = await createArgument({ ...payload, idempotencyKey });
+        const result = await createArgument({ ...payload, idempotencyKey, marketSlug: props.marketSlug ?? null });
         if (!result.ok) return showFailure(result.error, result.fieldErrors);
         setIdempotencyKey(newKey());
         id = result.data.id;

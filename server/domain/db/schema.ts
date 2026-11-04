@@ -317,6 +317,8 @@ export const argumentsTable = pgTable(
     editedAt: tstz("edited_at"),
     /** Set when engagement/competition locks editing of the proposition. */
     lockedAt: tstz("locked_at"),
+    /** Polymarket event slug this argument debates (set at creation from /markets/<slug>); null otherwise. */
+    polymarketEventSlug: text("polymarket_event_slug"),
     /** Full-text search vector (maintained by Postgres). Query with websearch_to_tsquery('english', q). */
     searchVector: tsvector("search_vector").generatedAlwaysAs(
       (): SQL =>
@@ -330,6 +332,7 @@ export const argumentsTable = pgTable(
     index("arguments_parent_idx").on(t.parentArgumentId),
     foreignKey({ name: "arguments_parent_fk", columns: [t.parentArgumentId], foreignColumns: [t.id] }),
     index("arguments_search_idx").using("gin", t.searchVector),
+    index("arguments_market_created_idx").on(t.polymarketEventSlug, t.createdAt.desc()),
     check("arguments_title_len", sql`char_length(${t.title}) between 1 and 120`),
     check("arguments_proposition_len", sql`char_length(${t.proposition}) between 1 and 280`),
     check("arguments_body_len", sql`char_length(${t.body}) between 1 and 5000`),
